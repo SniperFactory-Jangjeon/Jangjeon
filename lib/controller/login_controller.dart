@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:jangjeon/view/page/main_page.dart';
+import 'package:jangjeon/util/app_routes.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 class LoginController extends GetxController {
@@ -9,7 +9,7 @@ class LoginController extends GetxController {
       try {
         await UserApi.instance.loginWithKakaoTalk();
         print('카카오톡으로 로그인 성공');
-        Get.to(() => MainPage());
+        Get.toNamed(AppRoutes.main);
       } catch (error) {
         print('카카오톡으로 로그인 실패 $error');
 
@@ -22,7 +22,7 @@ class LoginController extends GetxController {
         try {
           await UserApi.instance.loginWithKakaoAccount();
           print('카카오계정으로 로그인 성공');
-          Get.to(() => MainPage());
+          Get.toNamed(AppRoutes.main);
         } catch (error) {
           print('카카오계정으로 로그인 실패 $error');
         }
@@ -31,17 +31,18 @@ class LoginController extends GetxController {
       try {
         await UserApi.instance.loginWithKakaoAccount();
         print('카카오계정으로 로그인 성공');
-        Get.to(() => MainPage());
+        Get.toNamed(AppRoutes.main);
       } catch (error) {
         print('카카오계정으로 로그인 실패 $error');
       }
     }
   }
 
-  // signOut() async {
-  //   await UserApi.instance.logout();
-  //   Get.to(()=>LoginPage());
-  // }
+  signOut() async {
+    await UserApi.instance.logout();
+    Get.toNamed(AppRoutes.login);
+    print('로그아웃');
+  }
 
   readUser() async {
     // 사용자 정보 재요청
