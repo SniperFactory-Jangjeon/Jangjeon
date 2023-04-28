@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAqAVZsQttvWC9pd-IeHpKKj19Z9OxlM0w',
-    appId: '1:861708735565:android:d9ea13b17a54480910f804',
-    messagingSenderId: '861708735565',
-    projectId: 'jangjoen-e8487',
-    storageBucket: 'jangjoen-e8487.appspot.com',
+    apiKey: 'AIzaSyBfpBa9kNQF-Yuw8ajrsif04SPex-9zl_U',
+    appId: '1:518159451147:android:a84d7a0c315d69a926330e',
+    messagingSenderId: '518159451147',
+    projectId: 'jangjeon-8722f',
+    storageBucket: 'jangjeon-8722f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBuwIQRzfXhYBVcb6PQpZbt9RSsY4L4nWQ',
-    appId: '1:861708735565:ios:64b7342a51f6196b10f804',
-    messagingSenderId: '861708735565',
-    projectId: 'jangjoen-e8487',
-    storageBucket: 'jangjoen-e8487.appspot.com',
-    iosClientId: '861708735565-je36jl2592rh17p1j0cl4fpe1uhjmvg3.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCqKLKgRyBj_iKDGCStlFxrQgRpQnyM8Eg',
+    appId: '1:518159451147:ios:473628ac11816aa326330e',
+    messagingSenderId: '518159451147',
+    projectId: 'jangjeon-8722f',
+    storageBucket: 'jangjeon-8722f.appspot.com',
+    iosClientId: '518159451147-4iid59f27hfbp04qchdqkcb6sce14m1h.apps.googleusercontent.com',
     iosBundleId: 'com.example.jangjeon',
   );
 }
