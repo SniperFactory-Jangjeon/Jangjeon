@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:jangjeon/controller/signup_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/view/widget/app_elevated_button.dart';
 
-class SignupSuccessScreen extends StatelessWidget {
+class SignupSuccessScreen extends GetView<SignupController> {
   const SignupSuccessScreen({super.key});
 
   @override
@@ -36,7 +38,7 @@ class SignupSuccessScreen extends StatelessWidget {
         const Expanded(child: SizedBox()),
         AppElevatedButton(
           childText: '로그인하기',
-          onPressed: () {},
+          onPressed: () => controller.jumpToPage(0),
         ),
       ],
     );
