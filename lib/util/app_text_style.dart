@@ -67,4 +67,12 @@ class AppTextStyle {
   //본문 레귤러폰트 12사이즈
   static TextStyle b5R12({Color color = Colors.black}) =>
       TextStyle(fontFamily: 'PretendardRegular', fontSize: 12, color: color);
+
+  //본문 미디엄폰트 10사이즈
+  static TextStyle b5M10({Color color = Colors.black}) =>
+      TextStyle(fontFamily: 'PretendardMedium', fontSize: 10, color: color);
+
+  //본문 레귤러폰트 10사이즈
+  static TextStyle b5R10({Color color = Colors.black}) =>
+      TextStyle(fontFamily: 'PretendardRegular', fontSize: 10, color: color);
 }

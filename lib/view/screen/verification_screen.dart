@@ -33,7 +33,10 @@ class VerificationScreen extends GetView<SignupController> {
                   '이름',
                 ),
                 const SizedBox(height: 10),
-                const AppTextField(hintText: '이름입력'),
+                AppTextField(
+                  controller: controller.nameController,
+                  hintText: '이름입력',
+                ),
                 const SizedBox(height: 18),
                 const Text(
                   style: TextStyle(
@@ -43,9 +46,9 @@ class VerificationScreen extends GetView<SignupController> {
                 ),
                 const SizedBox(height: 10),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(child: AppTextField(hintText: '생년월일')),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(child: AppTextField(hintText: '뒷자리')),
                   ],
                 ),
@@ -67,13 +70,16 @@ class VerificationScreen extends GetView<SignupController> {
                 ),
                 const SizedBox(height: 10),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
                       flex: 2,
-                      child: AppTextField(hintText: '-를 제외한 휴대폰번호 입력'),
+                      child: AppTextField(
+                        controller: controller.phoneController,
+                        hintText: '-를 제외한 휴대폰번호 입력',
+                      ),
                     ),
-                    SizedBox(width: 10),
-                    Expanded(
+                    const SizedBox(width: 10),
+                    const Expanded(
                       flex: 1,
                       child: AppElevatedButton(childText: '인증요청'),
                     ),
@@ -84,17 +90,17 @@ class VerificationScreen extends GetView<SignupController> {
                   style: TextStyle(
                     fontSize: 16,
                   ),
-                  '휴대폰번호',
+                  '인증번호',
                 ),
                 const SizedBox(height: 10),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
                       flex: 2,
                       child: AppTextField(hintText: '인증번호 입력'),
                     ),
-                    SizedBox(width: 10),
-                    Expanded(
+                    const SizedBox(width: 10),
+                    const Expanded(
                       flex: 1,
                       child: AppElevatedButton(
                         childText: '확인',

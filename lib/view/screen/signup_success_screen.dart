@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/signup_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_routes.dart';
+import 'package:jangjeon/view/page/login_page.dart';
 import 'package:jangjeon/view/widget/app_elevated_button.dart';
 
 class SignupSuccessScreen extends GetView<SignupController> {
@@ -38,7 +40,7 @@ class SignupSuccessScreen extends GetView<SignupController> {
         const Expanded(child: SizedBox()),
         AppElevatedButton(
           childText: '로그인하기',
-          onPressed: () => controller.jumpToPage(0),
+          onPressed: () => Get.back(),
         ),
       ],
     );

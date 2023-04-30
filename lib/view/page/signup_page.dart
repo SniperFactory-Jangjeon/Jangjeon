@@ -7,6 +7,7 @@ import 'package:jangjeon/view/screen/verification_screen.dart';
 
 class SignupPage extends GetView<SignupController> {
   const SignupPage({super.key});
+  static const route = '/signup';
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class SignupPage extends GetView<SignupController> {
                 leading: IconButton(
                   icon: const Icon(Icons.navigate_before),
                   onPressed: () =>
-                      controller.jumpToPage(controller.currentPage.value - 1),
+                      controller.backToPage(controller.currentPage.value - 1),
                 ),
               )
             : null,
