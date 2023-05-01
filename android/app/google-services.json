@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "861708735565",
-    "project_id": "jangjoen-e8487",
-    "storage_bucket": "jangjoen-e8487.appspot.com"
+    "project_number": "518159451147",
+    "project_id": "jangjeon-8722f",
+    "storage_bucket": "jangjeon-8722f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:861708735565:android:d9ea13b17a54480910f804",
+        "mobilesdk_app_id": "1:518159451147:android:a84d7a0c315d69a926330e",
         "android_client_info": {
           "package_name": "com.example.jangjeon"
         }
       },
       "oauth_client": [
         {
-          "client_id": "861708735565-d6hfobbd5msuhuannk7nebro2leen9t0.apps.googleusercontent.com",
+          "client_id": "518159451147-n9lpsvvb003d6gp8tbff4nn0dm86h6gh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAqAVZsQttvWC9pd-IeHpKKj19Z9OxlM0w"
+          "current_key": "AIzaSyBfpBa9kNQF-Yuw8ajrsif04SPex-9zl_U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "861708735565-d6hfobbd5msuhuannk7nebro2leen9t0.apps.googleusercontent.com",
+              "client_id": "518159451147-n9lpsvvb003d6gp8tbff4nn0dm86h6gh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
