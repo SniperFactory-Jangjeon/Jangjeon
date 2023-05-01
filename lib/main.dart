@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/controller/setting_controller.dart';
+import 'package:jangjeon/controller/withdrawal_controller.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
 import 'package:jangjeon/controller/login_controller.dart';
 import 'package:jangjeon/firebase_options.dart';
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
         Get.put(AuthController());
         Get.put(LoginController());
         Get.lazyPut(() => SignupController(), fenix: true);
+        Get.lazyPut(() => SettingController(), fenix: true);
+        Get.lazyPut(() => WithdrawalController(), fenix: true);
       }),
       debugShowCheckedModeBanner: false, //우측 상단 DEBUG리본 없애기
       home: LoginPage(),

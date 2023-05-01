@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/controller/setting_controller.dart';
+import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/app_floatingaction_button.dart';
 import 'package:jangjeon/view/widget/app_navigation_bar.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends GetView<SettingController> {
   const SettingPage({super.key});
   static const route = '/setting';
 
@@ -30,43 +32,149 @@ class SettingPage extends StatelessWidget {
             leading: CircleAvatar(radius: 37),
             title: Text('username', style: AppTextStyle.h4B20()),
             subtitle: Text('이용권 구매',
-                style: AppTextStyle.b4R14(color: Color(0xFF878787))),
+                style: AppTextStyle.b4R14(color: const Color(0xFF878787))),
             trailing: TextButton(
                 onPressed: () {},
                 child: Text(
                   '로그아웃',
-                  style: AppTextStyle.b4M14(color: Color(0xFFEB0F29)),
+                  style: AppTextStyle.b4M14(color: const Color(0xFFEB0F29)),
                 )),
           ),
+          const SizedBox(height: 17),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                children: [
-                  Text('관심 기업'),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: 73,
-                    decoration: BoxDecoration(
-                        color: Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(10)),
-                  )
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Column(
+                  children: [
+                    Text(
+                      '관심 기업',
+                      style: AppTextStyle.b5M12(color: const Color(0xFF212121)),
+                    ),
+                    const SizedBox(height: 6.5),
+                    Container(
+                        width: MediaQuery.of(context).size.width / 2.3,
+                        height: 73,
+                        decoration: BoxDecoration(
+                            color: const Color(0xFFF5F5F5),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(child: Text('대충 즐겨찾기.length')))
+                  ],
+                ),
               ),
               const SizedBox(width: 12),
-              Column(
-                children: [
-                  Text('나의 댓글'),
-                  Container(
-                    width: 188,
-                    height: 73,
-                    decoration: BoxDecoration(
-                        color: Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(10)),
-                  )
-                ],
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: Column(
+                  children: [
+                    Text(
+                      '나의 댓글',
+                      style: AppTextStyle.b5M12(color: const Color(0xFF212121)),
+                    ),
+                    const SizedBox(height: 6.5),
+                    Container(
+                        width: MediaQuery.of(context).size.width / 2.3,
+                        height: 73,
+                        decoration: BoxDecoration(
+                            color: const Color(0xFFF5F5F5),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(child: Text('대충 댓글.length')))
+                  ],
+                ),
               )
             ],
+          ),
+          const SizedBox(height: 29),
+          const Divider(color: Color(0xFFECECEC), thickness: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: ListTile(
+              title: Text('관련 뉴스 알림',
+                  style: AppTextStyle.b3R16(color: const Color(0xFF212121))),
+              trailing: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Obx(
+                  //shared_preferences 사용해서 쓰나?
+                  () => IconButton(
+                      onPressed: () {
+                        controller.notifycation();
+                      },
+                      icon: controller.isNotifycation()
+                          ? const Icon(Icons.toggle_on,
+                              size: 45, color: Color(0xFFEB0F29))
+                          : const Icon(
+                              Icons.toggle_off,
+                              size: 45,
+                              color: Color(0xFFD9D9D9),
+                            )),
+                ),
+              ),
+            ),
+          ),
+          Container(
+              height: 1,
+              decoration: const BoxDecoration(color: Color(0xFFECECEC))),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: ListTile(
+              title: Text('마케팅 정보 수신 동의',
+                  style: AppTextStyle.b3R16(color: const Color(0xFF212121))),
+              trailing: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Obx(
+                  () => IconButton(
+                      onPressed: () {
+                        controller.marketingAgree();
+                      },
+                      icon: controller.isMarketingAgree()
+                          ? const Icon(Icons.toggle_on,
+                              size: 45, color: Color(0xFFEB0F29))
+                          : const Icon(
+                              Icons.toggle_off,
+                              size: 45,
+                              color: Color(0xFFD9D9D9),
+                            )),
+                ),
+              ),
+            ),
+          ),
+          const Divider(color: Color(0xFFECECEC), thickness: 10),
+          ListTile(
+            onTap: () => Get.toNamed(AppRoutes.myinfoedit),
+            title: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Text('개인정보 설정',
+                  style: AppTextStyle.b3R16(color: const Color(0xFF212121))),
+            ),
+          ),
+          Container(
+              height: 1,
+              decoration: const BoxDecoration(color: Color(0xFFECECEC))),
+          ListTile(
+            onTap: () => print('이용약관페이지 이동'),
+            title: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Text('이용약관',
+                  style: AppTextStyle.b3R16(color: const Color(0xFF212121))),
+            ),
+          ),
+          Container(
+              height: 1,
+              decoration: const BoxDecoration(color: Color(0xFFECECEC))),
+          ListTile(
+            title: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Text('버전정보',
+                  style: AppTextStyle.b3R16(color: const Color(0xFF212121))),
+            ),
+            trailing: Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: Text(
+                '1.2.1',
+                style: AppTextStyle.b3B16(color: const Color(0xFFB0B0B0)),
+              ),
+            ),
           )
         ],
       ),

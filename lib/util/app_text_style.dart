@@ -41,8 +41,8 @@ class AppTextStyle {
       TextStyle(fontFamily: 'PretendardMedium', fontSize: 16, color: color);
 
   //본문 레귤러폰트 16사이즈
-  static TextStyle b3R16({Color color = Colors.black}) =>
-      TextStyle(fontFamily: 'PretendardRegular', fontSize: 16, color: color);
+  static TextStyle b3R16({Color color = Colors.black, double ?letterSpacing}) =>
+      TextStyle(fontFamily: 'PretendardRegular', fontSize: 16, color: color, letterSpacing: letterSpacing);
 
   //본문 볼드폰트 14사이즈
   static TextStyle b4B14({Color color = Colors.black}) =>
