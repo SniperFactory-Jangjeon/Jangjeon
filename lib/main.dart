@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/controller/auth_controller.dart';
 import 'package:jangjeon/controller/login_controller.dart';
 import 'package:jangjeon/firebase_options.dart';
 import 'package:jangjeon/view/page/login_page.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialBinding: BindingsBuilder(() {
+        Get.put(AuthController());
         Get.put(LoginController());
         Get.lazyPut(() => SignupController(), fenix: true);
       }),

@@ -34,7 +34,34 @@ class SignupScreen extends GetView<SignupController> {
                   '아이디',
                 ),
                 const SizedBox(height: 10),
-                const AppTextField(hintText: '아이디 입력'),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Obx(
+                        () => AppTextField(
+                          controller: controller.idController,
+                          hintText: '아이디 입력',
+                          errorText: controller.idError.value,
+                          onChanged: controller.checkIdValidation,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      flex: 1,
+                      child: Obx(
+                        () => AppElevatedButton(
+                          childText: '중복확인',
+                          onPressed: controller.idError.value == null
+                              ? controller.checkIdDuplicate
+                              : null,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 33),
                 const Text(
                   style: TextStyle(
@@ -43,7 +70,15 @@ class SignupScreen extends GetView<SignupController> {
                   '비밀번호',
                 ),
                 const SizedBox(height: 10),
-                const AppTextField(hintText: '비밀번호 입력'),
+                Obx(
+                  () => AppTextField(
+                    controller: controller.pwController,
+                    hintText: '비밀번호 입력',
+                    errorText: controller.pwError.value,
+                    onChanged: controller.checkPwValidation,
+                    obscureText: true,
+                  ),
+                ),
                 const SizedBox(height: 33),
                 const Text(
                   style: TextStyle(
@@ -52,7 +87,15 @@ class SignupScreen extends GetView<SignupController> {
                   '비밀번호 확인',
                 ),
                 const SizedBox(height: 10),
-                const AppTextField(hintText: '비밀번호 확인'),
+                Obx(
+                  () => AppTextField(
+                    controller: controller.pwConfirmController,
+                    hintText: '비밀번호 확인',
+                    errorText: controller.pwConfirmError.value,
+                    onChanged: controller.checkPwConfirmValidation,
+                    obscureText: true,
+                  ),
+                ),
                 const SizedBox(height: 33),
                 const Text(
                   style: TextStyle(
@@ -61,7 +104,11 @@ class SignupScreen extends GetView<SignupController> {
                   '이메일 주소',
                 ),
                 const SizedBox(height: 10),
-                const AppTextField(hintText: '이메일 주소 입력'),
+                AppTextField(
+                  controller: controller.emailController,
+                  hintText: '이메일 주소 입력',
+                  onChanged: (_) => controller.activateSignupButton(),
+                ),
                 const SizedBox(height: 48),
                 const Text(
                   style: TextStyle(
@@ -123,9 +170,13 @@ class SignupScreen extends GetView<SignupController> {
             ),
           ),
         ),
-        AppElevatedButton(
-          childText: '다음단계',
-          onPressed: () => controller.jumpToPage(2),
+        Obx(
+          () => AppElevatedButton(
+            childText: '가입하기',
+            onPressed: controller.isSignupBtnActivated.value
+                ? controller.signup
+                : null,
+          ),
         ),
       ],
     );
