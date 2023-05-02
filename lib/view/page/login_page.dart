@@ -41,7 +41,7 @@ class LoginPage extends GetView<LoginController> {
                   Row(
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () => Get.toNamed(AppRoutes.findId),
                         child: Text('아이디 찾기', style: AppTextStyle.b5M12()),
                       ),
                       const Text('|'),
