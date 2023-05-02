@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/login_controller.dart';
 import 'package:jangjeon/util/app_routes.dart';
@@ -21,6 +22,10 @@ class LoginPage extends GetView<LoginController> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SvgPicture.asset(
+                'assets/svg/app_logo.svg',
+                width: Get.width * 0.5,
+              ),
               const Text('JANGJEON'),
               const SizedBox(height: 25),
               AppTextField(
