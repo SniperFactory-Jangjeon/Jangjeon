@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/signup_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/agreement_tile.dart';
 import 'package:jangjeon/view/widget/app_elevated_button.dart';
 import 'package:jangjeon/view/widget/app_text_field.dart';
@@ -19,18 +20,13 @@ class SignupScreen extends GetView<SignupController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  style: AppTextStyle.h2B28(),
                   '회원가입',
                 ),
                 const SizedBox(height: 27),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '아이디',
                 ),
                 const SizedBox(height: 10),
@@ -63,10 +59,8 @@ class SignupScreen extends GetView<SignupController> {
                   ],
                 ),
                 const SizedBox(height: 33),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '비밀번호',
                 ),
                 const SizedBox(height: 10),
@@ -80,10 +74,8 @@ class SignupScreen extends GetView<SignupController> {
                   ),
                 ),
                 const SizedBox(height: 33),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '비밀번호 확인',
                 ),
                 const SizedBox(height: 10),
@@ -97,10 +89,8 @@ class SignupScreen extends GetView<SignupController> {
                   ),
                 ),
                 const SizedBox(height: 33),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '이메일 주소',
                 ),
                 const SizedBox(height: 10),
@@ -110,11 +100,8 @@ class SignupScreen extends GetView<SignupController> {
                   onChanged: (_) => controller.activateSignupButton(),
                 ),
                 const SizedBox(height: 48),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  style: AppTextStyle.h2B28(),
                   '약관동의',
                 ),
                 const SizedBox(height: 20),
@@ -140,10 +127,8 @@ class SignupScreen extends GetView<SignupController> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    const Text(
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                    Text(
+                      style: AppTextStyle.b2M18(),
                       '모두 동의합니다',
                     ),
                   ],

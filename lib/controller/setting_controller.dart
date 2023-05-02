@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/controller/auth_controller.dart';
 
 class SettingController extends GetxController {
   RxBool isNotifycation = false.obs;
@@ -23,4 +24,7 @@ class SettingController extends GetxController {
       isMarketingAgree(true);
     }
   }
+
+  //로그아웃
+  logout() => Get.find<AuthController>().logout();
 }

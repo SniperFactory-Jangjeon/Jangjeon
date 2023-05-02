@@ -1,3 +1,5 @@
+import 'package:jangjeon/view/page/find_id_page.dart';
+import 'package:jangjeon/view/page/find_password_page.dart';
 import 'package:jangjeon/view/page/login_page.dart';
 import 'package:jangjeon/view/page/main_page.dart';
 import 'package:jangjeon/view/page/personal_info_modification_page.dart';
@@ -14,4 +16,6 @@ class AppRoutes {
   static const withdrawal = WithdrawalPage.route; //회원탈퇴페이지
   static const login = LoginPage.route; // 로그인페이지
   static const signup = SignupPage.route; //회원가입 페이지
+  static const findPassword = FindPasswordPage.route; //비밀번호 찾기 페이지
+  static const findId = FindIdPage.route; //아이디 찾기 페이지
 }

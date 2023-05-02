@@ -21,45 +21,66 @@ class LoginPage extends GetView<LoginController> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('JANGJEON'),
-              SizedBox(height: 25),
-              AppTextField(hintText: '아이디 입력'),
-              SizedBox(height: 10),
-              AppTextField(hintText: '비밀번호 입력'),
+              const Text('JANGJEON'),
+              const SizedBox(height: 25),
+              AppTextField(
+                hintText: '아이디 입력',
+                controller: controller.idController,
+                onChanged: (_) => controller.activateLoginBtn(),
+              ),
+              const SizedBox(height: 10),
+              AppTextField(
+                obscureText: true,
+                hintText: '비밀번호 입력',
+                controller: controller.pwController,
+                onChanged: (_) => controller.activateLoginBtn(),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
                       TextButton(
-                          onPressed: () {},
-                          child: Text('아이디 찾기', style: AppTextStyle.b5M12())),
-                      Text('|'),
+                        onPressed: () => Get.toNamed(AppRoutes.findId),
+                        child: Text('아이디 찾기', style: AppTextStyle.b5M12()),
+                      ),
+                      const Text('|'),
                       TextButton(
-                          onPressed: () {},
-                          child: Text('비밀번호 찾기', style: AppTextStyle.b5M12())),
+                        onPressed: () => Get.toNamed(AppRoutes.findPassword),
+                        child: Text('비밀번호 찾기', style: AppTextStyle.b5M12()),
+                      ),
                     ],
                   ),
                   TextButton(
-                      onPressed: () => Get.toNamed(AppRoutes.signup),
-                      child: Text('회원가입', style: AppTextStyle.b5M12())),
+                    onPressed: () => Get.toNamed(AppRoutes.signup),
+                    child: Text('회원가입', style: AppTextStyle.b5M12()),
+                  ),
                 ],
               ),
-              AppElevatedButton(childText: '로그인'),
-              SizedBox(height: 25),
+              Obx(
+                () => AppElevatedButton(
+                  childText: '로그인',
+                  onPressed: controller.isButtonActivate.value
+                      ? controller.login
+                      : null,
+                ),
+              ),
+              const SizedBox(height: 25),
               Text('SNS 계정으로 로그인하기', style: AppTextStyle.b4M14()),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                      onPressed: controller.kakaoLoign,
-                      child: Text('카카오톡 로그인')),
+                    onPressed: controller.kakaoLoign,
+                    child: const Text('카카오톡 로그인'),
+                  ),
                   TextButton(
-                      onPressed: controller.signOut,
-                      child: Text(
-                        '로그아웃',
-                        style: AppTextStyle.b4M14(color: Color(0xFFEB0F29)),
-                      )),
+                    onPressed: controller.signOut,
+                    child: Text(
+                      '로그아웃',
+                      style: AppTextStyle.b4M14(color: Color(0xFFEB0F29)),
+                    ),
+                  ),
                 ],
               ),
             ],

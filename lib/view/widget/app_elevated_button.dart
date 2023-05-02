@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_text_style.dart';
 
 class AppElevatedButton extends StatelessWidget {
   const AppElevatedButton({super.key, required this.childText, this.onPressed});
@@ -24,9 +25,7 @@ class AppElevatedButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: Text(
-            style: const TextStyle(
-              fontSize: 16,
-            ),
+            style: AppTextStyle.b3M16(color: AppColor.grayscale0),
             childText,
           ),
         ),

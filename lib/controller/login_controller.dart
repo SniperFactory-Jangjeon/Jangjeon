@@ -1,9 +1,27 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/controller/auth_controller.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 class LoginController extends GetxController {
+  TextEditingController idController = TextEditingController(); //아이디 컨트롤러
+  TextEditingController pwController = TextEditingController(); //비밀번호 컨트롤러
+
+  RxBool isButtonActivate = false.obs; //로그인 버튼 활성화 여부
+
+  //아이디 로그인
+  login() async {
+    var result = await Get.find<AuthController>()
+        .login(idController.text, pwController.text);
+    if (result) {
+    } else {
+      Get.snackbar('로그인 실패', '존재하지 않는 회원 정보입니다.');
+    }
+  }
+
+  //카카오톡 로그인
   kakaoLoign() async {
     if (await isKakaoTalkInstalled()) {
       try {
@@ -38,6 +56,7 @@ class LoginController extends GetxController {
     }
   }
 
+  //카카오톡 로그아웃
   signOut() async {
     await UserApi.instance.logout();
     Get.toNamed(AppRoutes.login);
@@ -54,6 +73,15 @@ class LoginController extends GetxController {
           '\n이메일: ${user.kakaoAccount?.email}');
     } catch (error) {
       print('사용자 정보 요청 실패 $error');
+    }
+  }
+
+  //로그인 버튼 활성화
+  activateLoginBtn() {
+    if (idController.text.isNotEmpty && pwController.text.isNotEmpty) {
+      isButtonActivate.value = true;
+    } else {
+      isButtonActivate.value = false;
     }
   }
 }

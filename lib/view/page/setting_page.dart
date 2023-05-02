@@ -34,7 +34,7 @@ class SettingPage extends GetView<SettingController> {
             subtitle: Text('이용권 구매',
                 style: AppTextStyle.b4R14(color: const Color(0xFF878787))),
             trailing: TextButton(
-                onPressed: () {},
+                onPressed: controller.logout,
                 child: Text(
                   '로그아웃',
                   style: AppTextStyle.b4M14(color: const Color(0xFFEB0F29)),
