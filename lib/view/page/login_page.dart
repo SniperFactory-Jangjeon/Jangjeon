@@ -46,7 +46,7 @@ class LoginPage extends GetView<LoginController> {
                       ),
                       const Text('|'),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () => Get.toNamed(AppRoutes.findPassword),
                         child: Text('비밀번호 찾기', style: AppTextStyle.b5M12()),
                       ),
                     ],
