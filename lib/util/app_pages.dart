@@ -5,6 +5,7 @@ import 'package:jangjeon/view/page/main_page.dart';
 import 'package:jangjeon/view/page/personal_info_modification_page.dart';
 import 'package:jangjeon/view/page/setting_page.dart';
 import 'package:jangjeon/view/page/signup_page.dart';
+import 'package:jangjeon/view/page/stock_detail_page.dart';
 import 'package:jangjeon/view/page/stock_page.dart';
 import 'package:jangjeon/view/page/withdrawal_page.dart';
 
@@ -18,5 +19,6 @@ class AppPages {
     GetPage(name: AppRoutes.withdrawal, page: () => const WithdrawalPage()),
     GetPage(name: AppRoutes.login, page: () => const LoginPage()),
     GetPage(name: AppRoutes.signup, page: () => const SignupPage()),
+    GetPage(name: AppRoutes.stockDetail, page: () => const StockDetailPage()),
   ];
 }
