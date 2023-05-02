@@ -62,7 +62,7 @@ class FindIdPage extends GetView<FindIdController> {
                   AppTextField(hintText: '이메일주소 입력'),
                   const Expanded(child: SizedBox()),
                   AppElevatedButton(
-                    childText: '비밀번호 찾기',
+                    childText: '아이디 찾기',
                     onPressed: () => controller.jumpToPage(1),
                   ),
                   const SizedBox(height: 20),
