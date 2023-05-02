@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_text_style.dart';
 
 class AgreementTile extends StatelessWidget {
   AgreementTile(
@@ -34,9 +35,7 @@ class AgreementTile extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          style: const TextStyle(
-            fontSize: 16,
-          ),
+          style: AppTextStyle.b3M16(),
           title,
         ),
         const Expanded(child: SizedBox()),

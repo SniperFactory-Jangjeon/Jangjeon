@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_text_style.dart';
 
 class AppToggleButton extends StatefulWidget {
   const AppToggleButton({super.key});
@@ -45,11 +46,10 @@ class _AppToggleButtonState extends State<AppToggleButton> {
                     : null,
               ),
               child: Text(
-                style: TextStyle(
+                style: AppTextStyle.b3M16(
                   color: currentIndex == 0
                       ? AppColor.red100
                       : AppColor.grayscale10,
-                  fontSize: 16,
                 ),
                 'SKT',
               ),
@@ -73,11 +73,10 @@ class _AppToggleButtonState extends State<AppToggleButton> {
                     : null,
               ),
               child: Text(
-                style: TextStyle(
+                style: AppTextStyle.b3M16(
                   color: currentIndex == 1
                       ? AppColor.red100
                       : AppColor.grayscale10,
-                  fontSize: 16,
                 ),
                 'KT',
               ),
@@ -101,11 +100,10 @@ class _AppToggleButtonState extends State<AppToggleButton> {
                     : null,
               ),
               child: Text(
-                style: TextStyle(
+                style: AppTextStyle.b3M16(
                   color: currentIndex == 2
                       ? AppColor.red100
                       : AppColor.grayscale10,
-                  fontSize: 16,
                 ),
                 'LG U+',
               ),
@@ -129,11 +127,10 @@ class _AppToggleButtonState extends State<AppToggleButton> {
                     : null,
               ),
               child: Text(
-                style: TextStyle(
+                style: AppTextStyle.b3M16(
                   color: currentIndex == 3
                       ? AppColor.red100
                       : AppColor.grayscale10,
-                  fontSize: 16,
                 ),
                 '알뜰폰',
               ),
