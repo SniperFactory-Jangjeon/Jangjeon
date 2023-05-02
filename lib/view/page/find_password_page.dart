@@ -14,6 +14,7 @@ class FindPasswordPage extends GetView<FindPasswordController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: controller.currentPage.value != 1
             ? AppBar(
                 elevation: 0,
