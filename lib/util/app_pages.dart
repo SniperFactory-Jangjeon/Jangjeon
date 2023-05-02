@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:jangjeon/util/app_routes.dart';
+import 'package:jangjeon/view/page/find_id_page.dart';
+import 'package:jangjeon/view/page/find_password_page.dart';
 import 'package:jangjeon/view/page/login_page.dart';
 import 'package:jangjeon/view/page/main_page.dart';
 import 'package:jangjeon/view/page/personal_info_modification_page.dart';
@@ -20,5 +22,7 @@ class AppPages {
     GetPage(name: AppRoutes.login, page: () => const LoginPage()),
     GetPage(name: AppRoutes.signup, page: () => const SignupPage()),
     GetPage(name: AppRoutes.stockDetail, page: () => const StockDetailPage()),
+    GetPage(name: AppRoutes.findPassword, page: () => const FindPasswordPage()),
+    GetPage(name: AppRoutes.findId, page: () => const FindIdPage()),
   ];
 }

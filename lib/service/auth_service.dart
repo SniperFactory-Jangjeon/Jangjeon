@@ -31,4 +31,13 @@ class AuthService {
       ).catchError(
         (_) => false,
       );
+
+  //로그인
+  login(id, pw) => _firebaseAuth
+      .signInWithEmailAndPassword(email: '$id@jangjeon.com', password: pw)
+      .then((_) => true)
+      .catchError((_) => false);
+
+  //로그아웃
+  logout() => _firebaseAuth.signOut();
 }

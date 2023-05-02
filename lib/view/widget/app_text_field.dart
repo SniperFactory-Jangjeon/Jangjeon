@@ -28,10 +28,7 @@ class AppTextField extends StatelessWidget {
       cursorColor: AppColor.grayscale30,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(
-          fontSize: 16,
-          color: AppColor.grayscale30,
-        ),
+        hintStyle: AppTextStyle.b3M16(color: AppColor.grayscale30),
         errorText: errorText,
         errorStyle: AppTextStyle.b5R10(
           color: errorText != null && errorText!.length > 25
