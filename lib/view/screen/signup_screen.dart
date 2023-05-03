@@ -132,6 +132,7 @@ class SignupScreen extends GetView<SignupController> {
                     return Obx(
                       () => AgreementTile(
                         title: controller.agreement[index]['title'],
+                        content: controller.agreement[index]['content'],
                         checkValue: controller.agreement[index]['value'].value,
                         onChanged: (value) =>
                             controller.checkAgreement(index, value),
