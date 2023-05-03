@@ -1,12 +1,17 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:jangjeon/controller/stock_detail_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/ai_chart_bar.dart';
 import 'package:jangjeon/view/widget/comment_tile.dart';
 import 'package:jangjeon/view/widget/news_tile.dart';
+import 'package:jangjeon/view/widget/stock_bar_chart.dart';
+import 'package:jangjeon/view/widget/stock_line_chart.dart';
 
-class StockDetailPage extends StatelessWidget {
+class StockDetailPage extends GetView<StockDetailController> {
   const StockDetailPage({super.key});
   static const route = '/stockDetail';
 
@@ -57,29 +62,30 @@ class StockDetailPage extends StatelessWidget {
                             Row(
                               children: [
                                 Container(
+                                  width: 30,
+                                  height: 30,
                                   decoration: BoxDecoration(
                                       color: AppColor.red100,
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(4),
-                                    child: Icon(
-                                      Icons.attach_money_outlined,
-                                      color: Colors.white,
-                                    ),
+                                  child: const Icon(
+                                    Icons.attach_money_outlined,
+                                    color: Colors.white,
+                                    size: 22,
                                   ),
                                 ),
                                 const SizedBox(width: 5),
                                 Container(
+                                  width: 30,
+                                  height: 30,
                                   decoration: BoxDecoration(
                                       color: AppColor.grayscale10,
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 7, horizontal: 9),
-                                      child: Text(
-                                        '원',
-                                        style: AppTextStyle.b3B16(),
-                                      )),
+                                  child: Center(
+                                    child: Text(
+                                      '원',
+                                      style: AppTextStyle.b3B16(),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -97,7 +103,137 @@ class StockDetailPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    //LineChart(LineChartData()),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Obx(() => StockLineChart(
+                            chartData: controller.chartData,
+                            bestX: controller.chartData[1].x,
+                            bestY: controller.chartData[1].y,
+                            lowsetX: controller.chartData[6].x,
+                            lowsetY: controller.chartData[6].y,
+                          )),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: Get.width * 0.6,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: AppColor.grayscale10,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                width: Get.width * 0.1,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                    color: controller.selectedTime.value == '1일'
+                                        ? Colors.white
+                                        : AppColor.grayscale10,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Center(
+                                  child: Text(
+                                    '1일',
+                                    style: AppTextStyle.b4M14(),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: Get.width * 0.1,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                    color: controller.selectedTime.value == '1주'
+                                        ? Colors.white
+                                        : AppColor.grayscale10,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Center(
+                                  child: Text(
+                                    '1주',
+                                    style: AppTextStyle.b4M14(),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: Get.width * 0.1,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                    color: controller.selectedTime.value == '3달'
+                                        ? Colors.white
+                                        : AppColor.grayscale10,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Center(
+                                  child: Text(
+                                    '3달',
+                                    style: AppTextStyle.b4M14(),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: Get.width * 0.1,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                    color: controller.selectedTime.value == '1년'
+                                        ? Colors.white
+                                        : AppColor.grayscale10,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Center(
+                                  child: Text(
+                                    '1년',
+                                    style: AppTextStyle.b4M14(),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: Get.width * 0.1,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                    color: controller.selectedTime.value == '5년'
+                                        ? Colors.white
+                                        : AppColor.grayscale10,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Center(
+                                  child: Text(
+                                    '5년',
+                                    style: AppTextStyle.b4M14(),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: Get.width * 0.12,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: AppColor.red100,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: const Center(
+                            child: FaIcon(
+                              FontAwesomeIcons.chartSimple,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: Get.width * 0.12,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: AppColor.grayscale10,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Center(
+                            child: Text(
+                              '호가',
+                              style: AppTextStyle.b4M14(),
+                            ),
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),
@@ -243,7 +379,12 @@ class StockDetailPage extends StatelessWidget {
                           ),
                         )
                       ],
-                    )
+                    ),
+                    //바 그래프
+                    Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10.0, left: 10, right: 10),
+                        child: StockBarChart()),
                   ],
                 ),
               ),

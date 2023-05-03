@@ -17,7 +17,7 @@ class LoginPage extends GetView<LoginController> {
       body: SafeArea(
           child: Center(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(40.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,7 +26,6 @@ class LoginPage extends GetView<LoginController> {
                 'assets/svg/app_logo.svg',
                 width: Get.width * 0.5,
               ),
-              const Text('JANGJEON'),
               const SizedBox(height: 25),
               AppTextField(
                 hintText: '아이디 입력',
@@ -70,22 +69,29 @@ class LoginPage extends GetView<LoginController> {
                       : null,
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 30),
               Text('SNS 계정으로 로그인하기', style: AppTextStyle.b4M14()),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(
-                    onPressed: controller.kakaoLoign,
-                    child: const Text('카카오톡 로그인'),
-                  ),
-                  TextButton(
-                    onPressed: controller.signOut,
-                    child: Text(
-                      '로그아웃',
-                      style: AppTextStyle.b4M14(color: Color(0xFFEB0F29)),
+                  GestureDetector(
+                    onTap: controller.kakaoLoign,
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: SvgPicture.asset('assets/svg/kakao.svg')),
                     ),
                   ),
+                  // TextButton(
+                  //   onPressed: controller.signOut,
+                  //   child: Text(
+                  //     '로그아웃',
+                  //     style: AppTextStyle.b4M14(color: Color(0xFFEB0F29)),
+                  //   ),
+                  // ),
                 ],
               ),
             ],
