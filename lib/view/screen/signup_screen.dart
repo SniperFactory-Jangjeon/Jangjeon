@@ -27,20 +27,20 @@ class SignupScreen extends GetView<SignupController> {
                 const SizedBox(height: 27),
                 Text(
                   style: AppTextStyle.b3M16(),
-                  '아이디',
+                  '이메일 주소',
                 ),
                 const SizedBox(height: 10),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      flex: 2,
+                      flex: 4,
                       child: Obx(
                         () => AppTextField(
-                          controller: controller.idController,
-                          hintText: '아이디 입력',
-                          errorText: controller.idError.value,
-                          onChanged: controller.checkIdValidation,
+                          controller: controller.emailController,
+                          hintText: '이메일 주소',
+                          errorText: controller.emailError.value,
+                          onChanged: controller.checkEmailValidation,
                         ),
                       ),
                     ),
@@ -49,8 +49,8 @@ class SignupScreen extends GetView<SignupController> {
                       flex: 1,
                       child: Obx(
                         () => AppElevatedButton(
-                          childText: '중복확인',
-                          onPressed: controller.idError.value == null
+                          childText: '인증',
+                          onPressed: controller.emailError.value == null
                               ? controller.checkIdDuplicate
                               : null,
                         ),
@@ -87,17 +87,6 @@ class SignupScreen extends GetView<SignupController> {
                     onChanged: controller.checkPwConfirmValidation,
                     obscureText: true,
                   ),
-                ),
-                const SizedBox(height: 33),
-                Text(
-                  style: AppTextStyle.b3M16(),
-                  '이메일 주소',
-                ),
-                const SizedBox(height: 10),
-                AppTextField(
-                  controller: controller.emailController,
-                  hintText: '이메일 주소 입력',
-                  onChanged: (_) => controller.activateSignupButton(),
                 ),
                 const SizedBox(height: 48),
                 Text(

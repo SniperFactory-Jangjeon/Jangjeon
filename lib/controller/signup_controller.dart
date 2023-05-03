@@ -9,13 +9,12 @@ class SignupController extends GetxController {
 
   TextEditingController nameController = TextEditingController(); //이름 컨트롤러
   TextEditingController phoneController = TextEditingController(); //전화번호 컨트롤러
-  TextEditingController idController = TextEditingController(); //아이디 컨트롤러
+  TextEditingController emailController = TextEditingController(); //아이디 컨트롤러
   TextEditingController pwController = TextEditingController(); //비밀번호 컨트롤러
   TextEditingController pwConfirmController =
       TextEditingController(); //비밀번호 확인 컨트롤러
-  TextEditingController emailController = TextEditingController(); //이메일 컨트롤러
 
-  RxnString idError = RxnString('영문 소문자, 숫자를 조합하여 6~12자로 입력해주세요.');
+  RxnString emailError = RxnString('인증메일을 받을 수 있는 이메일 주소를 입력해주세요.');
   RxnString pwError =
       RxnString('영문 대문자, 소문자, 숫자, 특수문자 중 2가지 이상을 조합하여 8~20자로 입력해주세요.');
   RxnString pwConfirmError =
@@ -59,12 +58,14 @@ class SignupController extends GetxController {
     }
   }
 
-  //아이디 형식 체크
-  checkIdValidation(String value) {
-    if (!RegExp(r'''^(?=.*[a-z])(?=.*[0-9]).{6,12}$''').hasMatch(value)) {
-      idError('영문 소문자, 숫자를 조합하여 6~12자로 입력해주세요.');
+  //이메일 형식 체크
+  checkEmailValidation(String value) {
+    if (!RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(value)) {
+      emailError('인증메일을 받을 수 있는 이메일 주소를 입력해주세요.');
     } else {
-      idError.value = null;
+      emailError.value = null;
     }
     activateSignupButton();
   }
@@ -98,10 +99,11 @@ class SignupController extends GetxController {
 
   //아이디 중복 확인
   checkIdDuplicate() async {
-    if (await Get.find<AuthController>().checkIdDuplicate(idController.text)) {
-      idError('사용 가능한 아이디입니다.');
+    if (await Get.find<AuthController>()
+        .checkIdDuplicate(emailController.text)) {
+      emailError('사용 가능한 아이디입니다.');
     } else {
-      idError('해당 아이디는 다른 사람이 사용중인 아이디입니다.');
+      emailError('해당 아이디는 다른 사람이 사용중인 아이디입니다.');
     }
     activateSignupButton();
   }
@@ -114,7 +116,7 @@ class SignupController extends GetxController {
         email: emailController.text);
 
     await Get.find<AuthController>()
-        .signup(idController.text, pwController.text, user);
+        .signup(emailController.text, pwController.text, user);
     jumpToPage(2);
   }
 
@@ -140,13 +142,12 @@ class SignupController extends GetxController {
 
   //가입하기 버튼 활성화 체크
   activateSignupButton() {
-    if (idError.value != null &&
-        idError.value!.length < 25 &&
+    if (emailError.value != null &&
+        emailError.value!.length < 25 &&
         pwError.value != null &&
         pwError.value!.length < 25 &&
         pwConfirmError.value != null &&
         pwConfirmError.value!.length < 25 &&
-        emailController.text.isNotEmpty &&
         agreement[0]['value'].value &&
         agreement[1]['value'].value &&
         agreement[2]['value'].value) {
