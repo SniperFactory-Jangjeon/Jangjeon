@@ -38,4 +38,7 @@ class AuthService {
 
   //로그아웃
   logout() => _firebaseAuth.signOut();
+
+  //비밀번호 재설정
+  resetPassword(email) => _firebaseAuth.sendPasswordResetEmail(email: email);
 }
