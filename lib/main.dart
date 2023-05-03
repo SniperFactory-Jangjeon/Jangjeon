@@ -5,6 +5,7 @@ import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/controller/find_id_controller.dart';
 import 'package:jangjeon/controller/find_password_controller.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
+import 'package:jangjeon/controller/stock_detail_controller.dart';
 import 'package:jangjeon/controller/withdrawal_controller.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
 import 'package:jangjeon/controller/login_controller.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => SettingController(), fenix: true);
         Get.lazyPut(() => WithdrawalController(), fenix: true);
         Get.lazyPut(() => MainController(), fenix: true);
+        Get.lazyPut(() => StockDetailController(), fenix: true);
       }),
       debugShowCheckedModeBanner: false, //우측 상단 DEBUG리본 없애기
       home: MainPage(),
