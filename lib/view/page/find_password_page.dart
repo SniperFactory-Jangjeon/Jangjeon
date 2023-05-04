@@ -45,25 +45,41 @@ class FindPasswordPage extends GetView<FindPasswordController> {
                     '이름',
                   ),
                   const SizedBox(height: 10),
-                  AppTextField(hintText: '이름입력'),
+                  AppTextField(
+                    controller: controller.nameController,
+                    hintText: '이름입력',
+                    onChanged: (_) => controller.activeBtn(),
+                  ),
                   const SizedBox(height: 18),
                   Text(
                     style: AppTextStyle.b3M16(),
                     '휴대폰번호',
                   ),
                   const SizedBox(height: 10),
-                  AppTextField(hintText: '-를 제외한 휴대폰번호 입력'),
+                  AppTextField(
+                    controller: controller.phoneController,
+                    hintText: '-를 제외한 휴대폰번호 입력',
+                    onChanged: (_) => controller.activeBtn(),
+                  ),
                   const SizedBox(height: 27),
                   Text(
                     style: AppTextStyle.b3M16(),
                     '이메일주소',
                   ),
                   const SizedBox(height: 10),
-                  AppTextField(hintText: '이메일주소 입력'),
+                  AppTextField(
+                    controller: controller.emailController,
+                    hintText: '이메일주소 입력',
+                    onChanged: (_) => controller.activeBtn(),
+                  ),
                   const Expanded(child: SizedBox()),
-                  AppElevatedButton(
-                    childText: '비밀번호 찾기',
-                    onPressed: () => controller.jumpToPage(1),
+                  Obx(
+                    () => AppElevatedButton(
+                      childText: '비밀번호 찾기',
+                      onPressed: controller.isBtnActivated.value
+                          ? controller.handleFindPassword
+                          : null,
+                    ),
                   ),
                   const SizedBox(height: 20),
                 ],

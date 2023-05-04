@@ -6,8 +6,7 @@ class AuthService {
 
   //아이디 중복 체크
   checkIdDuplicate(id) => _firebaseAuth
-          .createUserWithEmailAndPassword(
-              email: '$id@jangjeon.com', password: '12345678')
+          .createUserWithEmailAndPassword(email: id, password: '12345678')
           .then(
         (_) {
           _firebaseAuth.currentUser!.delete();
@@ -19,8 +18,7 @@ class AuthService {
 
   //회원가입
   signup(id, pw, user) => _firebaseAuth
-          .createUserWithEmailAndPassword(
-              email: '$id@jangjeon.com', password: pw)
+          .createUserWithEmailAndPassword(email: id, password: pw)
           .then(
         (_) async {
           _firebaseAuth.currentUser!.updateDisplayName(user.name);
@@ -34,10 +32,13 @@ class AuthService {
 
   //로그인
   login(id, pw) => _firebaseAuth
-      .signInWithEmailAndPassword(email: '$id@jangjeon.com', password: pw)
+      .signInWithEmailAndPassword(email: id, password: pw)
       .then((_) => true)
       .catchError((_) => false);
 
   //로그아웃
   logout() => _firebaseAuth.signOut();
+
+  //비밀번호 재설정
+  resetPassword(email) => _firebaseAuth.sendPasswordResetEmail(email: email);
 }
