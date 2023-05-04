@@ -5,8 +5,12 @@ import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/controller/find_id_controller.dart';
 import 'package:jangjeon/controller/find_password_controller.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
+import 'package:jangjeon/controller/account_delete_controller.dart';
+import 'package:jangjeon/controller/auth_controller.dart';
+import 'package:jangjeon/controller/login_controller.dart';
+import 'package:jangjeon/firebase_options.dart';
+import 'package:jangjeon/view/page/login_page.dart';
 import 'package:jangjeon/controller/stock_detail_controller.dart';
-import 'package:jangjeon/controller/withdrawal_controller.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
 import 'package:jangjeon/controller/login_controller.dart';
 import 'package:jangjeon/firebase_options.dart';
@@ -37,7 +41,7 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => FindPasswordController(), fenix: true);
         Get.lazyPut(() => FindIdController(), fenix: true);
         Get.lazyPut(() => SettingController(), fenix: true);
-        Get.lazyPut(() => WithdrawalController(), fenix: true);
+        Get.lazyPut(() => AccountDeleteController(), fenix: true);
         Get.lazyPut(() => MainController(), fenix: true);
         Get.lazyPut(() => StockDetailController(), fenix: true);
       }),

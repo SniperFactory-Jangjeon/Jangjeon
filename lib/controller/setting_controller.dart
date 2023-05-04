@@ -7,6 +7,9 @@ class SettingController extends GetxController {
   RxBool isNotifycation = false.obs;
   RxBool isMarketingAgree = false.obs;
 
+  //로그아웃
+  logout() => Get.find<AuthController>().logout();
+
   //뉴스 알림 체크?
   notifycation() {
     if (isNotifycation.isTrue) {

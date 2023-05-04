@@ -15,11 +15,10 @@ class AuthController extends GetxController {
   //회원가입
   signup(id, pw, user) => AuthService().signup(id, pw, user);
 
-  //로그인
-  login(id, pw) => AuthService().login(id, pw);
-
   //로그아웃
   logout() => AuthService().logout();
+  //로그인
+  login(id, pw) => AuthService().login(id, pw);
 
   @override
   void onInit() {

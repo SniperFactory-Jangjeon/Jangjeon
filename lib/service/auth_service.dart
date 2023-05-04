@@ -30,14 +30,13 @@ class AuthService {
         (_) => false,
       );
 
+  //로그아웃
+  logout() => _firebaseAuth.signOut();
   //로그인
   login(id, pw) => _firebaseAuth
       .signInWithEmailAndPassword(email: id, password: pw)
       .then((_) => true)
       .catchError((_) => false);
-
-  //로그아웃
-  logout() => _firebaseAuth.signOut();
 
   //비밀번호 재설정
   resetPassword(email) => _firebaseAuth.sendPasswordResetEmail(email: email);
