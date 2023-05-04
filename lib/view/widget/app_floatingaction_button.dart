@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_routes.dart';
 
 class AppFloatingActionButton extends StatelessWidget {
@@ -10,6 +11,7 @@ class AppFloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //이미지로 변경예정
     return GestureDetector(
       onTap: () => Get.offAllNamed(AppRoutes.main),
       child: Stack(
@@ -17,16 +19,16 @@ class AppFloatingActionButton extends StatelessWidget {
           Container(
             height: 92,
             width: 92,
-            decoration:
-                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+            decoration: const BoxDecoration(
+                color: Colors.white, shape: BoxShape.circle),
           ),
           Padding(
             padding: const EdgeInsets.all(4),
             child: Container(
               height: 83,
               width: 83,
-              decoration: BoxDecoration(
-                  color: Color(0xFFEB0F29), shape: BoxShape.circle),
+              decoration: const BoxDecoration(
+                  color: AppColor.red100, shape: BoxShape.circle),
             ),
           ),
           Padding(
@@ -34,16 +36,16 @@ class AppFloatingActionButton extends StatelessWidget {
             child: Container(
                 height: 60,
                 width: 60,
-                decoration:
-                    BoxDecoration(color: Colors.white, shape: BoxShape.circle)),
+                decoration: const BoxDecoration(
+                    color: Colors.white, shape: BoxShape.circle)),
           ),
           Padding(
             padding: const EdgeInsets.all(36),
             child: Container(
               height: 21,
               width: 21,
-              decoration: BoxDecoration(
-                  color: Color(0xFFEB0F29), shape: BoxShape.circle),
+              decoration: const BoxDecoration(
+                  color: AppColor.red100, shape: BoxShape.circle),
             ),
           )
         ],

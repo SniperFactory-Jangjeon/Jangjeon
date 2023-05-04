@@ -31,4 +31,7 @@ class AuthService {
       ).catchError(
         (_) => false,
       );
+
+  //로그아웃
+  logout() => _firebaseAuth.signOut();
 }

@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
+import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
+import 'package:jangjeon/view/widget/app_dialog.dart';
 import 'package:jangjeon/view/widget/app_floatingaction_button.dart';
 import 'package:jangjeon/view/widget/app_navigation_bar.dart';
 
@@ -32,12 +34,17 @@ class SettingPage extends GetView<SettingController> {
             leading: CircleAvatar(radius: 37),
             title: Text('username', style: AppTextStyle.h4B20()),
             subtitle: Text('이용권 구매',
-                style: AppTextStyle.b4R14(color: const Color(0xFF878787))),
+                style: AppTextStyle.b4R14(color: AppColor.grayscale50)),
             trailing: TextButton(
-                onPressed: () {},
+                onPressed: () => Get.dialog(AppDialog(
+                    content: '정말 로그아웃 하겠습니까?',
+                    onCancel: () => Get.back(),
+                    onConfirm: controller.logout,
+                    cancelText: '취소',
+                    confirmText: '확인')),
                 child: Text(
                   '로그아웃',
-                  style: AppTextStyle.b4M14(color: const Color(0xFFEB0F29)),
+                  style: AppTextStyle.b4M14(color: AppColor.red100),
                 )),
           ),
           const SizedBox(height: 17),
@@ -50,7 +57,7 @@ class SettingPage extends GetView<SettingController> {
                   children: [
                     Text(
                       '관심 기업',
-                      style: AppTextStyle.b5M12(color: const Color(0xFF212121)),
+                      style: AppTextStyle.b5M12(color: AppColor.grayscale100),
                     ),
                     const SizedBox(height: 6.5),
                     Container(
@@ -70,7 +77,7 @@ class SettingPage extends GetView<SettingController> {
                   children: [
                     Text(
                       '나의 댓글',
-                      style: AppTextStyle.b5M12(color: const Color(0xFF212121)),
+                      style: AppTextStyle.b5M12(color: AppColor.grayscale100),
                     ),
                     const SizedBox(height: 6.5),
                     Container(
@@ -91,7 +98,7 @@ class SettingPage extends GetView<SettingController> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: ListTile(
               title: Text('관련 뉴스 알림',
-                  style: AppTextStyle.b3R16(color: const Color(0xFF212121))),
+                  style: AppTextStyle.b3R16(color: AppColor.grayscale100)),
               trailing: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Obx(
@@ -102,11 +109,11 @@ class SettingPage extends GetView<SettingController> {
                       },
                       icon: controller.isNotifycation()
                           ? const Icon(Icons.toggle_on,
-                              size: 45, color: Color(0xFFEB0F29))
+                              size: 45, color: AppColor.red100)
                           : const Icon(
                               Icons.toggle_off,
                               size: 45,
-                              color: Color(0xFFD9D9D9),
+                              color: AppColor.grayscale10,
                             )),
                 ),
               ),
@@ -119,7 +126,7 @@ class SettingPage extends GetView<SettingController> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: ListTile(
               title: Text('마케팅 정보 수신 동의',
-                  style: AppTextStyle.b3R16(color: const Color(0xFF212121))),
+                  style: AppTextStyle.b3R16(color: AppColor.grayscale100)),
               trailing: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Obx(
@@ -129,11 +136,11 @@ class SettingPage extends GetView<SettingController> {
                       },
                       icon: controller.isMarketingAgree()
                           ? const Icon(Icons.toggle_on,
-                              size: 45, color: Color(0xFFEB0F29))
+                              size: 45, color: AppColor.red100)
                           : const Icon(
                               Icons.toggle_off,
                               size: 45,
-                              color: Color(0xFFD9D9D9),
+                              color: AppColor.grayscale10,
                             )),
                 ),
               ),
@@ -145,7 +152,7 @@ class SettingPage extends GetView<SettingController> {
             title: Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Text('개인정보 설정',
-                  style: AppTextStyle.b3R16(color: const Color(0xFF212121))),
+                  style: AppTextStyle.b3R16(color: AppColor.grayscale100)),
             ),
           ),
           Container(
@@ -156,7 +163,7 @@ class SettingPage extends GetView<SettingController> {
             title: Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Text('이용약관',
-                  style: AppTextStyle.b3R16(color: const Color(0xFF212121))),
+                  style: AppTextStyle.b3R16(color: AppColor.grayscale100)),
             ),
           ),
           Container(
@@ -166,13 +173,13 @@ class SettingPage extends GetView<SettingController> {
             title: Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Text('버전정보',
-                  style: AppTextStyle.b3R16(color: const Color(0xFF212121))),
+                  style: AppTextStyle.b3R16(color: AppColor.grayscale100)),
             ),
             trailing: Padding(
               padding: const EdgeInsets.only(right: 15),
               child: Text(
                 '1.2.1',
-                style: AppTextStyle.b3B16(color: const Color(0xFFB0B0B0)),
+                style: AppTextStyle.b3B16(color: AppColor.grayscale30),
               ),
             ),
           )

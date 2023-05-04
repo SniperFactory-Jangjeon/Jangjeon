@@ -12,4 +12,7 @@ class AuthController extends GetxController {
 
   //회원가입
   signup(id, pw, user) => AuthService().signup(id, pw, user);
+
+  //로그아웃
+  logout() => AuthService().logout();
 }
