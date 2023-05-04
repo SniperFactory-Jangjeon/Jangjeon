@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/signup_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/agreement_tile.dart';
 import 'package:jangjeon/view/widget/app_elevated_button.dart';
 import 'package:jangjeon/view/widget/app_text_field.dart';
@@ -19,32 +20,27 @@ class SignupScreen extends GetView<SignupController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  style: AppTextStyle.h2B28(),
                   '회원가입',
                 ),
                 const SizedBox(height: 27),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                  '아이디',
+                Text(
+                  style: AppTextStyle.b3M16(),
+                  '이메일 주소',
                 ),
                 const SizedBox(height: 10),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      flex: 2,
+                      flex: 4,
                       child: Obx(
                         () => AppTextField(
-                          controller: controller.idController,
-                          hintText: '아이디 입력',
-                          errorText: controller.idError.value,
-                          onChanged: controller.checkIdValidation,
+                          controller: controller.emailController,
+                          hintText: '이메일 주소',
+                          errorText: controller.emailError.value,
+                          onChanged: controller.checkEmailValidation,
                         ),
                       ),
                     ),
@@ -53,8 +49,8 @@ class SignupScreen extends GetView<SignupController> {
                       flex: 1,
                       child: Obx(
                         () => AppElevatedButton(
-                          childText: '중복확인',
-                          onPressed: controller.idError.value == null
+                          childText: '인증',
+                          onPressed: controller.emailError.value == null
                               ? controller.checkIdDuplicate
                               : null,
                         ),
@@ -63,10 +59,8 @@ class SignupScreen extends GetView<SignupController> {
                   ],
                 ),
                 const SizedBox(height: 33),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '비밀번호',
                 ),
                 const SizedBox(height: 10),
@@ -80,10 +74,8 @@ class SignupScreen extends GetView<SignupController> {
                   ),
                 ),
                 const SizedBox(height: 33),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '비밀번호 확인',
                 ),
                 const SizedBox(height: 10),
@@ -96,25 +88,9 @@ class SignupScreen extends GetView<SignupController> {
                     obscureText: true,
                   ),
                 ),
-                const SizedBox(height: 33),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                  '이메일 주소',
-                ),
-                const SizedBox(height: 10),
-                AppTextField(
-                  controller: controller.emailController,
-                  hintText: '이메일 주소 입력',
-                  onChanged: (_) => controller.activateSignupButton(),
-                ),
                 const SizedBox(height: 48),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  style: AppTextStyle.h2B28(),
                   '약관동의',
                 ),
                 const SizedBox(height: 20),
@@ -140,10 +116,8 @@ class SignupScreen extends GetView<SignupController> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    const Text(
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                    Text(
+                      style: AppTextStyle.b2M18(),
                       '모두 동의합니다',
                     ),
                   ],
@@ -158,6 +132,7 @@ class SignupScreen extends GetView<SignupController> {
                     return Obx(
                       () => AgreementTile(
                         title: controller.agreement[index]['title'],
+                        content: controller.agreement[index]['content'],
                         checkValue: controller.agreement[index]['value'].value,
                         onChanged: (value) =>
                             controller.checkAgreement(index, value),

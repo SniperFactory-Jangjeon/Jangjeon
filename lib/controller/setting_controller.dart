@@ -27,4 +27,7 @@ class SettingController extends GetxController {
       isMarketingAgree(true);
     }
   }
+
+  //로그아웃
+  logout() => Get.find<AuthController>().logout();
 }

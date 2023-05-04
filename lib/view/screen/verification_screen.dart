@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/signup_controller.dart';
+import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/app_elevated_button.dart';
 import 'package:jangjeon/view/widget/app_text_field.dart';
 import 'package:jangjeon/view/widget/app_toggle_button.dart';
@@ -18,18 +19,13 @@ class VerificationScreen extends GetView<SignupController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                  style: AppTextStyle.h2B28(),
                   '본인인증',
                 ),
                 const SizedBox(height: 27),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '이름',
                 ),
                 const SizedBox(height: 10),
@@ -38,10 +34,8 @@ class VerificationScreen extends GetView<SignupController> {
                   hintText: '이름입력',
                 ),
                 const SizedBox(height: 18),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '주민번호',
                 ),
                 const SizedBox(height: 10),
@@ -53,19 +47,15 @@ class VerificationScreen extends GetView<SignupController> {
                   ],
                 ),
                 const SizedBox(height: 18),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '통신사',
                 ),
                 const SizedBox(height: 10),
                 const AppToggleButton(),
                 const SizedBox(height: 18),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '휴대폰번호',
                 ),
                 const SizedBox(height: 10),
@@ -86,10 +76,8 @@ class VerificationScreen extends GetView<SignupController> {
                   ],
                 ),
                 const SizedBox(height: 18),
-                const Text(
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                Text(
+                  style: AppTextStyle.b3M16(),
                   '인증번호',
                 ),
                 const SizedBox(height: 10),
