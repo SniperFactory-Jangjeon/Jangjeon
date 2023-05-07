@@ -76,7 +76,7 @@ class LoginPage extends GetView<LoginController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: controller.kakaoLoign,
+                    onTap: controller.kakaoLogin,
                     child: SizedBox(
                       width: 50,
                       height: 50,

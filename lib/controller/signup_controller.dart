@@ -215,9 +215,9 @@ class SignupController extends GetxController {
   checkIdDuplicate() async {
     if (await Get.find<AuthController>()
         .checkIdDuplicate(emailController.text)) {
-      emailError('사용 가능한 아이디입니다.');
+      emailError('사용 가능한 이메일입니다.');
     } else {
-      emailError('해당 아이디는 다른 사람이 사용중인 아이디입니다.');
+      emailError('가입된 이메일입니다. 다른 이메일을 입력해 주세요.');
     }
     activateSignupButton();
   }

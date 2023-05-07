@@ -22,7 +22,7 @@ class LoginController extends GetxController {
   }
 
   //카카오톡 로그인
-  kakaoLoign() async {
+  kakaoLogin() async {
     if (await isKakaoTalkInstalled()) {
       try {
         await UserApi.instance.loginWithKakaoTalk();
