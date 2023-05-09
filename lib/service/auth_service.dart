@@ -39,6 +39,9 @@ class AuthService {
       .then((_) => true)
       .catchError((_) => false);
 
+  //토큰 로그인
+  signInWithCustomToken(token) => _firebaseAuth.signInWithCustomToken(token);
+
   //비밀번호 재설정
   resetPassword(email) => _firebaseAuth.sendPasswordResetEmail(email: email);
 

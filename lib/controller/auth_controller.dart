@@ -21,6 +21,9 @@ class AuthController extends GetxController {
   //로그인
   login(id, pw) => AuthService().login(id, pw);
 
+  //토큰 로그인
+  signInWithCustomToken(token) => AuthService().signInWithCustomToken(token);
+
   //이메일 인증
   verifyEamil() async {
     AuthService().sendEamilVerification();
@@ -43,7 +46,8 @@ class AuthController extends GetxController {
       _user(value);
       if (Get.currentRoute != AppRoutes.signup) {
         if (value != null) {
-          if (_user.value!.emailVerified) {
+          if (_user.value!.emailVerified ||
+              _user.value!.uid.substring(0, 5) == 'kakao') {
             await Get.offAllNamed(AppRoutes.main);
           } else {
             await verifyEamil();
