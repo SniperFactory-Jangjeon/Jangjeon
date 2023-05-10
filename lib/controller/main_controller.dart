@@ -8,6 +8,7 @@ class MainController extends GetxController {
   RxDouble negative = (0.3).obs;
   RxDouble positive = (0.45).obs;
   RxDouble neutrality = (0.25).obs;
+  RxInt bottomNavIndex = 0.obs;
   // handleNavigationOnTap(int index) {
   //   selectedIndex(index);
   //   pageController.jumpToPage(selectedIndex.value);
