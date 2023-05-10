@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -9,7 +10,7 @@ import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/app_elevated_button.dart';
 import 'package:jangjeon/view/widget/app_text_field.dart';
 
-class PersonalInfoEditPage extends StatelessWidget {
+class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
   const PersonalInfoEditPage({super.key});
   static const route = '/myinfoedit';
 
@@ -39,14 +40,21 @@ class PersonalInfoEditPage extends StatelessWidget {
               const SizedBox(height: 17),
               Container(
                 alignment: const Alignment(0, 0),
-                child: CircleAvatar(
-                  backgroundColor: Color(0xFFA9C9FA),
-                  child: Icon(
-                    Icons.person,
-                    color: AppColor.grayscale0,
-                    size: 80,
+                child: GestureDetector(
+                  onTap: () => showCupertinoModalPopup(
+                      context: context,
+                      builder: (context) => controller.cupertinoActionSheet()),
+                  child: Obx(
+                    () => CircleAvatar(
+                      backgroundColor: Color(0xFFA9C9FA),
+                      child: Icon(
+                        Icons.person,
+                        color: AppColor.grayscale0,
+                        size: 80,
+                      ),
+                      radius: 43,
+                    ),
                   ),
-                  radius: 43,
                 ),
               ),
               const SizedBox(height: 10),
@@ -57,10 +65,9 @@ class PersonalInfoEditPage extends StatelessWidget {
               const SizedBox(height: 10),
               AppTextField(
                 controller: null,
-                hintText: 'userName',
+                hintText: controller.user.value.displayName!,
                 errorText: null,
                 onChanged: null,
-                obscureText: true,
               ),
               const SizedBox(height: 10),
               Text(
@@ -72,7 +79,7 @@ class PersonalInfoEditPage extends StatelessWidget {
                 children: [
                   const Icon(Icons.circle),
                   const SizedBox(width: 10),
-                  Text('userInfo.email')
+                  Text(controller.user.value.email!)
                 ],
               ),
               const SizedBox(height: 10),

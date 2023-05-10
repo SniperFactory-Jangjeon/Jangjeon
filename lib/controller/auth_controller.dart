@@ -20,6 +20,9 @@ class AuthController extends GetxController {
   //로그인
   login(id, pw) => AuthService().login(id, pw);
 
+  //회원탈퇴
+  deleteUser() => AuthService().deleteUser();
+
   @override
   void onInit() {
     super.onInit();

@@ -40,4 +40,7 @@ class AuthService {
 
   //비밀번호 재설정
   resetPassword(email) => _firebaseAuth.sendPasswordResetEmail(email: email);
+
+  //회원탈퇴
+  deleteUser() => _firebaseAuth.currentUser!.delete();
 }
