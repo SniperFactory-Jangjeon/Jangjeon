@@ -15,9 +15,6 @@ import 'package:jangjeon/firebase_options.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/view/page/login_page.dart';
 import 'package:jangjeon/controller/stock_detail_controller.dart';
-import 'package:jangjeon/controller/auth_controller.dart';
-import 'package:jangjeon/controller/login_controller.dart';
-import 'package:jangjeon/firebase_options.dart';
 import 'package:jangjeon/view/page/main_page.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:jangjeon/util/app_pages.dart';
@@ -28,7 +25,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  KakaoSdk.init(nativeAppKey: 'cbe2327f360f8a91c80f74544db1800f');
+  KakaoSdk.init(nativeAppKey: '6a87bfbd18f4ebe698eecbcceba07d34');
   runApp(const MyApp());
 }
 

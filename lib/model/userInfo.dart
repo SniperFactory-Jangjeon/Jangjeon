@@ -5,12 +5,14 @@ class UserInfo {
   final String name; //이름
   final String phone; //전화번호
   final String email; //이메일
+  final bool optionalAgreement;
   final String? photoUrl;
 
   UserInfo({
     required this.name,
     required this.phone,
     required this.email,
+    required this.optionalAgreement,
     this.photoUrl,
   });
 
@@ -19,6 +21,7 @@ class UserInfo {
       'name': name,
       'phone': phone,
       'email': email,
+      'optionalAgreement': optionalAgreement,
       'photoUrl': photoUrl,
     };
   }
@@ -28,6 +31,7 @@ class UserInfo {
       name: map['name'] as String,
       phone: map['phone'] as String,
       email: map['email'] as String,
+      optionalAgreement: map['optionalAgreement'] as bool,
       photoUrl: map['photoUrl'] != null ? map['photoUrl'] as String : null,
     );
   }

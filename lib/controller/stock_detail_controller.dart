@@ -17,4 +17,5 @@ class StockDetailController extends GetxController {
     FlSpot(11, 670)
   ].obs;
   RxString selectedTime = '1일'.obs;
+  RxList time = ['1일', '1주', '3달', '1년', '5년'].obs;
 }

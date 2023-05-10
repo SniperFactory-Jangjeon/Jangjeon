@@ -6,12 +6,9 @@ import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/app_dialog.dart';
-import 'package:jangjeon/view/widget/app_floatingaction_button.dart';
-import 'package:jangjeon/view/widget/app_navigation_bar.dart';
 
-class SettingPage extends GetView<SettingController> {
-  const SettingPage({super.key});
-  static const route = '/setting';
+class SettingScreen extends GetView<SettingController> {
+  const SettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -242,9 +239,6 @@ class SettingPage extends GetView<SettingController> {
           )
         ],
       ),
-      floatingActionButton: const AppFloatingActionButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const AppNabigationBar(),
     );
   }
 }

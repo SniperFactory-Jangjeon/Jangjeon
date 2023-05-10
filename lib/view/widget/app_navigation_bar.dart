@@ -1,73 +1,44 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
-import 'package:jangjeon/util/app_routes.dart';
+import 'package:jangjeon/controller/main_controller.dart';
+import 'package:jangjeon/util/app_text_style.dart';
+import '../../util/app_color.dart';
 
-class AppNabigationBar extends StatelessWidget {
-  const AppNabigationBar({
-    super.key,
-    // required this.selectIndex,
-    // required this.onTap
-  });
-
-  // final int selectIndex;
-  // final Function(int indet) onTap;
+class AppNavigationBar extends GetView<MainController> {
+  const AppNavigationBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height / 10.8,
-      decoration: const BoxDecoration(color: Color(0xFFF3F3F3)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          GestureDetector(
-            onTap: () => Get.toNamed(AppRoutes.stock),
-            child: SizedBox(
-              height: 50,
-              child: Column(
-                children: const [
-                  Icon(
-                    Icons.equalizer,
-                    color: Color(0xFF878787),
-                    size: 30,
-                  ),
-                  Text(
-                    '주식',
-                    style: TextStyle(color: Color(0xFF878787)),
-                  )
-                ],
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () => Get.toNamed(AppRoutes.setting),
-            child: SizedBox(
-              height: 50,
-              child: Column(
-                children: const [
-                  Icon(
-                    Icons.person,
-                    color: Color(0xFF878787),
-                    size: 30,
-                  ),
-                  Text('설정', style: TextStyle(color: Color(0xFF878787)))
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-      // child: BottomNavigationBar(
-      //   currentIndex: selectIndex,
-      //   onTap: onTap,
-      //   backgroundColor: const Color(0xFFF3F3F3),
-      //   items: [
-      //     BottomNavigationBarItem(icon: Icon(Icons.equalizer), label: '주식'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: '설정')
-      //   ],
-      // ),
-    );
+    return AnimatedBottomNavigationBar.builder(
+        itemCount: 2,
+        tabBuilder: (index, isActive) {
+          final color = isActive ? Colors.black : AppColor.grayscale60;
+          var text;
+          var icon;
+          if (index == 0) {
+            text = '주식';
+            icon = Icons.bar_chart;
+          } else {
+            text = '설정';
+            icon = Icons.person;
+          }
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 24, color: color),
+              Text(
+                text,
+                style: AppTextStyle.b4M14(color: color),
+              )
+            ],
+          );
+        },
+        activeIndex: controller.bottomNavIndex.value,
+        gapLocation: GapLocation.center,
+        notchSmoothness: NotchSmoothness.defaultEdge,
+        backgroundColor: AppColor.grey,
+        onTap: (index) => controller.bottomNavIndex.value = index);
   }
 }

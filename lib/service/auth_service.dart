@@ -32,15 +32,22 @@ class AuthService {
 
   //로그아웃
   logout() => _firebaseAuth.signOut();
+
   //로그인
   login(id, pw) => _firebaseAuth
       .signInWithEmailAndPassword(email: id, password: pw)
       .then((_) => true)
       .catchError((_) => false);
 
+  //토큰 로그인
+  signInWithCustomToken(token) => _firebaseAuth.signInWithCustomToken(token);
+
   //비밀번호 재설정
   resetPassword(email) => _firebaseAuth.sendPasswordResetEmail(email: email);
 
   //회원탈퇴
   deleteUser() => _firebaseAuth.currentUser!.delete();
+
+  //인증 이메일 전송
+  sendEamilVerification() => _firebaseAuth.currentUser!.sendEmailVerification();
 }
