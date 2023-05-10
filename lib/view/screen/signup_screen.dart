@@ -34,7 +34,7 @@ class SignupScreen extends GetView<SignupController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      flex: 4,
+                      flex: 2,
                       child: Obx(
                         () => AppTextField(
                           controller: controller.emailController,
@@ -49,7 +49,7 @@ class SignupScreen extends GetView<SignupController> {
                       flex: 1,
                       child: Obx(
                         () => AppElevatedButton(
-                          childText: '인증',
+                          childText: '중복 확인',
                           onPressed: controller.emailError.value == null
                               ? controller.checkIdDuplicate
                               : null,
