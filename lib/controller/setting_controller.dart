@@ -29,5 +29,5 @@ class SettingController extends GetxController {
   }
 
   //로그아웃
-  logout() => Get.find<AuthController>().logout();
+  //logout() => Get.find<AuthController>().logout();
 }

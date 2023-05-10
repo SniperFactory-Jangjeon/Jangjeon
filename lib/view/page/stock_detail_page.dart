@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -10,6 +9,7 @@ import 'package:jangjeon/view/widget/comment_tile.dart';
 import 'package:jangjeon/view/widget/news_tile.dart';
 import 'package:jangjeon/view/widget/stock_bar_chart.dart';
 import 'package:jangjeon/view/widget/stock_line_chart.dart';
+import 'package:jangjeon/view/widget/stock_time_tile.dart';
 
 class StockDetailPage extends GetView<StockDetailController> {
   const StockDetailPage({super.key});
@@ -124,85 +124,25 @@ class StockDetailPage extends GetView<StockDetailController> {
                           decoration: BoxDecoration(
                               color: AppColor.grayscale10,
                               borderRadius: BorderRadius.circular(30)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                width: Get.width * 0.1,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                    color: controller.selectedTime.value == '1일'
-                                        ? Colors.white
-                                        : AppColor.grayscale10,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Center(
-                                  child: Text(
-                                    '1일',
-                                    style: AppTextStyle.b4M14(),
-                                  ),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.time.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 3.5, vertical: 3),
+                              child: Obx(
+                                () => GestureDetector(
+                                  onTap: () {
+                                    controller.selectedTime.value =
+                                        controller.time[index];
+                                  },
+                                  child: StockTimeTile(
+                                      selectedTime:
+                                          controller.selectedTime.value,
+                                      time: controller.time[index]),
                                 ),
                               ),
-                              Container(
-                                width: Get.width * 0.1,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                    color: controller.selectedTime.value == '1주'
-                                        ? Colors.white
-                                        : AppColor.grayscale10,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Center(
-                                  child: Text(
-                                    '1주',
-                                    style: AppTextStyle.b4M14(),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: Get.width * 0.1,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                    color: controller.selectedTime.value == '3달'
-                                        ? Colors.white
-                                        : AppColor.grayscale10,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Center(
-                                  child: Text(
-                                    '3달',
-                                    style: AppTextStyle.b4M14(),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: Get.width * 0.1,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                    color: controller.selectedTime.value == '1년'
-                                        ? Colors.white
-                                        : AppColor.grayscale10,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Center(
-                                  child: Text(
-                                    '1년',
-                                    style: AppTextStyle.b4M14(),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: Get.width * 0.1,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                    color: controller.selectedTime.value == '5년'
-                                        ? Colors.white
-                                        : AppColor.grayscale10,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Center(
-                                  child: Text(
-                                    '5년',
-                                    style: AppTextStyle.b4M14(),
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                         Container(
@@ -233,7 +173,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                           ),
                         )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

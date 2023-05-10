@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
@@ -6,29 +5,15 @@ import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/app_dialog.dart';
-import 'package:jangjeon/view/widget/app_floatingaction_button.dart';
-import 'package:jangjeon/view/widget/app_navigation_bar.dart';
 
-class SettingPage extends GetView<SettingController> {
-  const SettingPage({super.key});
-  static const route = '/setting';
+class SettingScreen extends GetView<SettingController> {
+  const SettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(Icons.arrow_back_ios_new)),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.ticket)),
-          const SizedBox(width: 12)
-        ],
-      ),
-      body: Column(
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
         children: [
           ListTile(
             leading: CircleAvatar(radius: 37),
@@ -185,9 +170,6 @@ class SettingPage extends GetView<SettingController> {
           )
         ],
       ),
-      floatingActionButton: const AppFloatingActionButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const AppNabigationBar(),
     );
   }
 }
