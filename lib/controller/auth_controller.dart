@@ -21,6 +21,8 @@ class AuthController extends GetxController {
   //로그인
   login(id, pw) => AuthService().login(id, pw);
 
+  //회원탈퇴
+  deleteUser() => AuthService().deleteUser();
   //토큰 로그인
   signInWithCustomToken(token) => AuthService().signInWithCustomToken(token);
 
@@ -29,7 +31,8 @@ class AuthController extends GetxController {
     AuthService().sendEamilVerification();
     await Get.dialog(
       AppDialog(
-        content: '인증메일을 전송했습니다.\n인증 후 로그인해주세요.',
+        content: '이메일 인증',
+        subcontent: '인증메일을 전송했습니다.\n인증 후 로그인해주세요.',
         onCancel: () => Get.back(),
         onConfirm: () => Get.back(),
         cancelText: '닫기',

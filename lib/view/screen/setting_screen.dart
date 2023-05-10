@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
@@ -11,26 +12,94 @@ class SettingScreen extends GetView<SettingController> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        leading: IconButton(
+            onPressed: () => Get.back(),
+            icon: const Icon(Icons.arrow_back_ios_new)),
+        actions: [
+          IconButton(
+              onPressed: () => Get.toNamed(AppRoutes.ticket),
+              icon: const Icon(CupertinoIcons.ticket)),
+          const SizedBox(width: 12)
+        ],
+      ),
+      body: Column(
         children: [
-          ListTile(
-            leading: CircleAvatar(radius: 37),
-            title: Text('username', style: AppTextStyle.h4B20()),
-            subtitle: Text('이용권 구매',
-                style: AppTextStyle.b4R14(color: AppColor.grayscale50)),
-            trailing: TextButton(
-                onPressed: () => Get.dialog(AppDialog(
-                    content: '정말 로그아웃 하겠습니까?',
-                    onCancel: () => Get.back(),
-                    onConfirm: controller.logout,
-                    cancelText: '취소',
-                    confirmText: '확인')),
-                child: Text(
-                  '로그아웃',
-                  style: AppTextStyle.b4M14(color: AppColor.red100),
-                )),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Obx(
+                  () => CircleAvatar(
+                    radius: 37,
+                    backgroundColor: AppColor.grayscale0,
+                    backgroundImage: controller.profileUrl.value != null
+                        ? NetworkImage(controller.profileUrl.value!)
+                        : null,
+                    child: controller.profileUrl.value == null
+                        ? const CircleAvatar(
+                            backgroundColor: Color(0xFFA9C9FA),
+                            child: Icon(
+                              Icons.person,
+                              color: AppColor.grayscale0,
+                              size: 50,
+                            ),
+                            radius: 37,
+                          )
+                        : null,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 13),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(controller.user.value.displayName!,
+                          style: AppTextStyle.h4B20()),
+                      const SizedBox(width: 8),
+                      Container(
+                        width: 60,
+                        decoration: BoxDecoration(
+                            color: AppColor.red100,
+                            borderRadius: BorderRadius.circular(17)),
+                        child: Center(
+                          child: Text(
+                            'Basic',
+                            style:
+                                AppTextStyle.b5M12(color: AppColor.grayscale0),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 6.5),
+                  Text('이용권 구매',
+                      style: AppTextStyle.b4R14(color: AppColor.grayscale50)),
+                ],
+              ),
+              const Expanded(child: SizedBox()),
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: TextButton(
+                    onPressed: () => Get.dialog(AppDialog(
+                        content: '로그아웃',
+                        subcontent: '정말 로그아웃 하겠습니까?',
+                        onCancel: () => Get.back(),
+                        onConfirm: controller.logout,
+                        cancelText: '취소',
+                        confirmText: '확인')),
+                    child: Text(
+                      '로그아웃',
+                      style: AppTextStyle.b4M14(color: AppColor.red100),
+                    )),
+              ),
+            ],
           ),
           const SizedBox(height: 17),
           Row(
@@ -144,7 +213,7 @@ class SettingScreen extends GetView<SettingController> {
               height: 1,
               decoration: const BoxDecoration(color: Color(0xFFECECEC))),
           ListTile(
-            onTap: () => print('이용약관페이지 이동'),
+            onTap: () => Get.toNamed(AppRoutes.termsofservice),
             title: Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Text('이용약관',

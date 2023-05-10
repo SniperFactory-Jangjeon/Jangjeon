@@ -40,9 +40,12 @@ class SuccessTile extends StatelessWidget {
           message,
         ),
         const Expanded(child: SizedBox()),
-        AppElevatedButton(
-          childText: btnText,
-          onPressed: onPressed,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+          child: AppElevatedButton(
+            childText: btnText,
+            onPressed: onPressed,
+          ),
         ),
       ],
     );

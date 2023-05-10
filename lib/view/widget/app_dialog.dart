@@ -5,15 +5,18 @@ import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 
 class AppDialog extends StatelessWidget {
-  const AppDialog(
-      {super.key,
-      required this.content,
-      required this.onCancel,
-      required this.onConfirm,
-      required this.cancelText,
-      required this.confirmText});
+  const AppDialog({
+    super.key,
+    required this.content,
+    required this.subcontent,
+    required this.onCancel,
+    required this.onConfirm,
+    required this.cancelText,
+    required this.confirmText,
+  });
 
   final String content;
+  final String subcontent;
   final VoidCallback onCancel;
   final VoidCallback onConfirm;
   final String cancelText;
@@ -28,9 +31,13 @@ class AppDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
+            padding: const EdgeInsets.only(top: 28),
+            child: Text(content, style: AppTextStyle.b2B18()),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20, top: 8),
             child: Text(
-              content,
+              subcontent,
               textAlign: TextAlign.center,
               style: AppTextStyle.b3R16(),
             ),

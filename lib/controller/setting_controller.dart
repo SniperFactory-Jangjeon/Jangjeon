@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
 
 class SettingController extends GetxController {
+  Rx<User> get user => Get.find<AuthController>().user!.obs;
+  Rxn<String> profileUrl =
+      Rxn<String>(Get.find<AuthController>().user!.photoURL);
   RxBool isNotifycation = false.obs;
   RxBool isMarketingAgree = false.obs;
 
