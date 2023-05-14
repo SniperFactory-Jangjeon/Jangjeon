@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:jangjeon/controller/news_detail_controller.dart';
+import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/ai_chart_bar.dart';
 import 'package:jangjeon/view/widget/comment_tile.dart';
@@ -102,16 +103,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               Center(
                 child: TextButton(
                   onPressed: () async {
-                    if (!await launchUrl(
-                      Uri.parse(news['url']),
-                      mode: LaunchMode.inAppWebView,
-                      webViewConfiguration: const WebViewConfiguration(
-                          headers: <String, String>{
-                            'my_header_key': 'my_header_value'
-                          }),
-                    )) {
-                      throw Exception('Could not launch ${news['url']}');
-                    }
+                    Get.toNamed(AppRoutes.news, arguments: news['url']);
                   },
                   child: Text(
                     '본문 뉴스 보러가기',
