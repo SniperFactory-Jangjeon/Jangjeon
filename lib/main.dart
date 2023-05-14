@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/controller/find_id_controller.dart';
 import 'package:jangjeon/controller/find_password_controller.dart';
+import 'package:jangjeon/controller/news_detail_controller.dart';
 import 'package:jangjeon/controller/personal_info_edit_controller.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
 import 'package:jangjeon/controller/account_delete_controller.dart';
@@ -13,9 +14,7 @@ import 'package:jangjeon/controller/terms_of_service_controller.dart';
 import 'package:jangjeon/controller/ticket_controller.dart';
 import 'package:jangjeon/firebase_options.dart';
 import 'package:jangjeon/util/app_routes.dart';
-import 'package:jangjeon/view/page/login_page.dart';
 import 'package:jangjeon/controller/stock_detail_controller.dart';
-import 'package:jangjeon/view/page/main_page.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:jangjeon/util/app_pages.dart';
 import 'package:jangjeon/controller/signup_controller.dart';
@@ -48,6 +47,7 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => PersonalInfoEditController(), fenix: true);
         Get.lazyPut(() => TermsOfServiceController(), fenix: true);
         Get.lazyPut(() => TicketController(), fenix: true);
+        Get.lazyPut(() => NewsDetailController(),fenix: true);
       }),
       debugShowCheckedModeBanner: false, //우측 상단 DEBUG리본 없애기
       initialRoute: AppRoutes.login,
