@@ -105,15 +105,23 @@ class StockDetailPage extends GetView<StockDetailController> {
                     ),
                     const SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Obx(() => StockLineChart(
-                            chartData: controller.chartData,
-                            bestX: controller.chartData[1].x,
-                            bestY: controller.chartData[1].y,
-                            lowsetX: controller.chartData[6].x,
-                            lowsetY: controller.chartData[6].y,
-                          )),
-                    ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Obx(() {
+                          if (controller.isLoading.value) {
+                            return const Center(
+                                child: CircularProgressIndicator(
+                              color: AppColor.red100,
+                            ));
+                          } else {
+                            return StockLineChart(
+                              chartData: controller.chartData,
+                              bestX: controller.maxStock.x,
+                              bestY: controller.maxStock.y,
+                              lowsetX: 0,
+                              lowsetY: controller.minStock.y,
+                            );
+                          }
+                        })),
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,19 +1,31 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
 import 'package:jangjeon/model/userInfo.dart';
+import 'package:jangjeon/service/sms_service.dart';
 
 class SignupController extends GetxController {
   PageController pageController = PageController(); //페이지 뷰 컨트롤러
   RxInt currentPage = 0.obs; //회원가입 현재 페이지
 
   TextEditingController nameController = TextEditingController(); //이름 컨트롤러
+  TextEditingController frontPriNumController =
+      TextEditingController(); //주민번호 앞자리
+  TextEditingController backPriNumController =
+      TextEditingController(); //주민번호 뒷자리
   TextEditingController phoneController = TextEditingController(); //전화번호 컨트롤러
+  TextEditingController verificationCodeController =
+      TextEditingController(); //인증번호 컨트롤러
   TextEditingController emailController = TextEditingController(); //아이디 컨트롤러
   TextEditingController pwController = TextEditingController(); //비밀번호 컨트롤러
   TextEditingController pwConfirmController =
       TextEditingController(); //비밀번호 확인 컨트롤러
 
+  String code = '000000';
+
+  RxnString verificationCodeError = RxnString();
   RxnString emailError = RxnString('인증메일을 받을 수 있는 이메일 주소를 입력해주세요.');
   RxnString pwError =
       RxnString('영문 대문자, 소문자, 숫자, 특수문자 중 2가지 이상을 조합하여 8~20자로 입력해주세요.');
@@ -154,6 +166,9 @@ class SignupController extends GetxController {
     },
   ]; //이용약관
 
+  RxBool isVerificationBtnActivated = false.obs; //인증하기 버튼 활성화 여부
+  RxBool isConfirmCodeBtnActivated = false.obs; //코드 확인 버튼 활성화 여부
+  RxBool isNextBtnActivated = false.obs; //다음단계 버튼 활성화 여부
   RxBool isSignupBtnActivated = false.obs; //가입하기 버튼 활성화 여부
 
   //페이지 이동
@@ -169,6 +184,58 @@ class SignupController extends GetxController {
       Get.back();
     } else {
       pageController.jumpToPage(page);
+    }
+  }
+
+  //전화번호 형식 체크
+  checkPhoneValidation() {
+    if (phoneController.text.isNotEmpty) {
+      isVerificationBtnActivated(true);
+    } else {
+      isVerificationBtnActivated(false);
+    }
+    activateNextButton();
+  }
+
+  //인증번호 형식 체크
+  checkCodeValidation() {
+    if (verificationCodeController.text.isNotEmpty) {
+      isConfirmCodeBtnActivated(true);
+    } else {
+      isConfirmCodeBtnActivated(false);
+    }
+    activateNextButton();
+  }
+
+  //인증번호 요청
+  requestVerificationCode() async {
+    code = (Random().nextInt(899999) + 100000).toString();
+    await SMSService().requestVerificationCode(phoneController.text, code);
+    activateNextButton();
+  }
+
+  //인증번호 확인
+  checkVerificationCode() {
+    if (code == verificationCodeController.text) {
+      verificationCodeError('인증이 완료되었습니다.');
+    } else {
+      verificationCodeError('인증 번호가 일치하지 않습니다. 다시 입력해주세요.');
+    }
+    activateNextButton();
+  }
+
+  //다음단계 버튼 활성화 체크
+  activateNextButton() {
+    if (nameController.text.isNotEmpty &&
+        frontPriNumController.text.isNotEmpty &&
+        backPriNumController.text.isNotEmpty &&
+        phoneController.text.isNotEmpty &&
+        verificationCodeController.text.isNotEmpty &&
+        verificationCodeError.value != null &&
+        verificationCodeError.value!.length < 25) {
+      isNextBtnActivated(true);
+    } else {
+      isNextBtnActivated(false);
     }
   }
 
@@ -226,7 +293,7 @@ class SignupController extends GetxController {
   signup() async {
     UserInfo user = UserInfo(
         name: nameController.text,
-        phone: phoneController.text,
+        phone: phoneController.value.text,
         email: emailController.text,
         optionalAgreement: agreement[3]['value'].value);
 
