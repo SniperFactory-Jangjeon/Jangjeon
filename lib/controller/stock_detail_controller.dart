@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:html/parser.dart' as htmlParser;
+import 'package:html/parser.dart' as parser;
 import 'package:yahoofin/yahoofin.dart';
 
 class StockDetailController extends GetxController {
@@ -14,6 +16,8 @@ class StockDetailController extends GetxController {
   FlSpot minStock = const FlSpot(0, 0);
 
   RxBool isLoading = false.obs;
+
+  RxString companyInfo = ''.obs;
 
   //주식 주가 데이터 가져오기
   readStockData(ticker) async {
@@ -41,33 +45,25 @@ class StockDetailController extends GetxController {
     isLoading(false);
   }
 
-  getStockData() async {
-    final symbol = 'AAPL';
-    final url = 'https://finance.yahoo.com/quote/$symbol/profile';
-
-    http.get(Uri.parse(url)).then((response) {
-      if (response.statusCode == 200) {
-        final document = htmlParser.parse(response.body);
-        final companyNameElement =
-            document.querySelector('.Mt\\(0\\.5em\\) > h1');
-        final companyDescriptionElement =
-            document.querySelector('.description');
-
-        if (companyNameElement != null && companyDescriptionElement != null) {
-          final companyName = companyNameElement.text;
-          final companyDescription = companyDescriptionElement.text;
-
-          print('Company Name: $companyName');
-          print('Company Description: $companyDescription');
-        }
+  //기업 정보 가져오기
+  getCompanyInfo(ticker) async {
+    final response = await http
+        .get(Uri.parse('https://finance.yahoo.com/quote/$ticker/profile'));
+    if (response.statusCode == 200) {
+      final document = parser.parse(response.body);
+      final elements = document.querySelectorAll('#Col1-0-Profile-Proxy p');
+      if (elements.isNotEmpty) {
+        companyInfo(elements[2].text.trim());
       }
-    }).catchError((error) => print(error));
+    } else {
+      throw Exception('Failed to fetch data from Yahoo Finance');
+    }
   }
 
   @override
   void onInit() async {
     super.onInit();
     await readStockData('TSLA');
-    //await getStockData();
+    await getCompanyInfo('TSLA');
   }
 }
