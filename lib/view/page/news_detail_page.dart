@@ -8,7 +8,6 @@ import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/ai_chart_bar.dart';
 import 'package:jangjeon/view/widget/comment_tile.dart';
 import 'package:jangjeon/view/widget/news_tile.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class NewsDetailPage extends GetView<NewsDetailController> {
   const NewsDetailPage({super.key});

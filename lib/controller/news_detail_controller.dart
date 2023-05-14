@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
 
 class NewsDetailController extends GetxController {
   String apiKey = 'f0dce2f983cc65a00b24617ac3b1aadd';
@@ -35,12 +34,6 @@ class NewsDetailController extends GetxController {
       }
     } else {
       summarContent(articleContent);
-    }
-  }
-
-  openUrl(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
     }
   }
 }
