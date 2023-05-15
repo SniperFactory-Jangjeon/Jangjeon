@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
@@ -12,22 +11,9 @@ class SettingScreen extends GetView<SettingController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(Icons.arrow_back_ios_new)),
-        actions: [
-          IconButton(
-              onPressed: () => Get.toNamed(AppRoutes.ticket),
-              icon: const Icon(CupertinoIcons.ticket)),
-          const SizedBox(width: 12)
-        ],
-      ),
-      body: Column(
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Column(
         children: [
           Row(
             children: [
@@ -65,8 +51,7 @@ class SettingScreen extends GetView<SettingController> {
                         child: Center(
                           child: Text(
                             'Basic',
-                            style:
-                                AppTextStyle.b5M12(color: AppColor.grayscale0),
+                            style: AppTextStyle.b5M12(color: AppColor.grayscale0),
                           ),
                         ),
                       )
