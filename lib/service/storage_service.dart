@@ -20,7 +20,7 @@ class StorageService {
       await ref.putFile(File(res.path));
       var downloadUrl = await ref.getDownloadURL();
       user.value.updatePhotoURL(downloadUrl);
-      this.profileUrl.value = downloadUrl;
+      profileUrl.value = downloadUrl;
       DBService().updateUserInfoPhoto(user.value.uid, downloadUrl);
       return profileUrl;
     }
@@ -35,10 +35,17 @@ class StorageService {
       await ref.putFile(File(res.path));
       var downloadUrl = await ref.getDownloadURL();
       user.value.updatePhotoURL(downloadUrl);
-      this.profileUrl.value = downloadUrl;
+      profileUrl.value = downloadUrl;
       DBService().updateUserInfoPhoto(user.value.uid, downloadUrl);
       return profileUrl;
     }
     Get.back();
+  }
+
+  defalutImage() {
+    FirebaseStorage.instance.ref('profile/${user.value.uid}').delete();
+    user.value.updatePhotoURL(null);
+    profileUrl.value = null;
+    DBService().updateUserInfoPhoto(user.value.uid, null);
   }
 }
