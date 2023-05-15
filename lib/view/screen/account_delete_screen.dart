@@ -110,8 +110,7 @@ class AccountDeleteScreen extends GetView<AccountDeleteController> {
               ),
             ),
             Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                padding: const EdgeInsets.only(left: 20, bottom: 50, right: 20),
                 child: Obx(
                   () => AppElevatedButton(
                       childText: '탈퇴하기',
