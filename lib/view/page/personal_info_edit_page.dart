@@ -46,13 +46,14 @@ class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
                       builder: (context) => controller.cupertinoActionSheet()),
                   child: Obx(
                     () => CircleAvatar(
-                      backgroundColor: Color(0xFFA9C9FA),
-                      child: Icon(
-                        Icons.person,
-                        color: AppColor.grayscale0,
-                        size: 80,
-                      ),
                       radius: 43,
+                      backgroundColor: Colors.white,
+                      backgroundImage: controller.profileUrl.value != null
+                          ? NetworkImage(controller.profileUrl.value!)
+                          : null,
+                      child: controller.profileUrl.value == null
+                          ? Image.asset('assets/icons/circle-user.png')
+                          : null,
                     ),
                   ),
                 ),

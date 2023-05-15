@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/service/auth_service.dart';
@@ -44,7 +45,7 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
+    deleteUser();
     FirebaseAuth.instance.authStateChanges().listen((value) async {
       _user(value);
       if (Get.currentRoute != AppRoutes.signup) {
