@@ -6,6 +6,7 @@ import 'package:jangjeon/view/page/find_password_page.dart';
 import 'package:jangjeon/view/page/login_page.dart';
 import 'package:jangjeon/view/page/main_page.dart';
 import 'package:jangjeon/view/page/news_detail_page.dart';
+import 'package:jangjeon/view/page/news_page.dart';
 import 'package:jangjeon/view/page/personal_info_edit_page.dart';
 import 'package:jangjeon/view/page/signup_page.dart';
 import 'package:jangjeon/view/page/stock_detail_page.dart';
@@ -30,5 +31,6 @@ class AppPages {
     GetPage(name: AppRoutes.ticket, page: () => const TicketPage()),
     GetPage(name: AppRoutes.certify, page: () => const CertifyPage()),
     GetPage(name: AppRoutes.newsDetail, page: () => const NewsDetailPage()),
+    GetPage(name: AppRoutes.news, page: () => const NewsPage()),
   ];
 }
