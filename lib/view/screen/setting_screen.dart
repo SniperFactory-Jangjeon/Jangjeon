@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
@@ -51,7 +52,8 @@ class SettingScreen extends GetView<SettingController> {
                         child: Center(
                           child: Text(
                             'Basic',
-                            style: AppTextStyle.b5M12(color: AppColor.grayscale0),
+                            style:
+                                AppTextStyle.b5M12(color: AppColor.grayscale0),
                           ),
                         ),
                       )
