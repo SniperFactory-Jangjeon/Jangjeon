@@ -4,6 +4,7 @@ import 'package:jangjeon/view/page/find_password_page.dart';
 import 'package:jangjeon/view/page/login_page.dart';
 import 'package:jangjeon/view/page/main_page.dart';
 import 'package:jangjeon/view/page/news_detail_page.dart';
+import 'package:jangjeon/view/page/news_page.dart';
 import 'package:jangjeon/view/page/personal_info_edit_page.dart';
 import 'package:jangjeon/view/page/signup_page.dart';
 import 'package:jangjeon/view/page/stock_detail_page.dart';
@@ -24,4 +25,5 @@ class AppRoutes {
   static const ticket = TicketPage.route; //이용권 구매 페이지
   static const certify = CertifyPage.route; //휴대폰 인증 페이지
   static const newsDetail = NewsDetailPage.route; //뉴스 상세 페이지
+  static const news = NewsPage.route; //뉴스 본문 페이지
 }

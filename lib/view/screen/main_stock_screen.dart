@@ -54,7 +54,9 @@ class MainStockScreen extends GetView<MainController> {
                         ),
                         const SizedBox(height: 20),
                         GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              //Get.toNamed(AppRoutes.newsDetail);
+                            },
                             child: Text('기사보기 >',
                                 style: AppTextStyle.b5R12(color: Colors.white)))
                       ],
@@ -141,10 +143,15 @@ class MainStockScreen extends GetView<MainController> {
                         itemCount: AppFilter.keyword.length,
                         itemBuilder: (context, index) => Center(
                           child: InkWell(
-                            onTap: () {},
-                            child: FilterTile(
-                              text: AppFilter.keyword[index],
-                              selected: true,
+                            onTap: () {
+                              controller.filterNews(index);
+                            },
+                            child: Obx(
+                              () => FilterTile(
+                                text: AppFilter.keyword[index],
+                                selected:
+                                    controller.isSeletedFilter.value == index,
+                              ),
                             ),
                           ),
                         ),
@@ -155,17 +162,27 @@ class MainStockScreen extends GetView<MainController> {
                         child: const FaIcon(FontAwesomeIcons.sliders))
                   ],
                 ),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: MainNewsTile(
-                        title: '테슬라 액면 분할, 삼백슬라되나',
-                        time: 1,
-                        aiScore: 50,
-                        img: 'https://picsum.photos/100/200'),
+                Obx(
+                  () => ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount:
+                        controller.news.length > 5 ? 5 : controller.news.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.newsDetail,
+                              arguments: controller.news[index]);
+                        },
+                        child: MainNewsTile(
+                            title: controller.news[index]['title'],
+                            time: controller.news[index]['date'],
+                            aiScore: 50,
+                            img: controller.news[index]['thumbnail'] ??
+                                'https://picsum.photos/50/50'),
+                      ),
+                    ),
                   ),
                 ),
               ],
