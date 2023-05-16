@@ -105,15 +105,23 @@ class StockDetailPage extends GetView<StockDetailController> {
                     ),
                     const SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Obx(() => StockLineChart(
-                            chartData: controller.chartData,
-                            bestX: controller.chartData[1].x,
-                            bestY: controller.chartData[1].y,
-                            lowsetX: controller.chartData[6].x,
-                            lowsetY: controller.chartData[6].y,
-                          )),
-                    ),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Obx(() {
+                          if (controller.isLoading.value) {
+                            return const Center(
+                                child: CircularProgressIndicator(
+                              color: AppColor.red100,
+                            ));
+                          } else {
+                            return StockLineChart(
+                              chartData: controller.chartData,
+                              bestX: controller.maxStock.x,
+                              bestY: controller.maxStock.y,
+                              lowsetX: 0,
+                              lowsetY: controller.minStock.y,
+                            );
+                          }
+                        })),
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -338,10 +346,10 @@ class StockDetailPage extends GetView<StockDetailController> {
                     Text('기업 정보', style: AppTextStyle.h4B20()),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: Text(
-                          '''테슬라는 미국 캘리포니아 팰로앨토에 기반을 둔 전기자동차 회사이다. 2003년, 마틴 에버하드와 마크 타페닝이 창업했다.
-2004년 페이팔의 창업자이던 일론 머스크가 투자자로 참여했고 몇 년 후에 일론 머스크가 최대주주로 회장이 되었다.''',
-                          style: AppTextStyle.b3R16()),
+                      child: Obx(
+                        () => Text(controller.companyInfo.value,
+                            style: AppTextStyle.b3R16()),
+                      ),
                     ),
                     Text('주요 사업', style: AppTextStyle.h4B20()),
                     Padding(

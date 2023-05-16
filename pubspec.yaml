@@ -29,21 +29,22 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animated_bottom_navigation_bar: ^1.2.0
   cloud_firestore: ^4.6.0
   cupertino_icons: ^1.0.5
   firebase_auth: ^4.2.2
   firebase_core: ^2.11.0
   firebase_storage: ^11.1.2
+  fl_chart: ^0.62.0
   flutter:
     sdk: flutter
   flutter_svg: ^1.1.6
   font_awesome_flutter: ^10.4.0
-  fl_chart: ^0.62.0
-  image_picker: ^0.8.7+4
-  animated_bottom_navigation_bar: ^1.2.0
   get: ^4.6.5
   http: ^0.13.5
+  image_picker: ^0.8.7+4
   kakao_flutter_sdk_user: ^1.4.2
+  yahoofin: ^0.0.8
   html: ^0.15.3
   xml: ^6.1.0
   intl: ^0.18.1

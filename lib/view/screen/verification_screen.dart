@@ -32,6 +32,7 @@ class VerificationScreen extends GetView<SignupController> {
                 AppTextField(
                   controller: controller.nameController,
                   hintText: '이름입력',
+                  onChanged: (_) => controller.activateNextButton(),
                 ),
                 const SizedBox(height: 18),
                 Text(
@@ -41,9 +42,22 @@ class VerificationScreen extends GetView<SignupController> {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    Expanded(child: AppTextField(hintText: '생년월일')),
+                    Expanded(
+                      child: AppTextField(
+                        controller: controller.frontPriNumController,
+                        hintText: '생년월일',
+                        onChanged: (_) => controller.activateNextButton(),
+                      ),
+                    ),
                     const SizedBox(width: 10),
-                    Expanded(child: AppTextField(hintText: '뒷자리')),
+                    Expanded(
+                      child: AppTextField(
+                        obscureText: true,
+                        controller: controller.backPriNumController,
+                        hintText: '뒷자리',
+                        onChanged: (_) => controller.activateNextButton(),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 18),
@@ -66,12 +80,20 @@ class VerificationScreen extends GetView<SignupController> {
                       child: AppTextField(
                         controller: controller.phoneController,
                         hintText: '-를 제외한 휴대폰번호 입력',
+                        onChanged: (_) => controller.checkPhoneValidation(),
                       ),
                     ),
                     const SizedBox(width: 10),
-                    const Expanded(
+                    Expanded(
                       flex: 1,
-                      child: AppElevatedButton(childText: '인증요청'),
+                      child: Obx(
+                        () => AppElevatedButton(
+                          childText: '인증요청',
+                          onPressed: controller.isVerificationBtnActivated.value
+                              ? controller.requestVerificationCode
+                              : null,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -85,13 +107,25 @@ class VerificationScreen extends GetView<SignupController> {
                   children: [
                     Expanded(
                       flex: 2,
-                      child: AppTextField(hintText: '인증번호 입력'),
+                      child: Obx(
+                        () => AppTextField(
+                          controller: controller.verificationCodeController,
+                          errorText: controller.verificationCodeError.value,
+                          hintText: '인증번호 입력',
+                          onChanged: (_) => controller.checkCodeValidation(),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 10),
-                    const Expanded(
+                    Expanded(
                       flex: 1,
-                      child: AppElevatedButton(
-                        childText: '확인',
+                      child: Obx(
+                        () => AppElevatedButton(
+                          childText: '확인',
+                          onPressed: controller.isConfirmCodeBtnActivated.value
+                              ? controller.checkVerificationCode
+                              : null,
+                        ),
                       ),
                     ),
                   ],
@@ -101,9 +135,13 @@ class VerificationScreen extends GetView<SignupController> {
           ),
         ),
         const SizedBox(height: 20),
-        AppElevatedButton(
-          childText: '다음단계',
-          onPressed: () => controller.jumpToPage(1),
+        Obx(
+          () => AppElevatedButton(
+            childText: '다음단계',
+            onPressed: controller.isNextBtnActivated.value
+                ? () => controller.jumpToPage(1)
+                : null,
+          ),
         ),
       ],
     );
