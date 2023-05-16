@@ -26,4 +26,11 @@ class DBService {
     var result = await userInfoRef.doc(userId).get();
     return result.data()!;
   }
+
+  //전화번호와 일치하는 이메일 찾기
+  getEmailWithPhone(phone) => userInfoRef
+      .where("phone", isEqualTo: phone)
+      .get()
+      .then((value) => value.docs.first.data().email)
+      .catchError((_) => "");
 }
