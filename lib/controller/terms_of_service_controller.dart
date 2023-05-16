@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
+import 'package:jangjeon/controller/setting_controller.dart';
 
 class TermsOfServiceController extends GetxController {
   List agreement = [
     {
       'title': '서비스 이용약관',
-      // 'value': false.obs,
+      'value': true,
       'content': '''[서비스 이용약관]
 제1조 (목적) 이 약관은 "장전" 앱(이하 '서비스'라 함)을 이용함에 있어 이용자와 "장전" 앱 운영자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
 제2조 (용어의 정의)
@@ -53,7 +54,7 @@ class TermsOfServiceController extends GetxController {
     },
     {
       'title': '개인정보 수집 및 이용 동의',
-      // 'value': false.obs,
+      'value': true,
       'content': '''[개인정보 수집 및 이용 동의]
 제1조 (목적) 본 약관은 "장전" 앱이 제공하는 서비스 이용과 관련하여, 이용자의 개인정보를 수집, 이용하는 절차 및 방법 등에 관한 사항을 규정함을 목적으로 합니다.
 제2조 (수집하는 개인정보 항목)
@@ -83,7 +84,7 @@ class TermsOfServiceController extends GetxController {
     },
     {
       'title': '개인정보 제 3자 제공 동의',
-      // 'value': false.obs,
+      'value': true,
       'content': '''[개인정보의 제3자 제공 동의]
 제1조 (목적) 본 약관은 "장전" 앱에서 제공하는 서비스를 이용함에 있어, "장전" 앱이 이용자의 개인정보를 어떠한 목적과 방식으로 수집, 이용하고 있는지, 그리고 개인정보를 보호하기 위한 조치 등을 규정함을 목적으로 합니다.
 제2조 (수집하는 개인정보 항목 및 수집 방법)
@@ -124,7 +125,7 @@ class TermsOfServiceController extends GetxController {
     },
     {
       'title': '마케팅 정보 수신 동의',
-      // 'value': false.obs,
+      'value': Get.find<SettingController>().isMarketingAgree.value,
       'content': '''[마케팅 정보 수신 동의]
 "장전" 앱은 이용자에게 별도의 동의가 없는 한, 이용자의 개인정보를 기반으로 제3자에게 광고 및 마케팅 정보를 제공하지 않습니다.
 이용자가 "장전" 앱에서 제공하는 광고, 마케팅 정보 등의 정보 수신에 동의할 경우에만 해당 정보를 제공하며, 이 경우 이용자의 개인정보는 안전하게 보호됩니다.
@@ -134,6 +135,7 @@ class TermsOfServiceController extends GetxController {
     },
   ]; //이용약관
 
+  //이용약관 자세히보기 버튼
   RxBool isContentVisible = false.obs;
 
   //약관 자세히보기

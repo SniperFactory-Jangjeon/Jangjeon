@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
@@ -21,21 +22,13 @@ class SettingScreen extends GetView<SettingController> {
                 padding: const EdgeInsets.only(left: 20),
                 child: Obx(
                   () => CircleAvatar(
-                    radius: 37,
-                    backgroundColor: AppColor.grayscale0,
+                    radius: 30,
+                    backgroundColor: Colors.white,
                     backgroundImage: controller.profileUrl.value != null
                         ? NetworkImage(controller.profileUrl.value!)
                         : null,
                     child: controller.profileUrl.value == null
-                        ? const CircleAvatar(
-                            backgroundColor: Color(0xFFA9C9FA),
-                            child: Icon(
-                              Icons.person,
-                              color: AppColor.grayscale0,
-                              size: 50,
-                            ),
-                            radius: 37,
-                          )
+                        ? Image.asset('assets/icons/circle-user.png')
                         : null,
                   ),
                 ),
@@ -46,8 +39,10 @@ class SettingScreen extends GetView<SettingController> {
                 children: [
                   Row(
                     children: [
-                      Text(controller.user.value.displayName!,
-                          style: AppTextStyle.h4B20()),
+                      Obx(
+                        () => Text(controller.userInfo.value?.name ?? '',
+                            style: AppTextStyle.h4B20()),
+                      ),
                       const SizedBox(width: 8),
                       Container(
                         width: 60,
@@ -134,55 +129,36 @@ class SettingScreen extends GetView<SettingController> {
           const SizedBox(height: 29),
           const Divider(color: Color(0xFFECECEC), thickness: 10),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.only(left: 15),
             child: ListTile(
-              title: Text('관련 뉴스 알림',
+              title: Text('관심 뉴스 알림',
                   style: AppTextStyle.b3R16(color: AppColor.grayscale100)),
-              trailing: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Obx(
-                  //shared_preferences 사용해서 쓰나?
-                  () => IconButton(
-                      onPressed: () {
-                        controller.notifycation();
-                      },
-                      icon: controller.isNotifycation()
-                          ? const Icon(Icons.toggle_on,
-                              size: 45, color: AppColor.red100)
-                          : const Icon(
-                              Icons.toggle_off,
-                              size: 45,
-                              color: AppColor.grayscale10,
-                            )),
-                ),
-              ),
+              trailing: Obx(() => Transform.scale(
+                    scale: 0.7,
+                    child: CupertinoSwitch(
+                        activeColor: AppColor.red100,
+                        value: controller.isNotifycation.value,
+                        onChanged: (value) {
+                          controller.notifycation();
+                        }),
+                  )),
             ),
           ),
           Container(
               height: 1,
               decoration: const BoxDecoration(color: Color(0xFFECECEC))),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.only(left: 15),
             child: ListTile(
               title: Text('마케팅 정보 수신 동의',
                   style: AppTextStyle.b3R16(color: AppColor.grayscale100)),
-              trailing: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Obx(
-                  () => IconButton(
-                      onPressed: () {
-                        controller.marketingAgree();
-                      },
-                      icon: controller.isMarketingAgree()
-                          ? const Icon(Icons.toggle_on,
-                              size: 45, color: AppColor.red100)
-                          : const Icon(
-                              Icons.toggle_off,
-                              size: 45,
-                              color: AppColor.grayscale10,
-                            )),
-                ),
-              ),
+              trailing: Obx(() => Transform.scale(
+                    scale: 0.7,
+                    child: CupertinoSwitch(
+                        activeColor: AppColor.red100,
+                        value: controller.isMarketingAgree.value,
+                        onChanged: (value) => controller.marketingAgree()),
+                  )),
             ),
           ),
           const Divider(color: Color(0xFFECECEC), thickness: 10),
@@ -194,6 +170,9 @@ class SettingScreen extends GetView<SettingController> {
                   style: AppTextStyle.b3R16(color: AppColor.grayscale100)),
             ),
           ),
+          TextButton(
+              onPressed: () => Get.toNamed(AppRoutes.certify),
+              child: const Text('휴대폰인증화면')),
           Container(
               height: 1,
               decoration: const BoxDecoration(color: Color(0xFFECECEC))),
