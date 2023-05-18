@@ -49,9 +49,10 @@ class CertifyPage extends GetView<PersonalInfoEditController> {
                             width: 130,
                             child: Obx(
                               () => AppElevatedButton(
-                                  childText: '인증번호',
+                                  childText: '인증요청',
                                   onPressed: controller.isCertifyButton.value
-                                      ? () => controller.visibletextfield()
+                                      ? () =>
+                                          controller.requestVerificationCode()
                                       : null),
                             ))),
                     Visibility(
@@ -62,11 +63,30 @@ class CertifyPage extends GetView<PersonalInfoEditController> {
                             const SizedBox(height: 40),
                             const Text('인증번호를 보냈습니다.'),
                             const SizedBox(height: 20),
-                            AppTextField(
-                              hintText: '인증번호를 입력하세요.',
-                              controller: controller.certifyController,
-                              onChanged: (_) => controller.nextPageButton(),
+                            Obx(
+                              () => AppTextField(
+                                hintText: '인증번호를 입력하세요.',
+                                errorText:
+                                    controller.verificationCodeError.value,
+                                controller: controller.certifyController,
+                                onChanged: (_) =>
+                                    controller.checkCodeValidation(),
+                              ),
                             ),
+                            const SizedBox(height: 20),
+                            Container(
+                                alignment: const Alignment(1, 0),
+                                child: SizedBox(
+                                    width: 130,
+                                    child: Obx(
+                                      () => AppElevatedButton(
+                                        childText: '확인',
+                                        onPressed: controller
+                                                .isConfirmCodeBtnActivated.value
+                                            ? controller.checkVerificationCode
+                                            : null,
+                                      ),
+                                    )))
                           ],
                         )),
                   ],

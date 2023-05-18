@@ -52,7 +52,8 @@ class SettingScreen extends GetView<SettingController> {
                         child: Center(
                           child: Text(
                             'Basic',
-                            style: AppTextStyle.b5M12(color: AppColor.grayscale0),
+                            style:
+                                AppTextStyle.b5M12(color: AppColor.grayscale0),
                           ),
                         ),
                       )
