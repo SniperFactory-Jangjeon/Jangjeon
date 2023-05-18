@@ -1,4 +1,5 @@
-// import 'dart:js';
+import 'dart:async';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,22 +8,30 @@ import 'package:get/get.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
 import 'package:jangjeon/service/db_service.dart';
+import 'package:jangjeon/service/sms_service.dart';
 import 'package:jangjeon/service/storage_service.dart';
+import 'package:jangjeon/model/userInfo.dart' as profile;
 
 class PersonalInfoEditController extends GetxController {
   Rx<User> get user => Get.find<AuthController>().user!.obs;
   Rxn<String> profileUrl =
       Rxn<String>(Get.find<SettingController>().profileUrl.value);
 
-  var phoneController = TextEditingController();
-  var certifyController = TextEditingController();
-  RxBool isCertifyButton = false.obs;
-  RxBool isNextPageButton = false.obs;
-  RxBool isTextFieldVisible = false.obs;
+  Rxn<profile.UserInfo> userInfo = Rxn<profile.UserInfo>();
 
-  visibletextfield() {
-    isTextFieldVisible.value = true;
-  }
+  final int limitTime = 300; //SMS타이머 5분
+  Timer? timer;
+
+  var phoneController = TextEditingController(); //본인인증 전화번호
+  var certifyController = TextEditingController(); //본인인증 인증번호
+  RxBool isCertifyButton = false.obs; //인증요청버튼 활성화 여부
+  RxBool isTextFieldVisible = false.obs; //인증번호입력 텍스트필드 Visible 활성화 여부
+  RxBool isConfirmCodeBtnActivated = false.obs; //코드 확인 버튼 활성화 여부
+  RxBool isNextPageButton = false.obs; //개인정보수정하러가기 버튼 활성화 여부
+
+  String code = '000000';
+
+  RxnString verificationCodeError = RxnString();
 
   gallery() async {
     var storageService = StorageService();
@@ -72,7 +81,13 @@ class PersonalInfoEditController extends GetxController {
     );
   }
 
-  //인증번호 버튼 활성화
+  //유저 정보 가져오기
+  getUserInfo() async {
+    var res = await DBService().getUserInfo(user.value.uid);
+    return res;
+  }
+
+  //인증요청 버튼 활성화
   certifyButton() {
     //유저 폰번호랑 같으면..?
     if (phoneController.text.isNotEmpty) {
@@ -82,11 +97,47 @@ class PersonalInfoEditController extends GetxController {
     }
   }
 
-  nextPageButton() {
+//인증번호 형식 체크
+  checkCodeValidation() {
     if (certifyController.text.isNotEmpty) {
+      isConfirmCodeBtnActivated(true);
+    } else {
+      isConfirmCodeBtnActivated(false);
+    }
+    nextPageButton();
+  }
+
+  //인증번호 요청
+  requestVerificationCode() async {
+    code = (Random().nextInt(899999) + 100000).toString();
+    await SMSService().requestVerificationCode(phoneController.text, code);
+    isTextFieldVisible.value = true;
+  }
+
+  //인증번호 확인
+  checkVerificationCode() {
+    if (code == certifyController.text) {
+      verificationCodeError('인증이 완료되었습니다.');
+    } else {
+      verificationCodeError('인증 번호가 일치하지 않습니다. 다시 입력해주세요.');
+    }
+    nextPageButton();
+  }
+
+  //개인정보 수정하러가기 버튼 활성화
+  nextPageButton() {
+    if (certifyController.text.isNotEmpty &&
+        verificationCodeError.value != null &&
+        verificationCodeError.value!.length < 25) {
       isNextPageButton.value = true;
     } else {
       isNextPageButton.value = false;
     }
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    userInfo(await getUserInfo());
   }
 }

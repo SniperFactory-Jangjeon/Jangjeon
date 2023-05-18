@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/main_controller.dart';
+import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/view/screen/setting_screen.dart';
 import 'package:jangjeon/view/screen/main_stock_screen.dart';
 import 'package:jangjeon/view/widget/app_floatingaction_button.dart';
@@ -37,7 +38,8 @@ class MainPage extends GetView<MainController> {
               backgroundColor: Colors.transparent,
               actions: [
                 IconButton(
-                    onPressed: () {}, icon: const Icon(CupertinoIcons.ticket))
+                    onPressed: () => Get.toNamed(AppRoutes.ticket),
+                    icon: const Icon(CupertinoIcons.ticket))
               ],
             )
           ][controller.bottomNavIndex.value],
