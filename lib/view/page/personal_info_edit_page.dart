@@ -89,47 +89,13 @@ class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
                 style: AppTextStyle.b3M16(color: AppColor.grayscale100),
               ),
               const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: AppTextField(
-                      controller: null,
-                      hintText: 'userPhoneNumber',
-                      errorText: null,
-                      onChanged: null,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  const Expanded(
-                    flex: 1,
-                    child: AppElevatedButton(childText: '인증요청'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Text(
-                '휴대폰번호',
-                style: AppTextStyle.b3M16(color: AppColor.grayscale100),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: AppTextField(
-                      controller: null,
-                      hintText: '인증번호 입력',
-                      errorText: null,
-                      onChanged: null,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  const Expanded(
-                    flex: 1,
-                    child: AppElevatedButton(childText: '확인'),
-                  ),
-                ],
+              Obx(
+                () => AppTextField(
+                  controller: null,
+                  hintText: controller.userInfo.value!.phone,
+                  errorText: null,
+                  onChanged: null,
+                ),
               ),
               const SizedBox(height: 10),
               Text(

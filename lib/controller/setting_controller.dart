@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
 import 'package:jangjeon/service/db_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jangjeon/model/userInfo.dart' as profile;
 
 class SettingController extends GetxController {
@@ -43,7 +40,6 @@ class SettingController extends GetxController {
   getUserInfo() async {
     var res = await DBService().getUserInfo(user.value.uid);
     isMarketingAgree(res.optionalAgreement);
-
     return res;
   }
 
