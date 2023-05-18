@@ -1,12 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:html_unescape/html_unescape_small.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
+import 'package:jangjeon/service/cloud_translate.dart';
 import 'package:xml/xml.dart';
 
 class MainController extends GetxController {
@@ -34,7 +33,7 @@ class MainController extends GetxController {
       for (var item in items) {
         var title = item.findElements('title').single.text;
         var url = item.findElements('link').single.text;
-        var description = item.findElements('description').single.text;
+        //var description = item.findElements('description').single.text;
         var date = item.findElements('pubDate').single.text;
         var pubDate =
             HttpDate.parse('${date.substring(0, date.indexOf('+'))}GMT');
@@ -43,9 +42,7 @@ class MainController extends GetxController {
         String kstDateString =
             DateFormat('yyyy.MM.dd HH:mm').format(dateTime); // 한국 시간을 문자열로 변환
 
-        print('url: $url');
-
-        //기사 링크 들어가서 썸네일 가져오기
+        //기사 링크 들어가서 썸네일, 기사 내용 가져오기
         var res = await http.get(Uri.parse(url));
         if (res.statusCode == 200) {
           var docu = parse(res.body);
@@ -80,12 +77,12 @@ class MainController extends GetxController {
           } else {
             time = '방금 전';
           }
-
+          title = await CloudTranslate().getTranslation(title);
           news.add({
             'title': title,
             'url': url,
             'thumbnail': thumbnail,
-            'description': description,
+            //'description': description,
             'article': articleContent,
             'pubDate': pubDate,
             'date': kstDateString,

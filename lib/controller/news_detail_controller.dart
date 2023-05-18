@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:jangjeon/service/cloud_translate.dart';
 
 class NewsDetailController extends GetxController {
   String apiKey = 'f0dce2f983cc65a00b24617ac3b1aadd';
   String apiUrl = 'https://api.meaningcloud.com/summarization-1.0';
-  int sentences = 2;
+  int sentences = 5;
   RxString summarContent = ''.obs;
 
   summarizeText(String articleContent) async {
@@ -26,7 +27,8 @@ class NewsDetailController extends GetxController {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         summarContent(data['summary']);
-        print(data['summary']);
+        summarContent.value =
+            await CloudTranslate().getTranslation(summarContent.value);
       }
       // 요청이 실패하면 오류 메시지 반환하기
       else {
