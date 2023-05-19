@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:html_unescape/html_unescape_small.dart';
 import 'package:http/http.dart' as http;
 import 'package:jangjeon/service/cloud_translate.dart';
+import 'package:jangjeon/service/news_crawling.dart';
 
 class NewsDetailController extends GetxController {
   String apiKey = 'f0dce2f983cc65a00b24617ac3b1aadd';
   String apiUrl = 'https://api.meaningcloud.com/summarization-1.0';
-  int sentences = 5;
+  int sentences = 4;
   RxString summarContent = ''.obs;
-
+  RxList otherNews = [].obs;
   summarizeText(String articleContent) async {
     if (articleContent.length > 100) {
       // API 요청 본문
@@ -26,9 +28,9 @@ class NewsDetailController extends GetxController {
       // 요청이 성공하면 응답에서 요약문 추출하기
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        summarContent(data['summary']);
         summarContent.value =
-            await CloudTranslate().getTranslation(summarContent.value);
+            await CloudTranslate().getTranslation(data['summary']);
+        summarContent.value = HtmlUnescape().convert(summarContent.value);
       }
       // 요청이 실패하면 오류 메시지 반환하기
       else {
@@ -37,5 +39,9 @@ class NewsDetailController extends GetxController {
     } else {
       summarContent(articleContent);
     }
+  }
+
+  getOtherNews(String stock) async {
+    NewsCrawling().newsCrawling(stock, otherNews);
   }
 }

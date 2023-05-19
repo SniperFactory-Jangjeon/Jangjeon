@@ -8,7 +8,7 @@ class CloudTranslate {
     var key = 'AIzaSyDFssDe48Lbb0NfpeISB8b9W5pv_tMUwds';
     //var apiKey = Platform.environment['API_KEY'];
     var to = "ko";
-    var result;
+    var result = text;
     var response = await http.post(
       Uri.parse('$baseUrl?target=$to&key=$key&q=$text'),
     );
@@ -16,7 +16,7 @@ class CloudTranslate {
       var dataJson = jsonDecode(response.body);
       result = dataJson['data']['translations'][0]['translatedText'];
     } else {
-      result = response.statusCode;
+      result = response.statusCode.toString();
     }
     return result;
   }

@@ -227,7 +227,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                           onTap: () {},
                           child: NewsTile(
                               title: '테슬라 액면 분할, 삼백슬라되나',
-                              time: 1,
+                              time: '1',
                               aiScore: 50,
                               img: 'https://picsum.photos/100/200'),
                         ),

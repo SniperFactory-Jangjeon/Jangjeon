@@ -17,6 +17,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
   Widget build(BuildContext context) {
     var news = Get.arguments;
     controller.summarizeText(news['article']);
+    controller.getOtherNews(news['stock']);
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -91,7 +92,8 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                     Obx(
                       () => Text(
                         controller.summarContent.value,
-                        style: AppTextStyle.b3R16(),
+                        style:
+                            AppTextStyle.b3R16(height: 1.5, wordSpacing: 1.4),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -152,40 +154,10 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '댓글',
+                      '관련 주식 댓글',
                       style: AppTextStyle.h4B20(),
                     ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset('assets/svg/default_profile.svg'),
-                            SizedBox(
-                              width: Get.width * 0.6,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: '댓글 남기기',
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        OutlinedButton(
-                            onPressed: () {},
-                            child: Text('작성하기', style: AppTextStyle.b5R12())),
-                      ],
-                    ),
-                    const Divider(thickness: 1),
+                    const SizedBox(height: 12),
                     ListView.separated(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
@@ -232,23 +204,32 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                       style: AppTextStyle.h4B20(),
                     ),
                     const SizedBox(height: 8),
-                    ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 3,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: InkWell(
-                          onTap: () {},
-                          child: NewsTile(
-                              title: '테슬라 액면 분할, 삼백슬라되나',
-                              time: 1,
-                              aiScore: 50,
-                              img: 'https://picsum.photos/100/200'),
-                        ),
-                      ),
-                      separatorBuilder: (context, index) => const Divider(
-                        thickness: 1,
+                    Obx(
+                      () => ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.otherNews.length > 4
+                            ? 4
+                            : controller.otherNews.length,
+                        itemBuilder: (context, index) => index == 0
+                            ? const SizedBox()
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: NewsTile(
+                                      title: controller.otherNews[index]
+                                          ['title'],
+                                      time: controller.otherNews[index]['date'],
+                                      aiScore: 50,
+                                      img: controller.otherNews[index]
+                                          ['thumbnail']),
+                                ),
+                              ),
+                        separatorBuilder: (context, index) => index == 0
+                            ? const SizedBox()
+                            : const Divider(thickness: 1),
                       ),
                     ),
                   ],
