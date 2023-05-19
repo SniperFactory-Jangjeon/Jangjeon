@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/stock_detail_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/ai_chart_bar.dart';
 import 'package:jangjeon/view/widget/comment_tile.dart';
@@ -289,7 +290,8 @@ class StockDetailPage extends GetView<StockDetailController> {
               const Divider(thickness: 1),
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => Get.toNamed(AppRoutes.comments,
+                      arguments: {'ticker': controller.ticker}),
                   child: Text(
                     '더보기',
                     style: AppTextStyle.b3R16(),

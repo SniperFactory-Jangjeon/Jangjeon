@@ -8,6 +8,7 @@ import 'package:jangjeon/service/news_crawling.dart';
 import 'package:yahoofin/yahoofin.dart';
 
 class StockDetailController extends GetxController {
+  var ticker = 'ARMP';
   RxList<FlSpot> chartData = RxList<FlSpot>();
 
   RxString selectedTime = '1일'.obs;
