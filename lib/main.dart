@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/controller/comments_controller.dart';
 import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/controller/find_id_controller.dart';
 import 'package:jangjeon/controller/find_password_controller.dart';
@@ -47,7 +48,8 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => PersonalInfoEditController(), fenix: true);
         Get.lazyPut(() => TermsOfServiceController(), fenix: true);
         Get.lazyPut(() => TicketController(), fenix: true);
-        Get.lazyPut(() => NewsDetailController(),fenix: true);
+        Get.lazyPut(() => NewsDetailController(), fenix: true);
+        Get.lazyPut(() => CommentsController(), fenix: true);
       }),
       debugShowCheckedModeBanner: false, //우측 상단 DEBUG리본 없애기
       initialRoute: AppRoutes.login,

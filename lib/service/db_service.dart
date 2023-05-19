@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jangjeon/model/comment.dart';
 import 'package:jangjeon/model/userInfo.dart';
 
 class DBService {
@@ -8,6 +9,8 @@ class DBService {
       .withConverter(
           fromFirestore: (snapshot, _) => UserInfo.fromMap(snapshot.data()!),
           toFirestore: (userInfo, _) => userInfo.toMap());
+
+  final stockRef = FirebaseFirestore.instance.collection('stockList');
 
   //유저 정보 생성
   createUserInfo(String uid, UserInfo user) =>
@@ -25,5 +28,50 @@ class DBService {
   Future<UserInfo> getUserInfo(String userId) async {
     var result = await userInfoRef.doc(userId).get();
     return result.data()!;
+  }
+
+  //전화번호와 일치하는 이메일 찾기
+  getEmailWithPhone(phone) => userInfoRef
+      .where("phone", isEqualTo: phone)
+      .get()
+      .then((value) => value.docs.first.data().email)
+      .catchError((_) => "");
+
+  //주식 정보의 doc id 가져오기
+  getStockDocId(ticker) => stockRef
+      .where("symbol", isEqualTo: ticker)
+      .get()
+      .then((value) => value.docs.first.id);
+
+  //댓글 작성
+  createComment(ticker, uid, comment) async {
+    final stockId = await getStockDocId(ticker);
+    final commentRef =
+        FirebaseFirestore.instance.collection('stockList/$stockId/comment');
+
+    final userRef = userInfoRef.doc(uid);
+
+    commentRef.add(comment.toMap(userRef));
+  }
+
+  //전체 댓글 읽어오기
+  readComments(ticker) async {
+    final stockId = await getStockDocId(ticker);
+    final commentRef =
+        FirebaseFirestore.instance.collection('stockList/$stockId/comment');
+
+    var result = await commentRef.get();
+    List<Comment> comments = [];
+
+    for (var element in result.docs) {
+      var userInfo = await element.data()['userInfo'].get();
+      Comment comment = Comment.fromMap({
+        'comment': element.data()['comment'],
+        'userInfo': userInfo.data(),
+        'createdAt': element.data()['createdAt']
+      });
+      comments.add(comment);
+    }
+    return comments;
   }
 }

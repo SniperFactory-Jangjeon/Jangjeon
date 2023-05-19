@@ -179,8 +179,7 @@ class MainStockScreen extends GetView<MainController> {
                             title: controller.news[index]['title'],
                             time: controller.news[index]['date'],
                             aiScore: 50,
-                            img: controller.news[index]['thumbnail'] ??
-                                'https://picsum.photos/50/50'),
+                            img: controller.news[index]['thumbnail']),
                       ),
                     ),
                   ),
