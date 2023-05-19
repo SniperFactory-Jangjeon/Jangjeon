@@ -11,7 +11,7 @@ class NewsTile extends StatelessWidget {
       required this.aiScore,
       required this.img});
   final String title;
-  final int time;
+  final String time;
   final int aiScore;
   final String img;
 
@@ -38,7 +38,7 @@ class NewsTile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('$time분전', style: AppTextStyle.b5R12()),
+                    Text(time, style: AppTextStyle.b5R12()),
                     Row(
                       children: [
                         aiScore > 0

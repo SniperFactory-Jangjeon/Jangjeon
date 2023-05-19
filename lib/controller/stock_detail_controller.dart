@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
+import 'package:jangjeon/service/news_crawling.dart';
 import 'package:yahoofin/yahoofin.dart';
 
 class StockDetailController extends GetxController {
@@ -18,6 +19,8 @@ class StockDetailController extends GetxController {
   RxBool isLoading = false.obs;
 
   RxString companyInfo = ''.obs;
+  
+  RxList relevantNews = [].obs;
 
   //주식 주가 데이터 가져오기
   readStockData(ticker) async {
@@ -58,6 +61,10 @@ class StockDetailController extends GetxController {
     } else {
       throw Exception('Failed to fetch data from Yahoo Finance');
     }
+  }
+
+  getRelevantNews(String stock){
+    NewsCrawling().newsCrawling(stock, relevantNews);
   }
 
   @override
