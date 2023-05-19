@@ -30,113 +30,111 @@ class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
           const SizedBox(width: 12)
         ],
       ),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('개인정보 설정', style: AppTextStyle.b1B24()),
-              const SizedBox(height: 17),
-              Container(
-                alignment: const Alignment(0, 0),
-                child: GestureDetector(
-                  onTap: () => showCupertinoModalPopup(
-                      context: context,
-                      builder: (context) => controller.cupertinoActionSheet()),
-                  child: Obx(
-                    () => CircleAvatar(
-                      radius: 43,
-                      backgroundColor: Colors.white,
-                      backgroundImage: controller.profileUrl.value != null
-                          ? NetworkImage(controller.profileUrl.value!)
-                          : null,
-                      child: controller.profileUrl.value == null
-                          ? Image.asset('assets/icons/circle-user.png')
-                          : null,
-                    ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('개인정보 설정', style: AppTextStyle.b1B24()),
+            const SizedBox(height: 17),
+            Container(
+              alignment: const Alignment(0, 0),
+              child: GestureDetector(
+                onTap: () => showCupertinoModalPopup(
+                    context: context,
+                    builder: (context) => controller.cupertinoActionSheet()),
+                child: Obx(
+                  () => CircleAvatar(
+                    radius: 43,
+                    backgroundColor: Colors.white,
+                    backgroundImage: controller.profileUrl.value != null
+                        ? NetworkImage(controller.profileUrl.value!)
+                        : null,
+                    child: controller.profileUrl.value == null
+                        ? Image.asset('assets/icons/circle-user.png')
+                        : null,
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              Text(
-                '이름',
-                style: AppTextStyle.b3M16(color: AppColor.grayscale100),
-              ),
-              const SizedBox(height: 10),
-              AppTextField(
+            ),
+            const SizedBox(height: 10),
+            Text(
+              '이름',
+              style: AppTextStyle.b3M16(color: AppColor.grayscale100),
+            ),
+            const SizedBox(height: 10),
+            AppTextField(
+              controller: null,
+              hintText: controller.user.value.displayName!,
+              errorText: null,
+              onChanged: null,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              '이메일',
+              style: AppTextStyle.b3M16(color: AppColor.grayscale100),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                const Icon(Icons.circle),
+                const SizedBox(width: 10),
+                Text(controller.user.value.email!)
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+              '휴대폰번호',
+              style: AppTextStyle.b3M16(color: AppColor.grayscale100),
+            ),
+            const SizedBox(height: 10),
+            Obx(
+              () => AppTextField(
                 controller: null,
-                hintText: controller.user.value.displayName!,
+                hintText: controller.userInfo.value?.phone ?? '',
                 errorText: null,
                 onChanged: null,
               ),
-              const SizedBox(height: 10),
-              Text(
-                '이메일',
-                style: AppTextStyle.b3M16(color: AppColor.grayscale100),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              '비밀번호',
+              style: AppTextStyle.b3M16(color: AppColor.grayscale100),
+            ),
+            const SizedBox(height: 10),
+            AppTextField(
+              controller: null,
+              hintText: '비밀번호 입력',
+              errorText: null,
+              onChanged: null,
+              obscureText: true,
+            ),
+            const SizedBox(height: 33),
+            const Text(
+              style: TextStyle(
+                fontSize: 16,
               ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  const Icon(Icons.circle),
-                  const SizedBox(width: 10),
-                  Text(controller.user.value.email!)
-                ],
-              ),
-              const SizedBox(height: 10),
-              Text(
-                '휴대폰번호',
-                style: AppTextStyle.b3M16(color: AppColor.grayscale100),
-              ),
-              const SizedBox(height: 10),
-              Obx(
-                () => AppTextField(
-                  controller: null,
-                  hintText: controller.userInfo.value!.phone,
-                  errorText: null,
-                  onChanged: null,
+              '비밀번호 확인',
+            ),
+            const SizedBox(height: 10),
+            AppTextField(
+              controller: null,
+              hintText: '비밀번호 확인',
+              errorText: null,
+              onChanged: null,
+              obscureText: true,
+            ),
+            Container(
+              alignment: const Alignment(1.1, 0),
+              child: TextButton(
+                onPressed: () => Get.toNamed(AppRoutes.accountDelete),
+                child: Text(
+                  '회원탈퇴',
+                  style: AppTextStyle.b4M14(color: AppColor.grayscale30),
                 ),
               ),
-              const SizedBox(height: 10),
-              Text(
-                '비밀번호',
-                style: AppTextStyle.b3M16(color: AppColor.grayscale100),
-              ),
-              const SizedBox(height: 10),
-              AppTextField(
-                controller: null,
-                hintText: '비밀번호 입력',
-                errorText: null,
-                onChanged: null,
-                obscureText: true,
-              ),
-              const SizedBox(height: 33),
-              const Text(
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-                '비밀번호 확인',
-              ),
-              const SizedBox(height: 10),
-              AppTextField(
-                controller: null,
-                hintText: '비밀번호 확인',
-                errorText: null,
-                onChanged: null,
-                obscureText: true,
-              ),
-              Container(
-                alignment: const Alignment(1.1, 0),
-                child: TextButton(
-                  onPressed: () => Get.toNamed(AppRoutes.accountDelete),
-                  child: Text(
-                    '회원탈퇴',
-                    style: AppTextStyle.b4M14(color: AppColor.grayscale30),
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

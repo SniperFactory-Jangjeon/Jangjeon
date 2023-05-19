@@ -37,6 +37,7 @@ class CertifyPage extends GetView<PersonalInfoEditController> {
                       style: AppTextStyle.h4B20(),
                     ),
                     const SizedBox(height: 20),
+                    const Text('(회원가입때 본인 인증했던 번호)'),
                     AppTextField(
                       controller: controller.phoneController,
                       hintText: '-를 제외한 휴대폰 번호',
@@ -56,7 +57,7 @@ class CertifyPage extends GetView<PersonalInfoEditController> {
                                       : null),
                             ))),
                     Visibility(
-                        visible: controller.isTextFieldVisible.value,
+                        visible: controller.isShowAuthNumberField.value,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
