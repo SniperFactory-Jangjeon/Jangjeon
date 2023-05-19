@@ -24,8 +24,11 @@ class PersonalInfoEditController extends GetxController {
 
   var phoneController = TextEditingController(); //본인인증 전화번호
   var certifyController = TextEditingController(); //본인인증 인증번호
+  var nameController = TextEditingController(); //개인정보 설정 이름
+  var pwController = TextEditingController(); //개인정보 설정 비밀번호
+  var pwconfirmController = TextEditingController(); //개인정보 설정 비밀번호 확인
   RxBool isCertifyButton = false.obs; //인증요청버튼 활성화 여부
-  RxBool isTextFieldVisible = false.obs; //인증번호입력 텍스트필드 Visible 활성화 여부
+  RxBool isShowAuthNumberField = false.obs; //인증번호입력 텍스트필드 Visible 활성화 여부
   RxBool isConfirmCodeBtnActivated = false.obs; //코드 확인 버튼 활성화 여부
   RxBool isNextPageButton = false.obs; //개인정보수정하러가기 버튼 활성화 여부
 
@@ -90,7 +93,8 @@ class PersonalInfoEditController extends GetxController {
   //인증요청 버튼 활성화
   certifyButton() {
     //유저 폰번호랑 같으면..?
-    if (phoneController.text.isNotEmpty) {
+    if (phoneController.text.isNotEmpty &&
+        phoneController.text == userInfo.value?.phone) {
       isCertifyButton.value = true;
     } else {
       isCertifyButton.value = false;
@@ -111,7 +115,8 @@ class PersonalInfoEditController extends GetxController {
   requestVerificationCode() async {
     code = (Random().nextInt(899999) + 100000).toString();
     await SMSService().requestVerificationCode(phoneController.text, code);
-    isTextFieldVisible.value = true;
+    isShowAuthNumberField.value = true;
+    // if(){}
   }
 
   //인증번호 확인
@@ -139,5 +144,16 @@ class PersonalInfoEditController extends GetxController {
   void onInit() async {
     super.onInit();
     userInfo(await getUserInfo());
+  }
+
+  resetTimer() {
+    timer?.cancel();
+    timer = null;
+  }
+
+  @override
+  void dispose() {
+    resetTimer();
+    super.dispose();
   }
 }
