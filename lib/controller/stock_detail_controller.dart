@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -20,7 +18,10 @@ class StockDetailController extends GetxController {
   RxBool isLoading = false.obs;
 
   RxString companyInfo = ''.obs;
-  
+  RxString industry = ''.obs;
+  RxList revenus = [].obs;
+  RxList earnings = [].obs;
+
   RxList relevantNews = [].obs;
 
   //주식 주가 데이터 가져오기
@@ -45,7 +46,6 @@ class StockDetailController extends GetxController {
 
     maxStock = result.reduce((curr, next) => curr.y > next.y ? curr : next);
     minStock = result.reduce((curr, next) => curr.y < next.y ? curr : next);
-    print(maxStock);
     isLoading(false);
   }
 
@@ -57,6 +57,7 @@ class StockDetailController extends GetxController {
       final document = parser.parse(response.body);
       final elements = document.querySelectorAll('#Col1-0-Profile-Proxy p');
       if (elements.isNotEmpty) {
+        industry(elements[1].children[4].text);
         companyInfo(elements[2].text.trim());
       }
     } else {
@@ -64,14 +65,46 @@ class StockDetailController extends GetxController {
     }
   }
 
-  getRelevantNews(String stock){
+  //기업 실적 가져오기
+  getCompanyPerfomance(ticker) async {
+    final url =
+        'https://finance.yahoo.com/quote/$ticker/financials'; // 야후 파이낸스 URL
+
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final document = parser.parse(response.body);
+
+      final elements = document.querySelectorAll(
+          '#Col1-1-Financials-Proxy div[data-test="fin-col"] span');
+
+      revenus.addAll(<double>[
+        double.parse(elements[4].text), //2019년도 매출
+        double.parse(elements[3].text), //2020년도 매출
+        double.parse(elements[2].text), //2021년도 매출
+        double.parse(elements[1].text) //2022년도 매출
+      ]);
+
+      earnings.addAll([
+        double.parse(elements[46].text), //2019년도 이익
+        double.parse(elements[47].text), //2020년도 이익
+        double.parse(elements[48].text), //2021년도 이익
+        double.parse(elements[49].text) //2022년도 이익
+      ]);
+
+      print(revenus);
+      print(earnings);
+    }
+  }
+
+  getRelevantNews(String stock) {
     NewsCrawling().newsCrawling(stock, relevantNews);
   }
 
   @override
   void onInit() async {
     super.onInit();
-    await readStockData('TSLA');
-    await getCompanyInfo('TSLA');
+    await readStockData(ticker);
+    await getCompanyInfo(ticker);
+    await getCompanyPerfomance(ticker);
   }
 }

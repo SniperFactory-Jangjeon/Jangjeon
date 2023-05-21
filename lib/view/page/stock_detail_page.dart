@@ -370,9 +370,11 @@ class StockDetailPage extends GetView<StockDetailController> {
                             label: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Text('전기차',
-                                  style: AppTextStyle.b3M16(
-                                      color: AppColor.red100)),
+                              child: Obx(
+                                () => Text(controller.industry.value,
+                                    style: AppTextStyle.b3M16(
+                                        color: AppColor.red100)),
+                              ),
                             ),
                           ),
                         ],
@@ -380,31 +382,35 @@ class StockDetailPage extends GetView<StockDetailController> {
                     ),
                     Text('주요 제품', style: AppTextStyle.h4B20()),
                     const SizedBox(height: 20),
-                    SizedBox(
-                      height: 150,
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 6,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Column(children: [
-                            SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: Image.network(
-                                  'https://picsum.photos/50/20',
-                                  fit: BoxFit.cover,
-                                )),
-                            const SizedBox(height: 10),
-                            Text(
-                              '모델 $index',
-                              style: AppTextStyle.b5R12(),
-                            )
-                          ]),
-                        ),
-                      ),
-                    )
+                    Text(
+                      style: AppTextStyle.b3R16(),
+                      '준비 중입니다...',
+                    ),
+                    // SizedBox(
+                    //   height: 150,
+                    //   child: ListView.builder(
+                    //     physics: const BouncingScrollPhysics(),
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemCount: 6,
+                    //     itemBuilder: (context, index) => Padding(
+                    //       padding: const EdgeInsets.only(right: 8.0),
+                    //       child: Column(children: [
+                    //         SizedBox(
+                    //             width: 100,
+                    //             height: 100,
+                    //             child: Image.network(
+                    //               'https://picsum.photos/50/20',
+                    //               fit: BoxFit.cover,
+                    //             )),
+                    //         const SizedBox(height: 10),
+                    //         Text(
+                    //           '모델 $index',
+                    //           style: AppTextStyle.b5R12(),
+                    //         )
+                    //       ]),
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               )
