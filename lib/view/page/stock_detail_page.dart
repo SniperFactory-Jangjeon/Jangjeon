@@ -288,16 +288,17 @@ class StockDetailPage extends GetView<StockDetailController> {
                               : 3,
                           itemBuilder: (context, index) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: InkWell(
-                              onTap: () {},
-                              child: CommentTile(
+                            child: Obx(
+                              () => CommentTile(
+                                  onTap: () => controller.increseCommentLikes(
+                                      controller.comments[index]),
                                   nickname:
                                       controller.comments[index].userInfo.name,
                                   profileImg: controller
                                           .comments[index].userInfo.photoUrl ??
                                       '',
                                   content: controller.comments[index].comment,
-                                  like: 5,
+                                  like: controller.comments[index].likes.value,
                                   comment: 1,
                                   time: DateFormat('yyyy/MM/dd hh시 mm분').format(
                                       controller.comments[index].createdAt)),

@@ -180,6 +180,12 @@ class StockDetailController extends GetxController {
     comments = await DBService().readComments(ticker);
   }
 
+  //댓글 좋아요 수 증가
+  increseCommentLikes(comment) {
+    DBService().increseCommentLikes(ticker, comment.id);
+    comment.likes += 1;
+  }
+
   getRelevantNews(String stock) {
     NewsCrawling().newsCrawling(stock, relevantNews);
   }

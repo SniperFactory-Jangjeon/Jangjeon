@@ -13,13 +13,15 @@ class CommentTile extends StatelessWidget {
       required this.like,
       required this.comment,
       required this.time,
-      required this.profileImg});
+      required this.profileImg,
+      required this.onTap});
   final String nickname;
   final String profileImg;
   final String content;
   final int like;
   final int comment;
   final String time;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -72,27 +74,30 @@ class CommentTile extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          FaIcon(
-                            FontAwesomeIcons.solidHeart,
-                            size: 15,
-                            color: AppColor.grayscale10,
+                          InkWell(
+                            onTap: onTap,
+                            child: FaIcon(
+                              FontAwesomeIcons.solidHeart,
+                              size: 15,
+                              color: AppColor.grayscale10,
+                            ),
                           ),
                           SizedBox(width: 8),
                           Text(like.toString(), style: AppTextStyle.b5R12()),
                         ],
                       ),
                       SizedBox(width: 15),
-                      Row(
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.solidHeart,
-                            size: 15,
-                            color: AppColor.grayscale10,
-                          ),
-                          SizedBox(width: 8),
-                          Text(comment.toString(), style: AppTextStyle.b5R12()),
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     FaIcon(
+                      //       FontAwesomeIcons.solidHeart,
+                      //       size: 15,
+                      //       color: AppColor.grayscale10,
+                      //     ),
+                      //     SizedBox(width: 8),
+                      //     Text(comment.toString(), style: AppTextStyle.b5R12()),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ],

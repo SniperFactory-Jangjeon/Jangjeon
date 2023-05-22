@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:jangjeon/controller/comments_controller.dart';
+import 'package:jangjeon/controller/stock_detail_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/comment_tile.dart';
@@ -90,15 +91,20 @@ class CommentsPage extends GetView<CommentsController> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: CommentTile(
-                        nickname: controller.comments[index].userInfo.name,
-                        profileImg:
-                            controller.comments[index].userInfo.photoUrl ?? '',
-                        content: controller.comments[index].comment,
-                        like: 5,
-                        comment: 1,
-                        time: DateFormat('yyyy/MM/dd hh시 mm분')
-                            .format(controller.comments[index].createdAt)),
+                    child: Obx(
+                      () => CommentTile(
+                          onTap: () => controller.increseCommentLikes(
+                              controller.comments[index], index),
+                          nickname: controller.comments[index].userInfo.name,
+                          profileImg:
+                              controller.comments[index].userInfo.photoUrl ??
+                                  '',
+                          content: controller.comments[index].comment,
+                          like: controller.comments[index].likes.value,
+                          comment: 1,
+                          time: DateFormat('yyyy/MM/dd hh시 mm분')
+                              .format(controller.comments[index].createdAt)),
+                    ),
                   );
                 },
                 separatorBuilder: (context, index) {
