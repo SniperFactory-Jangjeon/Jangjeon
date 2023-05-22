@@ -63,7 +63,6 @@ class CommentTile extends StatelessWidget {
                   SizedBox(height: 5),
                   SizedBox(
                     height: 55,
-                    width: Get.width * 0.7,
                     child: Text(content,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
