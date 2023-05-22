@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:jangjeon/model/comment.dart';
+import 'package:jangjeon/service/cloud_translate.dart';
 import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/service/news_crawling.dart';
 import 'package:yahoofin/yahoofin.dart';
@@ -133,8 +134,10 @@ class StockDetailController extends GetxController {
       final document = parser.parse(response.body);
       final elements = document.querySelectorAll('#Col1-0-Profile-Proxy p');
       if (elements.isNotEmpty) {
-        industry = elements[1].children[4].text;
-        companyInfo = elements[2].text.trim();
+        industry =
+            await CloudTranslate().getTranslation(elements[1].children[4].text);
+        companyInfo =
+            await CloudTranslate().getTranslation(elements[2].text.trim());
       }
     } else {
       throw Exception('Failed to fetch data from Yahoo Finance');
@@ -153,11 +156,11 @@ class StockDetailController extends GetxController {
       final elements = document.querySelectorAll(
           '#Col1-1-Financials-Proxy div[data-test="fin-col"] span');
 
-      revenus.addAll(<double>[
-        double.parse(elements[4].text), //2019년도 매출
-        double.parse(elements[3].text), //2020년도 매출
-        double.parse(elements[2].text), //2021년도 매출
-        double.parse(elements[1].text) //2022년도 매출
+      revenus.addAll([
+        elements[4].text, //2019년도 매출
+        elements[3].text, //2020년도 매출
+        elements[2].text, //2021년도 매출
+        elements[1].text //2022년도 매출
       ]);
 
       earnings.addAll([
