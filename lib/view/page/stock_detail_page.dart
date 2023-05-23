@@ -262,23 +262,36 @@ class StockDetailPage extends GetView<StockDetailController> {
                           style: AppTextStyle.h4B20(),
                         ),
                         const SizedBox(height: 8),
-                        ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 3,
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: InkWell(
-                              onTap: () {},
-                              child: NewsTile(
-                                  title: '테슬라 액면 분할, 삼백슬라되나',
-                                  time: '1',
-                                  aiScore: 50,
-                                  img: 'https://picsum.photos/100/200'),
+                        Obx(
+                          () => ListView.separated(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: controller.relevantNews.length > 3
+                                ? 3
+                                : controller.relevantNews.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: InkWell(
+                                onTap: () {
+                                  Get.toNamed(AppRoutes.newsDetail,
+                                      arguments:
+                                          controller.relevantNews[index]);
+                                  Get.forceAppUpdate();
+                                },
+                                child: NewsTile(
+                                    title: controller.relevantNews[index]
+                                        ['title'],
+                                    time: controller.relevantNews[index]
+                                        ['date'],
+                                    aiScore: controller.relevantNews[index]
+                                        ['aiScore'],
+                                    img: controller.relevantNews[index]
+                                        ['thumbnail']),
+                              ),
                             ),
-                          ),
-                          separatorBuilder: (context, index) => const Divider(
-                            thickness: 1,
+                            separatorBuilder: (context, index) => index == 0
+                                ? const SizedBox()
+                                : const Divider(thickness: 1),
                           ),
                         ),
                       ],
@@ -287,7 +300,10 @@ class StockDetailPage extends GetView<StockDetailController> {
                   const Divider(thickness: 1),
                   Center(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.allNews,
+                            arguments: controller.relevantNews);
+                      },
                       child: Text(
                         '더보기',
                         style: AppTextStyle.b3R16(),

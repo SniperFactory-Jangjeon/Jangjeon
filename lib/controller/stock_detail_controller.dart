@@ -190,7 +190,7 @@ class StockDetailController extends GetxController {
   }
 
   getRelevantNews(String stock) {
-    NewsCrawling().newsCrawling(stock, relevantNews);
+     NewsCrawling().newsCrawling(stock, relevantNews);
   }
 
   @override
@@ -203,6 +203,7 @@ class StockDetailController extends GetxController {
     await getCompanyInfo();
     await getCompanyPerfomance();
     await readComments();
+    await getRelevantNews(ticker);
     isLoading(false);
   }
 }
