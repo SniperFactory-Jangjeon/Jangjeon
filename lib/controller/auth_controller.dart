@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/service/auth_service.dart';
+import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/view/widget/app_dialog.dart';
 
@@ -24,6 +25,11 @@ class AuthController extends GetxController {
 
   //회원탈퇴
   deleteUser() => AuthService().deleteUser();
+
+  //닉네임 중복 체크
+  checkDuplicateNickname(nickname) async =>
+      await DBService().checkDuplicateNickname(nickname);
+
   //토큰 로그인
   signInWithCustomToken(token) => AuthService().signInWithCustomToken(token);
 

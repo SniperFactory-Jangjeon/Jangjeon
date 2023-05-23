@@ -41,15 +41,17 @@ dependencies:
   flutter_svg: ^1.1.6
   font_awesome_flutter: ^10.4.0
   get: ^4.6.5
+  html: ^0.15.3
+  html_unescape: ^2.0.0
   http: ^0.13.5
   image_picker: ^0.8.7+4
-  kakao_flutter_sdk_user: ^1.4.2
-  yahoofin: ^0.0.8
-  html: ^0.15.3
-  xml: ^6.1.0
   intl: ^0.18.1
-  html_unescape: ^2.0.0
+  kakao_flutter_sdk_user: ^1.4.2
+  uuid: ^3.0.7
   webview_flutter: ^4.2.0
+  # toss_payment: ^0.2.6
+  xml: ^6.1.0
+  yahoofin: ^0.0.8
 
 dev_dependencies:
   flutter_lints: ^2.0.1

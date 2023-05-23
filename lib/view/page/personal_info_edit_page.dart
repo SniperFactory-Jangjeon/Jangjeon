@@ -26,11 +26,13 @@ class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
             icon: const Icon(Icons.arrow_back_ios_new)),
         actions: [
           TextButton(
-              onPressed: () {}, child: Text('저장', style: AppTextStyle.b2M18())),
+              onPressed: controller.changeUserInfo,
+              child: Text('저장', style: AppTextStyle.b2M18())),
           const SizedBox(width: 12)
         ],
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,11 +65,13 @@ class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
               style: AppTextStyle.b3M16(color: AppColor.grayscale100),
             ),
             const SizedBox(height: 10),
-            AppTextField(
-              controller: null,
-              hintText: controller.user.value.displayName!,
-              errorText: null,
-              onChanged: null,
+            Obx(
+              () => AppTextField(
+                controller: controller.nameController,
+                hintText: controller.userInfo.value?.name ?? '',
+                errorText: controller.nicknameError.value,
+                onChanged: controller.checkDuplicateNickname,
+              ),
             ),
             const SizedBox(height: 10),
             Text(
@@ -79,7 +83,7 @@ class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
               children: [
                 const Icon(Icons.circle),
                 const SizedBox(width: 10),
-                Text(controller.user.value.email!)
+                Obx(() => Text(controller.userInfo.value?.email ?? ''))
               ],
             ),
             const SizedBox(height: 10),
@@ -90,10 +94,8 @@ class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
             const SizedBox(height: 10),
             Obx(
               () => AppTextField(
-                controller: null,
                 hintText: controller.userInfo.value?.phone ?? '',
-                errorText: null,
-                onChanged: null,
+                readOnly: true,
               ),
             ),
             const SizedBox(height: 10),
@@ -102,12 +104,14 @@ class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
               style: AppTextStyle.b3M16(color: AppColor.grayscale100),
             ),
             const SizedBox(height: 10),
-            AppTextField(
-              controller: null,
-              hintText: '비밀번호 입력',
-              errorText: null,
-              onChanged: null,
-              obscureText: true,
+            Obx(
+              () => AppTextField(
+                controller: controller.pwController,
+                hintText: '비밀번호 입력',
+                errorText: controller.pwError.value,
+                onChanged: controller.checkPwValidation,
+                obscureText: true,
+              ),
             ),
             const SizedBox(height: 33),
             const Text(
@@ -117,15 +121,17 @@ class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
               '비밀번호 확인',
             ),
             const SizedBox(height: 10),
-            AppTextField(
-              controller: null,
-              hintText: '비밀번호 확인',
-              errorText: null,
-              onChanged: null,
-              obscureText: true,
+            Obx(
+              () => AppTextField(
+                controller: controller.pwconfirmController,
+                hintText: '비밀번호 확인',
+                errorText: controller.pwConfirmError.value,
+                onChanged: controller.checkPwConfirmValidation,
+                obscureText: true,
+              ),
             ),
             Container(
-              alignment: const Alignment(1.1, 0),
+              alignment: const Alignment(1.0, 0),
               child: TextButton(
                 onPressed: () => Get.toNamed(AppRoutes.accountDelete),
                 child: Text(

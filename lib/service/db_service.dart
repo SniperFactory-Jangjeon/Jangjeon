@@ -30,6 +30,17 @@ class DBService {
     return result.data()!;
   }
 
+  //닉네임 중복 체크
+  checkDuplicateNickname(nickname) => userInfoRef
+      .where('name', isEqualTo: nickname)
+      .get()
+      .then((value) => value.docs.isNotEmpty)
+      .catchError((_) => '');
+
+  //유저 이름 업데이트
+  updatename(String uid, String nickname) =>
+      userInfoRef.doc(uid).update({'name': nickname});
+
   //전화번호와 일치하는 이메일 찾기
   getEmailWithPhone(phone) => userInfoRef
       .where("phone", isEqualTo: phone)
@@ -51,7 +62,7 @@ class DBService {
 
     final userRef = userInfoRef.doc(uid);
 
-    commentRef.add(comment.toMap(userRef));
+    commentRef.doc(comment.id).set(comment.toMap(userRef));
   }
 
   //전체 댓글 읽어오기
@@ -66,12 +77,22 @@ class DBService {
     for (var element in result.docs) {
       var userInfo = await element.data()['userInfo'].get();
       Comment comment = Comment.fromMap({
+        'id': element.data()['id'],
         'comment': element.data()['comment'],
         'userInfo': userInfo.data(),
-        'createdAt': element.data()['createdAt']
+        'createdAt': element.data()['createdAt'],
+        'likes': element.data()['likes']
       });
       comments.add(comment);
     }
     return comments;
+  }
+
+  //댓글 좋아요 수 증가
+  increseCommentLikes(ticker, id) async {
+    final stockId = await getStockDocId(ticker);
+    final commentRef =
+        FirebaseFirestore.instance.collection('stockList/$stockId/comment');
+    await commentRef.doc(id).update({"likes": FieldValue.increment(1)});
   }
 }
