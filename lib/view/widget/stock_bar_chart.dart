@@ -5,17 +5,43 @@ import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 
 class StockBarChart extends StatelessWidget {
-  const StockBarChart({super.key});
+  StockBarChart({super.key, required this.revenus, required this.earnings});
+
+  final List<double> revenus;
+  final List<double> earnings;
+
+  double overallMax = 0;
+  double overallMin = 0;
+
+  getMaxY() {
+    double max1 =
+        revenus.reduce((value, element) => value > element ? value : element);
+    double max2 =
+        earnings.reduce((value, element) => value > element ? value : element);
+
+    overallMax = max1 > max2 ? max1 : max2;
+  }
+
+  getMinY() {
+    double min1 =
+        revenus.reduce((value, element) => value < element ? value : element);
+    double min2 =
+        earnings.reduce((value, element) => value < element ? value : element);
+
+    overallMin = min1 < min2 ? min1 : min2;
+  }
 
   @override
   Widget build(BuildContext context) {
+    getMaxY();
+    getMinY();
     return SizedBox(
       width: Get.width,
       height: 200,
       child: BarChart(
         BarChartData(
-          maxY: 350,
-          minY: 0,
+          maxY: overallMax,
+          minY: overallMin < 0 ? overallMin : 0,
           barGroups: [
             BarChartGroupData(
               barsSpace: 4,
@@ -23,13 +49,13 @@ class StockBarChart extends StatelessWidget {
               barRods: [
                 BarChartRodData(
                   borderRadius: BorderRadius.circular(3),
-                  toY: 100,
+                  toY: revenus[0],
                   color: Colors.green,
                   width: 15,
                 ),
                 BarChartRodData(
                   borderRadius: BorderRadius.circular(3),
-                  toY: 10,
+                  toY: earnings[0],
                   color: Colors.blue,
                   width: 15,
                 ),
@@ -41,13 +67,13 @@ class StockBarChart extends StatelessWidget {
               barRods: [
                 BarChartRodData(
                   borderRadius: BorderRadius.circular(3),
-                  toY: 150,
+                  toY: revenus[1],
                   color: Colors.green,
                   width: 15,
                 ),
                 BarChartRodData(
                   borderRadius: BorderRadius.circular(3),
-                  toY: 50,
+                  toY: earnings[1],
                   color: Colors.blue,
                   width: 15,
                 ),
@@ -59,13 +85,13 @@ class StockBarChart extends StatelessWidget {
               barRods: [
                 BarChartRodData(
                   borderRadius: BorderRadius.circular(3),
-                  toY: 190,
+                  toY: revenus[2],
                   color: Colors.green,
                   width: 15,
                 ),
                 BarChartRodData(
                   borderRadius: BorderRadius.circular(3),
-                  toY: 80,
+                  toY: earnings[2],
                   color: Colors.blue,
                   width: 15,
                 ),
@@ -77,13 +103,13 @@ class StockBarChart extends StatelessWidget {
               barRods: [
                 BarChartRodData(
                   borderRadius: BorderRadius.circular(3),
-                  toY: 220,
+                  toY: revenus[3],
                   color: Colors.green,
                   width: 15,
                 ),
                 BarChartRodData(
                   borderRadius: BorderRadius.circular(3),
-                  toY: 40,
+                  toY: earnings[3],
                   color: Colors.blue,
                   width: 15,
                 ),
@@ -99,20 +125,25 @@ class StockBarChart extends StatelessWidget {
                   String text = '';
                   if (value == 0) {
                     text = '0';
-                  } else if (value == 50) {
-                    text = '50억';
-                  } else if (value == 100) {
-                    text = '100억';
-                  } else if (value == 150) {
-                    text = '150억';
-                  } else if (value == 200) {
-                    text = '200억';
-                  } else if (value == 250) {
-                    text = '250억';
-                  } else if (value == 300) {
-                    text = '300억';
-                  } else if (value == 350) {
-                    text = '350억';
+                  } else if (value == overallMax) {
+                    text = '${overallMax}M';
+                  } else if (value == (overallMax * 0.75).round()) {
+                    text = '${(overallMax * 0.75).round()}M';
+                  } else if (value == (overallMax * 0.5).round()) {
+                    text = '${(overallMax * 0.5).round()}M';
+                  } else if (value == (overallMax * 0.25).round()) {
+                    text = '${(overallMax * 0.25).round()}M';
+                  } else if (overallMin < 0 && value == overallMin) {
+                    text = '${overallMin}M';
+                  } else if (overallMin < 0 &&
+                      value == (overallMin * 0.75).round()) {
+                    text = '${(overallMin * 0.75).round()}M';
+                  } else if (overallMin < 0 &&
+                      value == (overallMin * 0.5).round()) {
+                    text = '${(overallMin * 0.5).round()}M';
+                  } else if (overallMin < 0 &&
+                      value == (overallMin * 0.25).round()) {
+                    text = '${(overallMin * 0.25).round()}M';
                   }
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -121,7 +152,7 @@ class StockBarChart extends StatelessWidget {
                       space: 0,
                       child: Text(
                         text,
-                        style: AppTextStyle.b5R12(color: AppColor.grayscale60),
+                        style: AppTextStyle.b5R10(color: AppColor.grayscale60),
                       ),
                     ),
                   );

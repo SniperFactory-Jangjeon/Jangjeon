@@ -45,7 +45,7 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    deleteUser();
+    //deleteUser();
     FirebaseAuth.instance.authStateChanges().listen((value) async {
       _user(value);
       if (Get.currentRoute != AppRoutes.signup) {

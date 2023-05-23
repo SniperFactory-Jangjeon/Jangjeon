@@ -43,6 +43,7 @@ class StockLineChart extends StatelessWidget {
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
+                interval: 1,
                 getTitlesWidget: (value, meta) {
                   if (value == lowsetX) {
                     // 최저 그래프 x값
@@ -80,6 +81,7 @@ class StockLineChart extends StatelessWidget {
             topTitles: AxisTitles(
               sideTitles: SideTitles(
                   showTitles: true,
+                  interval: 1,
                   getTitlesWidget: (value, meta) {
                     if (value == bestX) {
                       // 최고 그래프 x 값
