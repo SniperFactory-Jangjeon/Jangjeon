@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:jangjeon/model/comment.dart';
+import 'package:jangjeon/model/exchange.dart';
 import 'package:jangjeon/service/cloud_translate.dart';
 import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/service/news_crawling.dart';
@@ -22,7 +24,9 @@ class StockDetailController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxBool isChartLoading = false.obs;
+  RxBool isDollarChecked = true.obs;
 
+  Exchange? exchange;
   List cost = [];
   String companyInfo = '';
   String industry = '';
@@ -31,6 +35,24 @@ class StockDetailController extends GetxController {
 
   List<Comment> comments = [];
   RxList relevantNews = [].obs;
+
+  //환율 가져오기
+  getExchangeRate() async {
+    const url =
+        'https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD';
+
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final res = jsonDecode(response.body);
+
+      exchange = Exchange(
+          exchange: res.first["basePrice"],
+          date: res.first["date"].substring(5, 10).replaceFirst('-', '/'),
+          time: res.first["time"].substring(0, 5));
+      print(exchange!.date);
+      print(exchange!.time);
+    }
+  }
 
   //주가 차트 기간 선택
   handleChangePeriod(index) {
@@ -194,6 +216,7 @@ class StockDetailController extends GetxController {
   void onInit() async {
     super.onInit();
     isLoading(true);
+    await getExchangeRate();
     await getCost();
     await readStockData(StockRange.oneDay);
     await getCompanyInfo();

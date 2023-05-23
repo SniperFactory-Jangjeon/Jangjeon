@@ -42,68 +42,98 @@ class StockDetailPage extends GetView<StockDetailController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  controller.ticker,
-                                  style: AppTextStyle.b2M18(),
-                                ),
-                                const SizedBox(height: 3),
-                                Text(
-                                  '\$ ${controller.cost[0]}',
-                                  style: AppTextStyle.h3B24(),
-                                ),
-                                const SizedBox(height: 3),
-                                Text(
-                                    '${controller.cost[1]} ${controller.cost[2]}',
-                                    style: AppTextStyle.b5M12(
-                                        color: AppColor.red100))
-                              ],
+                            Obx(
+                              () => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    controller.ticker,
+                                    style: AppTextStyle.b2M18(),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    controller.isDollarChecked.value
+                                        ? '\$ ${controller.cost[0]}'
+                                        : '${double.parse(controller.cost[0]) * controller.exchange!.exchange} 원',
+                                    style: AppTextStyle.h3B24(),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                      controller.isDollarChecked.value
+                                          ? '${controller.cost[1]} ${controller.cost[2]}'
+                                          : '${double.parse(controller.cost[1]) * controller.exchange!.exchange} ${controller.cost[2]}',
+                                      style: AppTextStyle.b5M12(
+                                          color: AppColor.red100))
+                                ],
+                              ),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          color: AppColor.red100,
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      child: const Icon(
-                                        Icons.attach_money_outlined,
-                                        color: Colors.white,
-                                        size: 22,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          color: AppColor.grayscale10,
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      child: Center(
-                                        child: Text(
-                                          '원',
-                                          style: AppTextStyle.b3B16(),
+                                Obx(
+                                  () => Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () =>
+                                            controller.isDollarChecked(true),
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                              color: controller
+                                                      .isDollarChecked.value
+                                                  ? AppColor.red100
+                                                  : AppColor.grayscale10,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: Icon(
+                                            Icons.attach_money_outlined,
+                                            color:
+                                                controller.isDollarChecked.value
+                                                    ? AppColor.grayscale0
+                                                    : Colors.black,
+                                            size: 22,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(width: 5),
+                                      InkWell(
+                                        onTap: () =>
+                                            controller.isDollarChecked(false),
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                              color: !controller
+                                                      .isDollarChecked.value
+                                                  ? AppColor.red100
+                                                  : AppColor.grayscale10,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: Center(
+                                            child: Text(
+                                              '원',
+                                              style: AppTextStyle.b3B16(
+                                                color: !controller
+                                                        .isDollarChecked.value
+                                                    ? AppColor.grayscale0
+                                                    : Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(height: 3),
                                 Text(
-                                  '환율 1319.5원',
+                                  '환율 ${controller.exchange!.exchange}원',
                                   style: AppTextStyle.b4M14(),
                                 ),
                                 const SizedBox(height: 3),
                                 Text(
-                                  '8/25 오전 8:40 기준',
+                                  '${controller.exchange!.date} ${controller.exchange!.time} 기준',
                                   style: AppTextStyle.b5R12(),
                                 )
                               ],
@@ -172,33 +202,33 @@ class StockDetailPage extends GetView<StockDetailController> {
                                 ),
                               ),
                             ),
-                            Container(
-                              width: Get.width * 0.12,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                  color: AppColor.red100,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: const Center(
-                                child: FaIcon(
-                                  FontAwesomeIcons.chartSimple,
-                                  size: 15,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: Get.width * 0.12,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                  color: AppColor.grayscale10,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Center(
-                                child: Text(
-                                  '호가',
-                                  style: AppTextStyle.b4M14(),
-                                ),
-                              ),
-                            )
+                            // Container(
+                            //   width: Get.width * 0.12,
+                            //   height: 30,
+                            //   decoration: BoxDecoration(
+                            //       color: AppColor.red100,
+                            //       borderRadius: BorderRadius.circular(30)),
+                            //   child: const Center(
+                            //     child: FaIcon(
+                            //       FontAwesomeIcons.chartSimple,
+                            //       size: 15,
+                            //       color: Colors.white,
+                            //     ),
+                            //   ),
+                            // ),
+                            // Container(
+                            //   width: Get.width * 0.12,
+                            //   height: 30,
+                            //   decoration: BoxDecoration(
+                            //       color: AppColor.grayscale10,
+                            //       borderRadius: BorderRadius.circular(30)),
+                            //   child: Center(
+                            //     child: Text(
+                            //       '호가',
+                            //       style: AppTextStyle.b4M14(),
+                            //     ),
+                            //   ),
+                            // )
                           ],
                         ),
                       ],
