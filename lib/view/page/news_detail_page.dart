@@ -167,6 +167,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                         child: InkWell(
                           onTap: () {},
                           child: CommentTile(
+                            onTap: () {},
                             nickname: '개굴개구리',
                             profileImg: '',
                             content: '친슬라 가게 해줘이',

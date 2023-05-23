@@ -62,7 +62,7 @@ class DBService {
 
     final userRef = userInfoRef.doc(uid);
 
-    commentRef.add(comment.toMap(userRef));
+    commentRef.doc(comment.id).set(comment.toMap(userRef));
   }
 
   //전체 댓글 읽어오기
@@ -77,12 +77,22 @@ class DBService {
     for (var element in result.docs) {
       var userInfo = await element.data()['userInfo'].get();
       Comment comment = Comment.fromMap({
+        'id': element.data()['id'],
         'comment': element.data()['comment'],
         'userInfo': userInfo.data(),
-        'createdAt': element.data()['createdAt']
+        'createdAt': element.data()['createdAt'],
+        'likes': element.data()['likes']
       });
       comments.add(comment);
     }
     return comments;
+  }
+
+  //댓글 좋아요 수 증가
+  increseCommentLikes(ticker, id) async {
+    final stockId = await getStockDocId(ticker);
+    final commentRef =
+        FirebaseFirestore.instance.collection('stockList/$stockId/comment');
+    await commentRef.doc(id).update({"likes": FieldValue.increment(1)});
   }
 }
