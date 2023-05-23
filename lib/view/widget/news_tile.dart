@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/util/app_text_style.dart';
+import 'package:jangjeon/view/widget/ai_score.dart';
 
 class NewsTile extends StatelessWidget {
   const NewsTile(
@@ -39,17 +40,7 @@ class NewsTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(time, style: AppTextStyle.b5R12()),
-                    Row(
-                      children: [
-                        aiScore > 0
-                            ? SvgPicture.asset('assets/svg/ai_positive.svg')
-                            : SvgPicture.asset('assets/svg/ai_negative.svg'),
-                        Text(
-                          aiScore > 0 ? ' +$aiScore' : ' $aiScore',
-                          style: AppTextStyle.b4B14(),
-                        ),
-                      ],
-                    ),
+                    AiScore(aiScore: aiScore)
                   ],
                 ),
               ],

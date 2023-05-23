@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/service/cloud_natural_language.dart';
 import 'package:jangjeon/service/news_crawling.dart';
 
 class MainController extends GetxController {
   // PageController pageController = PageController();
   // RxInt selectedIndex = 0.obs;
-  RxDouble investmentIndex = (65.0).obs;
-  RxDouble negative = (0.3).obs;
-  RxDouble positive = (0.45).obs;
-  RxDouble neutrality = (0.25).obs;
+  RxDouble investmentIndex = (0.0).obs;
   RxInt bottomNavIndex = 0.obs;
   RxList news = [].obs;
-  RxInt isSeletedFilter = 0.obs;
+  RxInt isSeletedFilter = 10.obs;
   // handleNavigationOnTap(int index) {
   //   selectedIndex(index);
   //   pageController.jumpToPage(selectedIndex.value);
   // }
 
-  var stockList = ['appl', 'googl', 'msft'];
+  var stockList = ['appl', 'googl', 'msft', 'tsla'];
 
   getNews() async {
     for (var i = 0; i < stockList.length; i++) {
       NewsCrawling().newsCrawling(stockList[i], news);
     }
-    news.toSet().toList();
   }
 
   filterNews(int index) {
@@ -42,10 +39,11 @@ class MainController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async{
     // TODO: implement onInit
     super.onInit();
     news.clear();
     getNews();
+    investmentIndex.value = await CloudNaturalLanguage().getPositiveNatural('오늘의 투자 지수');
   }
 }

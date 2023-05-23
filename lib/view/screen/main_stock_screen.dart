@@ -118,13 +118,12 @@ class MainStockScreen extends GetView<MainController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 20.0),
-            child: Obx(() => AIChartBar(
-                  negative: controller.negative.value,
-                  neutrality: controller.neutrality.value,
-                  positive: controller.positive.value,
-                  investmentIndex: controller.investmentIndex.value,
-                )),
+            padding: const EdgeInsets.all(20),
+            child: Obx(
+              () => AIChartBar(
+                investmentIndex: controller.investmentIndex.value,
+              ),
+            ),
           ),
           const Divider(thickness: 10),
           Padding(
@@ -167,7 +166,7 @@ class MainStockScreen extends GetView<MainController> {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount:
-                        controller.news.length > 5 ? 5 : controller.news.length,
+                        controller.news.length > 3 ? 3 : controller.news.length,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: GestureDetector(
@@ -178,7 +177,7 @@ class MainStockScreen extends GetView<MainController> {
                         child: MainNewsTile(
                             title: controller.news[index]['title'],
                             time: controller.news[index]['date'],
-                            aiScore: 50,
+                            aiScore: controller.news[index]['aiScore'],
                             img: controller.news[index]['thumbnail']),
                       ),
                     ),

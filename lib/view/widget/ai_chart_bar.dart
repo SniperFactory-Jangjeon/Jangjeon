@@ -5,49 +5,42 @@ import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 
 class AIChartBar extends StatelessWidget {
-  const AIChartBar(
-      {super.key,
-      required this.negative,
-      required this.neutrality,
-      required this.positive,
-      required this.investmentIndex});
-  final double negative;
-  final double neutrality;
-  final double positive;
+  const AIChartBar({super.key, required this.investmentIndex});
   final double investmentIndex;
   @override
   Widget build(BuildContext context) {
     var width = Get.width * 0.82;
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Row(
-            children: [
-              SizedBox(
-                  width: investmentIndex == 0
-                      ? 10
-                      : width * investmentIndex * 0.01),
-              Column(
+        investmentIndex < 0
+            ? SizedBox()
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '+${investmentIndex.toInt().toString()}',
-                    style: AppTextStyle.b5B12(),
+                  SizedBox(
+                      width: investmentIndex == 0
+                          ? 10
+                          : width * investmentIndex * 0.01),
+                  Column(
+                    children: [
+                      Text(
+                        '+${investmentIndex.toInt().toString()}',
+                        style: AppTextStyle.b5B12(),
+                      ),
+                      SizedBox(height: 3),
+                      FaIcon(FontAwesomeIcons.mapMarkerAlt,
+                          color: AppColor.red100)
+                    ],
                   ),
-                  SizedBox(height: 3),
-                  FaIcon(FontAwesomeIcons.mapMarkerAlt, color: AppColor.red100)
                 ],
               ),
-            ],
-          ),
-        ),
         SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: width * negative,
+              width: width * 0.4,
               height: 30,
               decoration: BoxDecoration(
                 color: Colors.blue,
@@ -65,7 +58,7 @@ class AIChartBar extends StatelessWidget {
               ),
             ),
             Container(
-              width: width * neutrality,
+              width: width * 0.2,
               height: 30,
               decoration: BoxDecoration(color: Colors.yellow),
               child: Center(
@@ -76,7 +69,7 @@ class AIChartBar extends StatelessWidget {
               )),
             ),
             Container(
-              width: width * positive,
+              width: width * 0.4,
               height: 30,
               decoration: BoxDecoration(
                 color: AppColor.red100,

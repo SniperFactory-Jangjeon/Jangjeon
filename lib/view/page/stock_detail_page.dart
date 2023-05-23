@@ -198,11 +198,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                       'AI가 분석한 오늘의 투자 지수',
                       style: AppTextStyle.h4B20(),
                     ),
-                    AIChartBar(
-                        negative: 0.3,
-                        neutrality: 0.2,
-                        positive: 0.5,
-                        investmentIndex: 60),
+                    AIChartBar(investmentIndex: 60),
                   ],
                 ),
               ),

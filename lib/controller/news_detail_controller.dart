@@ -2,17 +2,21 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:html_unescape/html_unescape_small.dart';
 import 'package:http/http.dart' as http;
+import 'package:jangjeon/service/cloud_natural_language.dart';
 import 'package:jangjeon/service/cloud_translate.dart';
 import 'package:jangjeon/service/news_crawling.dart';
 
 class NewsDetailController extends GetxController {
   String apiKey = 'f0dce2f983cc65a00b24617ac3b1aadd';
   String apiUrl = 'https://api.meaningcloud.com/summarization-1.0';
+  RxDouble investmentIndex = (-1.0).obs;
   int sentences = 4;
   RxString summarContent = ''.obs;
   RxList otherNews = [].obs;
+  var news = Get.arguments;
+  RegExp regex = RegExp(r'[.!?]');
   summarizeText(String articleContent) async {
-    if (articleContent.length > 100) {
+    if (regex.allMatches(articleContent).length > 4) {
       // API 요청 본문
       var requestBody = {
         'txt': articleContent,
@@ -37,11 +41,24 @@ class NewsDetailController extends GetxController {
         summarContent('Error: ${response.statusCode}');
       }
     } else {
-      summarContent(articleContent);
+      //summarContent(articleContent);
+      summarContent.value =
+          await CloudTranslate().getTranslation(articleContent);
+      summarContent.value = HtmlUnescape().convert(summarContent.value);
     }
   }
 
   getOtherNews(String stock) async {
     NewsCrawling().newsCrawling(stock, otherNews);
+  }
+
+  @override
+  void onInit() async {
+    // TODO: implement onInit
+    super.onInit();
+    investmentIndex.value =
+        await CloudNaturalLanguage().getPositiveNatural('오늘의 ${news['stock']}');
+    summarizeText(news['article']);
+    getOtherNews(news['stock']);
   }
 }
