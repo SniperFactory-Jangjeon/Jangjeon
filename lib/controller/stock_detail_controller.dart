@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
@@ -13,7 +12,7 @@ import 'package:jangjeon/service/news_crawling.dart';
 import 'package:yahoofin/yahoofin.dart';
 
 class StockDetailController extends GetxController {
-  var ticker = 'ARMP';
+  var ticker = 'AAPL';
   List<FlSpot> chartData = [];
 
   RxString selectedTime = '1일'.obs;
@@ -30,8 +29,8 @@ class StockDetailController extends GetxController {
   List cost = [];
   String companyInfo = '';
   String industry = '';
-  List revenus = [];
-  List earnings = [];
+  List<double> revenus = [];
+  List<double> earnings = [];
 
   List<Comment> comments = [];
   RxList relevantNews = [].obs;
@@ -49,8 +48,6 @@ class StockDetailController extends GetxController {
           exchange: res.first["basePrice"],
           date: res.first["date"].substring(5, 10).replaceFirst('-', '/'),
           time: res.first["time"].substring(0, 5));
-      print(exchange!.date);
-      print(exchange!.time);
     }
   }
 
@@ -125,24 +122,6 @@ class StockDetailController extends GetxController {
 
       maxStock = result.reduce((curr, next) => curr.y > next.y ? curr : next);
       minStock = result.reduce((curr, next) => curr.y < next.y ? curr : next);
-
-      if (period == StockRange.threeMonth) {
-        if (maxStock.x % 2 != 0) {
-          maxStock = FlSpot(maxStock.x + 1, maxStock.y);
-        }
-        if (minStock.x % 2 != 0) {
-          minStock = FlSpot(minStock.x + 1, minStock.y);
-        }
-      }
-
-      if (period == StockRange.fiveYear) {
-        if (maxStock.x % 5 != 0) {
-          maxStock = FlSpot(maxStock.x - (maxStock.x % 5), maxStock.y);
-        }
-        if (minStock.x % 5 != 0) {
-          minStock = FlSpot(minStock.x - (minStock.x % 5), minStock.y);
-        }
-      }
     }
 
     isChartLoading(false);
@@ -178,22 +157,24 @@ class StockDetailController extends GetxController {
       final elements = document.querySelectorAll(
           '#Col1-1-Financials-Proxy div[data-test="fin-col"] span');
 
-      revenus.addAll([
+      var revenusList = [
         elements[4].text, //2019년도 매출
         elements[3].text, //2020년도 매출
         elements[2].text, //2021년도 매출
         elements[1].text //2022년도 매출
-      ]);
+      ];
 
-      earnings.addAll([
+      var earningsList = [
         elements[46].text, //2019년도 이익
         elements[47].text, //2020년도 이익
         elements[48].text, //2021년도 이익
         elements[49].text //2022년도 이익
-      ]);
+      ];
 
-      print(revenus);
-      print(earnings);
+      revenus.addAll(revenusList.map((e) => double.parse(
+          (double.parse(e.replaceAll(',', '')) / 1000000).toStringAsFixed(2))));
+      earnings.addAll(earningsList.map((e) => double.parse(
+          (double.parse(e.replaceAll(',', '')) / 1000000).toStringAsFixed(2))));
     }
   }
 

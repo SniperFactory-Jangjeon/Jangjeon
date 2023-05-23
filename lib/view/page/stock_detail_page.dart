@@ -54,14 +54,14 @@ class StockDetailPage extends GetView<StockDetailController> {
                                   Text(
                                     controller.isDollarChecked.value
                                         ? '\$ ${controller.cost[0]}'
-                                        : '${double.parse(controller.cost[0]) * controller.exchange!.exchange} 원',
+                                        : '${NumberFormat('###,###,###,###').format(double.parse(controller.cost[0]) * controller.exchange!.exchange)} 원',
                                     style: AppTextStyle.h3B24(),
                                   ),
                                   const SizedBox(height: 3),
                                   Text(
                                       controller.isDollarChecked.value
                                           ? '${controller.cost[1]} ${controller.cost[2]}'
-                                          : '${double.parse(controller.cost[1]) * controller.exchange!.exchange} ${controller.cost[2]}',
+                                          : '${NumberFormat('###,###,###,###').format(double.parse(controller.cost[1]) * controller.exchange!.exchange)} ${controller.cost[2]}',
                                       style: AppTextStyle.b5M12(
                                           color: AppColor.red100))
                                 ],
@@ -175,7 +175,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                             })),
                         const SizedBox(height: 10),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
                               width: Get.width * 0.6,
@@ -388,7 +388,10 @@ class StockDetailPage extends GetView<StockDetailController> {
                         Padding(
                             padding: const EdgeInsets.only(
                                 top: 10.0, left: 10, right: 10),
-                            child: StockBarChart()),
+                            child: StockBarChart(
+                              revenus: controller.revenus,
+                              earnings: controller.earnings,
+                            )),
                       ],
                     ),
                   ),
