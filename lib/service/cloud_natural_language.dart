@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:http/http.dart' as http;
 
 class CloudNaturalLanguage {
   var apikey = 'AIzaSyDFssDe48Lbb0NfpeISB8b9W5pv_tMUwds';
-  Future<double> getNatural(String text) async {
+  Future getNatural(String text) async {
     var url =
         'https://language.googleapis.com/v1/documents:analyzeSentiment?key=$apikey';
 
@@ -28,5 +29,12 @@ class CloudNaturalLanguage {
     } else {
       return 400;
     }
+  }
+
+  Future<double> getPositiveNatural(String txt) async {
+    var num = await getNatural(txt);
+    num = num < 0 ? -num : num;
+    num = (num + 1) / 2;
+    return (num * 100).toDouble();
   }
 }

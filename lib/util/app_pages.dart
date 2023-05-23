@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:jangjeon/util/app_routes.dart';
+import 'package:jangjeon/view/page/all_news_page.dart';
 import 'package:jangjeon/view/page/certify_page.dart';
 import 'package:jangjeon/view/page/comments_page.dart';
 import 'package:jangjeon/view/page/find_id_page.dart';
@@ -34,5 +35,6 @@ class AppPages {
     GetPage(name: AppRoutes.newsDetail, page: () => const NewsDetailPage()),
     GetPage(name: AppRoutes.news, page: () => const NewsPage()),
     GetPage(name: AppRoutes.comments, page: () => const CommentsPage()),
+    GetPage(name: AppRoutes.allNews, page: () => const AllNewsPage()),
   ];
 }

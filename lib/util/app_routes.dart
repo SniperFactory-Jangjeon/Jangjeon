@@ -1,3 +1,4 @@
+import 'package:jangjeon/view/page/all_news_page.dart';
 import 'package:jangjeon/view/page/certify_page.dart';
 import 'package:jangjeon/view/page/comments_page.dart';
 import 'package:jangjeon/view/page/find_id_page.dart';
@@ -28,4 +29,5 @@ class AppRoutes {
   static const newsDetail = NewsDetailPage.route; //뉴스 상세 페이지
   static const news = NewsPage.route; //뉴스 본문 페이지
   static const comments = CommentsPage.route; // 댓글 더보기 페이지
+  static const allNews = AllNewsPage.route; // 댓글 더보기 페이지
 }

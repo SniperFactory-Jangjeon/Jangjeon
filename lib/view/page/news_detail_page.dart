@@ -6,6 +6,7 @@ import 'package:jangjeon/controller/news_detail_controller.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/ai_chart_bar.dart';
+import 'package:jangjeon/view/widget/ai_score.dart';
 import 'package:jangjeon/view/widget/comment_tile.dart';
 import 'package:jangjeon/view/widget/news_tile.dart';
 
@@ -15,9 +16,6 @@ class NewsDetailPage extends GetView<NewsDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    var news = Get.arguments;
-    controller.summarizeText(news['article']);
-    controller.getOtherNews(news['stock']);
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -43,7 +41,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                         SizedBox(
                           width: Get.width * 0.7,
                           child: Text(
-                            news['title'],
+                            controller.news['title'],
                             style: AppTextStyle.h4B20(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -59,20 +57,14 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                                   const BorderRadius.all(Radius.circular(30.0)),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                      'assets/svg/ai_positive.svg'),
-                                  Text('+ 50', style: AppTextStyle.b4B14())
-                                ],
-                              ),
-                            ))
+                                padding: const EdgeInsets.all(8.0),
+                                child: AiScore(
+                                    aiScore: controller.news['aiScore'])))
                       ],
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      news['date'],
+                      controller.news['date'],
                       style: AppTextStyle.b5R12(),
                     ),
                     const SizedBox(height: 20),
@@ -82,8 +74,8 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                            news['thumbnail'] != ''
-                                ? news['thumbnail']
+                            controller.news['thumbnail'] != ''
+                                ? controller.news['thumbnail']
                                 : 'https://picsum.photos/200/200',
                             fit: BoxFit.cover,
                           ),
@@ -104,7 +96,8 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               Center(
                 child: TextButton(
                   onPressed: () async {
-                    Get.toNamed(AppRoutes.news, arguments: news['url']);
+                    Get.toNamed(AppRoutes.news,
+                        arguments: controller.news['url']);
                   },
                   child: Text(
                     '본문 뉴스 보러가기',
@@ -113,21 +106,21 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                 ),
               ),
               const Divider(thickness: 10),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                //파트 2
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'AI가 분석한 키워드',
-                      style: AppTextStyle.h4B20(),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Divider(thickness: 10),
+              // Padding(
+              //   padding: const EdgeInsets.all(20.0),
+              //   //파트 2
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Text(
+              //         'AI가 분석한 키워드',
+              //         style: AppTextStyle.h4B20(),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(height: 20),
+              // const Divider(thickness: 10),
               //파트 3
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -138,11 +131,9 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                       'AI가 분석한 오늘의 투자 지수',
                       style: AppTextStyle.h4B20(),
                     ),
-                    AIChartBar(
-                        negative: 0.3,
-                        neutrality: 0.2,
-                        positive: 0.5,
-                        investmentIndex: 60),
+                    SizedBox(height: 20),
+                    Obx(() => AIChartBar(
+                        investmentIndex: controller.investmentIndex.value)),
                   ],
                 ),
               ),
@@ -186,7 +177,12 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               const Divider(thickness: 1),
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.comments, arguments: {
+                      'ticker': controller.news['stock'].toUpperCase()
+                    });
+                    print(controller.news['stock'].toUpperCase());
+                  },
                   child: Text(
                     '더보기',
                     style: AppTextStyle.b3R16(),
@@ -218,12 +214,17 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(AppRoutes.newsDetail,
+                                        arguments: controller.otherNews[index]);
+                                        Get.forceAppUpdate();
+                                  },
                                   child: NewsTile(
                                       title: controller.otherNews[index]
                                           ['title'],
                                       time: controller.otherNews[index]['date'],
-                                      aiScore: 50,
+                                      aiScore: controller.otherNews[index]
+                                          ['aiScore'],
                                       img: controller.otherNews[index]
                                           ['thumbnail']),
                                 ),
@@ -239,7 +240,10 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               const Divider(thickness: 1),
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.allNews, arguments: controller.news);
+                    print(controller.news['stock']);
+                  },
                   child: Text(
                     '더보기',
                     style: AppTextStyle.b3R16(),
