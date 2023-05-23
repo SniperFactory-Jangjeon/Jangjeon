@@ -11,6 +11,7 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
     this.obscureText = false,
     this.errorTextColor = AppColor.grayscale80,
+    this.readOnly = false,
   });
 
   final String hintText; //힌트 텍스트
@@ -19,10 +20,11 @@ class AppTextField extends StatelessWidget {
   final Function(String)? onChanged; //onChanged 이벤트
   final bool obscureText;
   Color errorTextColor;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       obscureText: obscureText,
       controller: controller,
       cursorColor: AppColor.grayscale30,
@@ -47,6 +49,7 @@ class AppTextField extends StatelessWidget {
         ),
       ),
       onChanged: onChanged,
+      readOnly: readOnly,
     );
   }
 }
