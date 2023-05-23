@@ -246,11 +246,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                           'AI가 분석한 오늘의 투자 지수',
                           style: AppTextStyle.h4B20(),
                         ),
-                        AIChartBar(
-                            negative: 0.3,
-                            neutrality: 0.2,
-                            positive: 0.5,
-                            investmentIndex: 60),
+                        AIChartBar(investmentIndex: 60),
                       ],
                     ),
                   ),
@@ -281,53 +277,6 @@ class StockDetailPage extends GetView<StockDetailController> {
                                   img: 'https://picsum.photos/100/200'),
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Divider(thickness: 10),
-              //파트 2
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'AI가 분석한 오늘의 투자 지수',
-                      style: AppTextStyle.h4B20(),
-                    ),
-                    AIChartBar(investmentIndex: 60),
-                  ],
-                ),
-              ),
-              const Divider(thickness: 10),
-              //파트 3
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '관련 뉴스',
-                      style: AppTextStyle.h4B20(),
-                    ),
-                    const SizedBox(height: 8),
-                    ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 3,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: InkWell(
-                          onTap: () {},
-                          child: NewsTile(
-                              title: '테슬라 액면 분할, 삼백슬라되나',
-                              time: '1',
-                              aiScore: 50,
-                              img: 'https://picsum.photos/100/200'),
                           separatorBuilder: (context, index) => const Divider(
                             thickness: 1,
                           ),
