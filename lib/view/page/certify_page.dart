@@ -75,6 +75,43 @@ class CertifyPage extends GetView<PersonalInfoEditController> {
                               ),
                             ),
                             const SizedBox(height: 20),
+                            //인증하기 버튼이 눌려저있으면서 타이머가 작동되지 않을때
+                            !controller.isCertifyButton.value &&
+                                    (controller.timer?.isActive ?? false)
+                                ? Obx(
+                                    () => RichText(
+                                      text: TextSpan(
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Color(0xff006dfe),
+                                          ),
+                                          children: <TextSpan>[
+                                            const TextSpan(
+                                                text: "남은 시간 : ",
+                                                style: TextStyle()),
+                                            //분
+                                            TextSpan(
+                                                text: (controller.currentTime
+                                                            .value >=
+                                                        60
+                                                    ? "${(controller.currentTime) ~/ 60}분"
+                                                    : "")),
+                                            //초
+                                            TextSpan(
+                                                text: ((controller.currentTime
+                                                                .value %
+                                                            60) !=
+                                                        60)
+                                                    ? " ${(controller.currentTime.value) % 60}초"
+                                                    : "")
+                                          ]),
+                                    ),
+                                  )
+                                : const Text("인증시간이 만료됨",
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 14,
+                                    )),
                             Container(
                                 alignment: const Alignment(1, 0),
                                 child: SizedBox(

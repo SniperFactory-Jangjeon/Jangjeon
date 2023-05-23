@@ -30,6 +30,17 @@ class DBService {
     return result.data()!;
   }
 
+  //닉네임 중복 체크
+  checkDuplicateNickname(nickname) => userInfoRef
+      .where('name', isEqualTo: nickname)
+      .get()
+      .then((value) => value.docs.isNotEmpty)
+      .catchError((_) => '');
+
+  //유저 이름 업데이트
+  updatename(String uid, String nickname) =>
+      userInfoRef.doc(uid).update({'name': nickname});
+
   //전화번호와 일치하는 이메일 찾기
   getEmailWithPhone(phone) => userInfoRef
       .where("phone", isEqualTo: phone)
