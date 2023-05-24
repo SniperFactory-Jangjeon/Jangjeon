@@ -13,8 +13,8 @@ class MainPage extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()=>
-       Scaffold(
+    return Obx(
+      () => Scaffold(
           body: SafeArea(
               child: [
             StockDetailPage(),
@@ -26,7 +26,8 @@ class MainPage extends GetView<MainController> {
                 controller.bottomNavIndex(2);
               },
               child: AppFloatingActionButton()),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AppNavigationBar()),
     );
   }

@@ -26,7 +26,7 @@ class Stock {
     return Stock(
       logo: map['logo'] as String,
       name: map['name'] as String,
-      nameForSearch: map['nameForSearch'] as String,
+      nameForSearch: map['name for search'] as String,
       symbol: map['symbol'] as String,
     );
   }

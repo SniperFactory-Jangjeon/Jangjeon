@@ -23,7 +23,11 @@ class HomePage extends GetView<MainController> {
         elevation: 0,
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        actions: [
+          IconButton(
+              onPressed: () => Get.toNamed(AppRoutes.search),
+              icon: const Icon(Icons.search))
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -135,7 +139,8 @@ class HomePage extends GetView<MainController> {
                         ),
                       ),
                     ),
-                    Text('AI가 분석한 오늘의 ${controller.currentStock.value} 투자 지수', style: AppTextStyle.h4B20()),
+                    Text('AI가 분석한 오늘의 ${controller.currentStock.value} 투자 지수',
+                        style: AppTextStyle.h4B20()),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Obx(
