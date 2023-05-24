@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
+import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/model/comment.dart';
 import 'package:jangjeon/model/exchange.dart';
 import 'package:jangjeon/service/cloud_translate.dart';
@@ -12,7 +13,7 @@ import 'package:jangjeon/service/news_crawling.dart';
 import 'package:yahoofin/yahoofin.dart';
 
 class StockDetailController extends GetxController {
-  var ticker = 'AAPL';
+  var ticker = Get.find<MainController>().currentStock.value;
   List<FlSpot> chartData = [];
 
   RxString selectedTime = '1일'.obs;

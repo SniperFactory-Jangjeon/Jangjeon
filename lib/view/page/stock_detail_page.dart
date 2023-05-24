@@ -271,27 +271,22 @@ class StockDetailPage extends GetView<StockDetailController> {
                                 : controller.relevantNews.length,
                             itemBuilder: (context, index) => Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: InkWell(
-                                onTap: () {
-                                  Get.toNamed(AppRoutes.newsDetail,
-                                      arguments:
-                                          controller.relevantNews[index]);
-                                  Get.forceAppUpdate();
-                                },
-                                child: NewsTile(
-                                    title: controller.relevantNews[index]
-                                        ['title'],
-                                    time: controller.relevantNews[index]
-                                        ['date'],
-                                    aiScore: controller.relevantNews[index]
-                                        ['aiScore'],
-                                    img: controller.relevantNews[index]
-                                        ['thumbnail']),
+                              child: NewsTile(
+                                title: controller.relevantNews[index]['title'],
+                                time: controller.relevantNews[index]['date'],
+                                aiScore: controller.relevantNews[index]
+                                    ['aiScore'],
+                                img: controller.relevantNews[index]
+                                    ['thumbnail'],
+                                news: controller.relevantNews[index],
+                                route: AppRoutes.newsDetail,
+                                uploadtime: controller.relevantNews[index]
+                                    ['pubDate'],
+                                url: controller.relevantNews[index]['url'],
                               ),
                             ),
-                            separatorBuilder: (context, index) => index == 0
-                                ? const SizedBox()
-                                : const Divider(thickness: 1),
+                            separatorBuilder: (context, index) =>
+                                const Divider(thickness: 1),
                           ),
                         ),
                       ],
@@ -301,7 +296,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        Get.toNamed(AppRoutes.allNews,
+                        Get.offAndToNamed(AppRoutes.allNews,
                             arguments: controller.relevantNews);
                       },
                       child: Text(

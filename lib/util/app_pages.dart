@@ -5,6 +5,7 @@ import 'package:jangjeon/view/page/certify_page.dart';
 import 'package:jangjeon/view/page/comments_page.dart';
 import 'package:jangjeon/view/page/find_id_page.dart';
 import 'package:jangjeon/view/page/find_password_page.dart';
+import 'package:jangjeon/view/page/home_page.dart';
 import 'package:jangjeon/view/page/login_page.dart';
 import 'package:jangjeon/view/page/main_page.dart';
 import 'package:jangjeon/view/page/news_detail_page.dart';
@@ -19,6 +20,7 @@ import 'package:jangjeon/view/page/ticket_page.dart';
 class AppPages {
   static final pages = [
     GetPage(name: AppRoutes.main, page: () => const MainPage()),
+    GetPage(name: AppRoutes.home, page: () => const HomePage()),
     GetPage(
         name: AppRoutes.myinfoedit, page: () => const PersonalInfoEditPage()),
     GetPage(

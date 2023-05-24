@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:html_unescape/html_unescape_small.dart';
@@ -66,7 +67,7 @@ class NewsCrawling {
             'thumbnail': thumbnail,
             'stock': stock,
             'article': articleContent,
-            'pubDate': pubDate,
+            'pubDate': Timestamp.fromDate(pubDate),
             'date': kstDateString,
             'time': time
           });
