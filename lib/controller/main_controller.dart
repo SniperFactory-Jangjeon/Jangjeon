@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/model/stock.dart';
 import 'package:jangjeon/service/cloud_natural_language.dart';
+import 'package:jangjeon/service/db_service.dart';
+import 'package:jangjeon/service/my_stock.dart';
 import 'package:jangjeon/service/news_crawling.dart';
 
 class MainController extends GetxController {
   // PageController pageController = PageController();
   // RxInt selectedIndex = 0.obs;
-  RxDouble investmentIndex = (0.0).obs;
-  RxInt bottomNavIndex = 0.obs;
+  RxDouble investmentIndex = (-1.0).obs;
+  RxInt bottomNavIndex = 2.obs;
   RxList news = [].obs;
   RxInt isSeletedFilter = 10.obs;
+  RxMap hotIssueNews = {}.obs;
+  RxString currentStock = ''.obs;
+  RxList<Stock> stockList = <Stock>[].obs;
+  RxList myStockList = [].obs;
   // handleNavigationOnTap(int index) {
   //   selectedIndex(index);
   //   pageController.jumpToPage(selectedIndex.value);
   // }
-
-  var stockList = ['appl', 'googl', 'msft', 'tsla'];
-
-  getNews() async {
-    for (var i = 0; i < stockList.length; i++) {
-      NewsCrawling().newsCrawling(stockList[i], news);
-    }
+  getNews() {
+    news.clear();
+    NewsCrawling().newsCrawling(currentStock.value.toLowerCase(), news);
   }
 
   filterNews(int index) {
@@ -38,12 +41,33 @@ class MainController extends GetxController {
     isSeletedFilter(index);
   }
 
+  todayStockNatural(String txt)  async{
+    investmentIndex.value =
+        await CloudNaturalLanguage().getPositiveNatural(txt);
+  }
+
+  getHotIssueNews() async {
+    var data = await DBService().readHotIssueNews();
+    hotIssueNews.value = data.first.data()['news'];
+  }
+
+  getStockList() async {
+    stockList(await DBService().readStock());
+  }
+
+  getMyStock() async {
+    myStockList(await MyStock().readMyStock());
+  }
+
   @override
-  void onInit() async{
+  void onInit()  {
     // TODO: implement onInit
     super.onInit();
-    news.clear();
+    currentStock.value = MyStock().myStockList.first;
     getNews();
-    investmentIndex.value = await CloudNaturalLanguage().getPositiveNatural('오늘의 투자 지수');
+    todayStockNatural('오늘의 ${currentStock.value} 투자 지수');
+    getHotIssueNews();
+    //getStockList();
+    getMyStock();
   }
 }

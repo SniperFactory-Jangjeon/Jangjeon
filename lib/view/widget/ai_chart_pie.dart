@@ -34,7 +34,7 @@ class AIChartPie extends StatelessWidget {
           right: Get.width * 0.3 * 0.25,
           child: Column(
             children: [
-              Text(value.toInt().toString(),
+              Text(value < 0 ? '' : value.toInt().toString(),
                   style: AppTextStyle.h2B28(color: AppColor.red100)),
               Text(
                 '/ 100',

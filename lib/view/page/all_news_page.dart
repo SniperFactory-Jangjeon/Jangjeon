@@ -4,12 +4,13 @@ import 'package:jangjeon/controller/news_detail_controller.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/view/widget/news_tile.dart';
 
-class AllNewsPage extends GetView<NewsDetailController> {
+class AllNewsPage extends StatelessWidget {
   const AllNewsPage({super.key});
   static const route = '/allNews';
 
   @override
   Widget build(BuildContext context) {
+    RxList allnews = Get.arguments;
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -20,29 +21,25 @@ class AllNewsPage extends GetView<NewsDetailController> {
       body: SafeArea(
         child: Obx(
           () => Padding(
-            padding: const EdgeInsets.symmetric(horizontal:20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
-              itemCount: controller.otherNews.length,
-              itemBuilder: (context, index) => index == 0
-                  ? const SizedBox()
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.newsDetail,
-                              arguments: controller.otherNews[index]);
-                        },
-                        child: NewsTile(
-                            title: controller.otherNews[index]['title'],
-                            time: controller.otherNews[index]['date'],
-                            aiScore: controller.otherNews[index]['aiScore'],
-                            img: controller.otherNews[index]['thumbnail']),
-                      ),
-                    ),
-              separatorBuilder: (context, index) =>
-                  index == 0 ? const SizedBox() : const Divider(thickness: 1),
+              itemCount: allnews.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: NewsTile(
+                  title: allnews[index]['title'],
+                  time: allnews[index]['date'],
+                  aiScore: allnews[index]['aiScore'],
+                  img: allnews[index]['thumbnail'],
+                  news: allnews[index],
+                  route: AppRoutes.newsDetail,
+                  uploadtime: allnews[index]['pubDate'],
+                  url: allnews[index]['url'],
+                ),
+              ),
+              separatorBuilder: (context, index) => const Divider(thickness: 1),
             ),
           ),
         ),
