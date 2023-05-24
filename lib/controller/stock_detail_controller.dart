@@ -14,6 +14,7 @@ import 'package:jangjeon/service/news_crawling.dart';
 import 'package:yahoofin/yahoofin.dart';
 
 class StockDetailController extends GetxController {
+  RxString rxIicker = Get.find<MainController>().currentStock;
   var ticker = Get.find<MainController>().currentStock.value;
   List<FlSpot> chartData = [];
 
@@ -202,9 +203,7 @@ class StockDetailController extends GetxController {
     investmentNum = await CloudNaturalLanguage().getPositiveNatural(ticker);
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
+  startStockPage() async {
     isLoading(true);
     await getExchangeRate();
     await getCost();
@@ -215,5 +214,18 @@ class StockDetailController extends GetxController {
     await getRelevantNews();
     await getPositiveNatural();
     isLoading(false);
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    startStockPage();
+    ever(rxIicker, (value) {
+      if (value != ticker) {
+        startStockPage();
+        ticker = value;
+      }
+      return;
+    });
   }
 }

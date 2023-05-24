@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/main_controller.dart';
-import 'package:jangjeon/service/my_stock.dart';
 import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_filter.dart';
 import 'package:jangjeon/util/app_routes.dart';
