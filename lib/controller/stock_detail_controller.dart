@@ -7,6 +7,7 @@ import 'package:html/parser.dart' as parser;
 import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/model/comment.dart';
 import 'package:jangjeon/model/exchange.dart';
+import 'package:jangjeon/service/cloud_natural_language.dart';
 import 'package:jangjeon/service/cloud_translate.dart';
 import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/service/news_crawling.dart';
@@ -26,6 +27,7 @@ class StockDetailController extends GetxController {
   RxBool isChartLoading = false.obs;
   RxBool isDollarChecked = true.obs;
 
+  double investmentNum = 0;
   Exchange? exchange;
   List cost = [];
   String companyInfo = '';
@@ -79,7 +81,7 @@ class StockDetailController extends GetxController {
       final document = parser.parse(response.body);
 
       final elements =
-          document.querySelectorAll('#Lead-5-QuoteHeader-Proxy fin-streamer');
+          document.querySelectorAll('#quote-header-info fin-streamer');
 
       cost.addAll([elements[0].text, elements[1].text, elements[2].text]);
     }
@@ -134,7 +136,8 @@ class StockDetailController extends GetxController {
         .get(Uri.parse('https://finance.yahoo.com/quote/$ticker/profile'));
     if (response.statusCode == 200) {
       final document = parser.parse(response.body);
-      final elements = document.querySelectorAll('#Col1-0-Profile-Proxy p');
+      final elements = document.querySelectorAll(
+          'section[data-yaft-module="tdv2-applet-CompanyProfile"] p');
       if (elements.isNotEmpty) {
         industry =
             await CloudTranslate().getTranslation(elements[1].children[4].text);
@@ -156,7 +159,7 @@ class StockDetailController extends GetxController {
       final document = parser.parse(response.body);
 
       final elements = document.querySelectorAll(
-          '#Col1-1-Financials-Proxy div[data-test="fin-col"] span');
+          'section[data-test="qsp-financial"] div[data-test="fin-col"] span');
 
       var revenusList = [
         elements[4].text, //2019년도 매출
@@ -190,8 +193,13 @@ class StockDetailController extends GetxController {
     comment.likes += 1;
   }
 
-  getRelevantNews(String stock) {
-     NewsCrawling().newsCrawling(stock, relevantNews);
+  getRelevantNews() {
+    NewsCrawling().newsCrawling(ticker, relevantNews);
+  }
+
+  //투자 지수 가져오기
+  getPositiveNatural() async {
+    investmentNum = await CloudNaturalLanguage().getPositiveNatural(ticker);
   }
 
   @override
@@ -204,7 +212,8 @@ class StockDetailController extends GetxController {
     await getCompanyInfo();
     await getCompanyPerfomance();
     await readComments();
-    await getRelevantNews(ticker);
+    await getRelevantNews();
+    await getPositiveNatural();
     isLoading(false);
   }
 }

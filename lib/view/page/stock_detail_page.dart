@@ -246,7 +246,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                           'AI가 분석한 오늘의 투자 지수',
                           style: AppTextStyle.h4B20(),
                         ),
-                        AIChartBar(investmentIndex: 60),
+                        AIChartBar(investmentIndex: controller.investmentNum),
                       ],
                     ),
                   ),
