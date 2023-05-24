@@ -8,6 +8,7 @@ import 'package:jangjeon/view/page/main_page.dart';
 import 'package:jangjeon/view/page/news_detail_page.dart';
 import 'package:jangjeon/view/page/news_page.dart';
 import 'package:jangjeon/view/page/personal_info_edit_page.dart';
+import 'package:jangjeon/view/page/search_page.dart';
 import 'package:jangjeon/view/page/signup_page.dart';
 import 'package:jangjeon/view/page/stock_detail_page.dart';
 import 'package:jangjeon/view/page/account_delete_page.dart';
@@ -30,4 +31,5 @@ class AppRoutes {
   static const news = NewsPage.route; //뉴스 본문 페이지
   static const comments = CommentsPage.route; // 댓글 더보기 페이지
   static const allNews = AllNewsPage.route; // 댓글 더보기 페이지
+  static const search = SearchPage.route; // 검색 페이지
 }

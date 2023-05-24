@@ -10,6 +10,7 @@ import 'package:jangjeon/view/page/main_page.dart';
 import 'package:jangjeon/view/page/news_detail_page.dart';
 import 'package:jangjeon/view/page/news_page.dart';
 import 'package:jangjeon/view/page/personal_info_edit_page.dart';
+import 'package:jangjeon/view/page/search_page.dart';
 import 'package:jangjeon/view/page/signup_page.dart';
 import 'package:jangjeon/view/page/stock_detail_page.dart';
 import 'package:jangjeon/view/page/account_delete_page.dart';
@@ -36,5 +37,6 @@ class AppPages {
     GetPage(name: AppRoutes.news, page: () => const NewsPage()),
     GetPage(name: AppRoutes.comments, page: () => const CommentsPage()),
     GetPage(name: AppRoutes.allNews, page: () => const AllNewsPage()),
+    GetPage(name: AppRoutes.search, page: () => const SearchPage()),
   ];
 }

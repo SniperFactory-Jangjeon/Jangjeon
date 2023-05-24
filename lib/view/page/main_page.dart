@@ -24,7 +24,10 @@ class MainPage extends GetView<MainController> {
               foregroundColor: Colors.black,
               backgroundColor: Colors.transparent,
               actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.search))
+                IconButton(
+                  onPressed: () => Get.toNamed(AppRoutes.search),
+                  icon: const Icon(Icons.search),
+                )
               ],
             ),
             AppBar(
