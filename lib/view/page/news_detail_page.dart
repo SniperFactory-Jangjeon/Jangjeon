@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:jangjeon/controller/news_detail_controller.dart';
+import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/ai_chart_bar.dart';
@@ -16,11 +16,18 @@ class NewsDetailPage extends GetView<NewsDetailController> {
 
   @override
   Widget build(BuildContext context) {
+    var currentNews = Get.arguments;
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.navigate_before),
+        ),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: SafeArea(
@@ -41,7 +48,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                         SizedBox(
                           width: Get.width * 0.7,
                           child: Text(
-                            controller.news['title'],
+                            currentNews['title'],
                             style: AppTextStyle.h4B20(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -58,13 +65,13 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                             ),
                             child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: AiScore(
-                                    aiScore: controller.news['aiScore'])))
+                                child:
+                                    AiScore(aiScore: currentNews['aiScore'])))
                       ],
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      controller.news['date'],
+                      currentNews['date'],
                       style: AppTextStyle.b5R12(),
                     ),
                     const SizedBox(height: 20),
@@ -74,8 +81,8 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                            controller.news['thumbnail'] != ''
-                                ? controller.news['thumbnail']
+                            currentNews['thumbnail'] != ''
+                                ? currentNews['thumbnail']
                                 : 'https://picsum.photos/200/200',
                             fit: BoxFit.cover,
                           ),
@@ -96,8 +103,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               Center(
                 child: TextButton(
                   onPressed: () async {
-                    Get.toNamed(AppRoutes.news,
-                        arguments: controller.news['url']);
+                    Get.toNamed(AppRoutes.news, arguments: currentNews['url']);
                   },
                   child: Text(
                     '본문 뉴스 보러가기',
@@ -149,27 +155,35 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                       style: AppTextStyle.h4B20(),
                     ),
                     const SizedBox(height: 12),
-                    ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 3,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: InkWell(
-                          onTap: () {},
-                          child: CommentTile(
-                            onTap: () {},
-                            nickname: '개굴개구리',
-                            profileImg: '',
-                            content: '친슬라 가게 해줘이',
-                            like: 5,
-                            comment: 1,
-                            time: '20분전',
+                    Obx(
+                      () => ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.comments.length < 3
+                            ? controller.comments.length
+                            : 3,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: Obx(
+                            () => CommentTile(
+                                onTap: () => controller.increseCommentLikes(
+                                    controller.comments[index]),
+                                nickname:
+                                    controller.comments[index].userInfo.name,
+                                profileImg: controller
+                                        .comments[index].userInfo.photoUrl ??
+                                    '',
+                                content: controller.comments[index].comment,
+                                like: controller.comments[index].likes.value,
+                                comment: 1,
+                                time: DateFormat('yyyy/MM/dd hh시 mm분').format(
+                                    controller.comments[index].createdAt)),
                           ),
                         ),
+                        separatorBuilder: (context, index) => const Divider(
+                          thickness: 1,
+                        ),
                       ),
-                      separatorBuilder: (context, index) =>
-                          const Divider(thickness: 1),
                     ),
                   ],
                 ),
@@ -179,9 +193,8 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                 child: TextButton(
                   onPressed: () {
                     Get.toNamed(AppRoutes.comments, arguments: {
-                      'ticker': controller.news['stock'].toUpperCase()
+                      'ticker': currentNews['stock'].toUpperCase()
                     });
-                    print(controller.news['stock'].toUpperCase());
                   },
                   child: Text(
                     '더보기',
@@ -205,33 +218,24 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                       () => ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: controller.otherNews.length > 4
-                            ? 4
+                        itemCount: controller.otherNews.length > 3
+                            ? 3
                             : controller.otherNews.length,
-                        itemBuilder: (context, index) => index == 0
-                            ? const SizedBox()
-                            : Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: InkWell(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.newsDetail,
-                                        arguments: controller.otherNews[index]);
-                                        Get.forceAppUpdate();
-                                  },
-                                  child: NewsTile(
-                                      title: controller.otherNews[index]
-                                          ['title'],
-                                      time: controller.otherNews[index]['date'],
-                                      aiScore: controller.otherNews[index]
-                                          ['aiScore'],
-                                      img: controller.otherNews[index]
-                                          ['thumbnail']),
-                                ),
-                              ),
-                        separatorBuilder: (context, index) => index == 0
-                            ? const SizedBox()
-                            : const Divider(thickness: 1),
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: NewsTile(
+                            title: controller.otherNews[index]['title'],
+                            time: controller.otherNews[index]['date'],
+                            aiScore: controller.otherNews[index]['aiScore'],
+                            img: controller.otherNews[index]['thumbnail'],
+                            news: controller.otherNews[index],
+                            route: AppRoutes.newsDetail,
+                            uploadtime: controller.otherNews[index]['pubDate'],
+                            url: controller.otherNews[index]['url'],
+                          ),
+                        ),
+                        separatorBuilder: (context, index) =>
+                            const Divider(thickness: 1),
                       ),
                     ),
                   ],
@@ -241,8 +245,8 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               Center(
                 child: TextButton(
                   onPressed: () {
-                    Get.toNamed(AppRoutes.allNews, arguments: controller.news);
-                    print(controller.news['stock']);
+                    Get.offAndToNamed(AppRoutes.allNews,
+                        arguments: controller.otherNews);
                   },
                   child: Text(
                     '더보기',

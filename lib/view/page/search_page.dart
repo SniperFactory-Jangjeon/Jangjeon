@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/search_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/view/widget/search_tile.dart';
 
 class SearchPage extends GetView<SearchController> {
   const SearchPage({super.key});
@@ -28,7 +29,10 @@ class SearchPage extends GetView<SearchController> {
         () => ListView.builder(
           itemCount: controller.searchList.length,
           itemBuilder: (context, index) {
-            return Text(controller.searchList[index].toString());
+            return SearchTile(
+              index: index + 1,
+              stock: controller.searchList[index],
+            );
           },
         ),
       ),

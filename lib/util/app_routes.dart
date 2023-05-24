@@ -3,6 +3,7 @@ import 'package:jangjeon/view/page/certify_page.dart';
 import 'package:jangjeon/view/page/comments_page.dart';
 import 'package:jangjeon/view/page/find_id_page.dart';
 import 'package:jangjeon/view/page/find_password_page.dart';
+import 'package:jangjeon/view/page/home_page.dart';
 import 'package:jangjeon/view/page/login_page.dart';
 import 'package:jangjeon/view/page/main_page.dart';
 import 'package:jangjeon/view/page/news_detail_page.dart';
@@ -17,6 +18,7 @@ import 'package:jangjeon/view/page/ticket_page.dart';
 
 class AppRoutes {
   static const main = MainPage.route; //메인페이지
+  static const home = HomePage.route; // 홈 페이지
   static const myinfoedit = PersonalInfoEditPage.route; //개인정보 수정페이지
   static const accountDelete = AccountDeletePage.route; //회원탈퇴페이지
   static const login = LoginPage.route; // 로그인페이지
