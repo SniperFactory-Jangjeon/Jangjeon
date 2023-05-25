@@ -11,6 +11,7 @@ import 'package:jangjeon/view/widget/news_tile.dart';
 import 'package:jangjeon/view/widget/stock_bar_chart.dart';
 import 'package:jangjeon/view/widget/stock_line_chart.dart';
 import 'package:jangjeon/view/widget/stock_time_tile.dart';
+import '../../controller/main_controller.dart';
 
 class StockDetailPage extends GetView<StockDetailController> {
   const StockDetailPage({super.key});
@@ -23,6 +24,11 @@ class StockDetailPage extends GetView<StockDetailController> {
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              Get.find<MainController>().bottomNavIndex(2);
+            },
+            icon: const Icon(Icons.navigate_before)),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: SafeArea(
