@@ -97,6 +97,7 @@ class HomePage extends GetView<MainController> {
                       height: 100,
                       child: Obx(
                         () => ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           itemCount: controller.myStockList.length,
                           itemBuilder: (context, index) => Center(
@@ -112,19 +113,21 @@ class HomePage extends GetView<MainController> {
                                           .myStockList[index]['symbol'];
                                       controller.getNews();
                                     },
-                                    child: CircleAvatar(
-                                      backgroundColor:
-                                          controller.myStockList[index]
-                                                      ['symbol'] ==
-                                                  controller.currentStock.value
-                                              ? AppColor.red100
-                                              : Colors.transparent,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: CircleAvatar(
-                                          backgroundImage: NetworkImage(
-                                              controller.myStockList[index]
-                                                  ['logo']),
+                                    child:  Obx(
+                        () =>CircleAvatar(
+                                        backgroundColor:
+                                            controller.myStockList[index]
+                                                        ['symbol'] ==
+                                                    controller.currentStock.value
+                                                ? AppColor.red100
+                                                : Colors.transparent,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: CircleAvatar(
+                                            backgroundImage: NetworkImage(
+                                                controller.myStockList[index]
+                                                    ['logo']),
+                                          ),
                                         ),
                                       ),
                                     ),

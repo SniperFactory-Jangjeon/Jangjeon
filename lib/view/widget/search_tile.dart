@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/model/stock.dart';
 import 'package:jangjeon/util/app_color.dart';
 
@@ -18,9 +20,17 @@ class SearchTile extends StatefulWidget {
 }
 
 class _SearchTileState extends State<SearchTile> {
+  var main = Get.find<MainController>();
   handleBookmarkButton() {
     widget.bookmark = !widget.bookmark;
+    main.addMyStock(widget.stock.symbol);
     setState(() {});
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.bookmark = main.readBookmark(widget.stock.symbol);
   }
 
   @override
