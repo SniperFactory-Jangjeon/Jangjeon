@@ -19,21 +19,17 @@ class MainController extends GetxController {
   SharedPreferences? prefs;
   List myStockInfo = [];
 
-  bool readBookmark(String stock){
+  bool readBookmark(String stock) {
     return myStockSymbolList.contains(stock);
   }
 
   //관심 주식 등록
   addMyStock(String stock) {
-    print(myStockSymbolList);
     if (myStockSymbolList.contains(stock)) {
       myStockSymbolList.remove(stock);
-      print('지우기');
     } else {
       myStockSymbolList.add(stock);
-      print('추가');
     }
-    print(myStockSymbolList);
     if (prefs != null) {
       prefs!.setStringList('myStockSymbolList', myStockSymbolList);
     }
@@ -98,7 +94,6 @@ class MainController extends GetxController {
     if (prefs != null) {
       myStockSymbolList = prefs!.getStringList('myStockSymbolList') ?? ['TSLA'];
     }
-    print('잉?');
     getMyStock();
     currentStock.value = myStockSymbolList.first;
     getNews();
