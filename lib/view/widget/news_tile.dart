@@ -15,7 +15,8 @@ class NewsTile extends StatelessWidget {
       required this.route,
       required this.news,
       required this.url,
-      required this.uploadtime});
+      required this.uploadtime,
+      required this.isOffAndTo});
   final String title;
   final String time;
   final int aiScore;
@@ -24,12 +25,15 @@ class NewsTile extends StatelessWidget {
   final Map news;
   final String url;
   final Timestamp uploadtime;
+  final bool isOffAndTo;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.offAndToNamed(route, arguments: news);
+        isOffAndTo
+            ? Get.offAndToNamed(route, arguments: news)
+            : Get.toNamed(route, arguments: news);
         DBService().clickNews(url, news, uploadtime);
       },
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
