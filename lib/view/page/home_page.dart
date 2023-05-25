@@ -113,14 +113,14 @@ class HomePage extends GetView<MainController> {
                                           .myStockList[index]['symbol'];
                                       controller.getNews();
                                     },
-                                    child:  Obx(
-                        () =>CircleAvatar(
-                                        backgroundColor:
-                                            controller.myStockList[index]
-                                                        ['symbol'] ==
-                                                    controller.currentStock.value
-                                                ? AppColor.red100
-                                                : Colors.transparent,
+                                    child: Obx(
+                                      () => CircleAvatar(
+                                        backgroundColor: controller
+                                                        .myStockList[index]
+                                                    ['symbol'] ==
+                                                controller.currentStock.value
+                                            ? AppColor.red100
+                                            : Colors.transparent,
                                         child: Padding(
                                           padding: const EdgeInsets.all(2.0),
                                           child: CircleAvatar(
@@ -134,7 +134,7 @@ class HomePage extends GetView<MainController> {
                                   ),
                                   const SizedBox(height: 5),
                                   Text(controller.myStockList[index]['symbol'],
-                                      style: AppTextStyle.b4M14())
+                                      style: AppTextStyle.b4M14()),
                                 ],
                               ),
                             ),
@@ -142,8 +142,11 @@ class HomePage extends GetView<MainController> {
                         ),
                       ),
                     ),
-                    Text('AI가 분석한 오늘의 ${controller.currentStock.value} 투자 지수',
-                        style: AppTextStyle.h4B20()),
+                    Obx(
+                      () => Text(
+                          'AI가 분석한 오늘의 ${controller.currentStock.value} 투자 지수',
+                          style: AppTextStyle.h4B20()),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Obx(
