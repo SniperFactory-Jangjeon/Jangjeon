@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
+import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/model/userInfo.dart' as profile;
 
 class SettingController extends GetxController {
   Rx<User> get user => Get.find<AuthController>().user!.obs;
+  var main = Get.find<MainController>();
   Rxn<String> profileUrl =
       Rxn<String>(Get.find<AuthController>().user!.photoURL);
   RxBool isNotifycation = false.obs;
