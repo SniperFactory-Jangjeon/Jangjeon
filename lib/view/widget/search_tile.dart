@@ -24,6 +24,7 @@ class _SearchTileState extends State<SearchTile> {
   handleBookmarkButton() {
     widget.bookmark = !widget.bookmark;
     main.addMyStock(widget.stock.symbol);
+    main.getMyStock();
     setState(() {});
   }
   @override

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_routes.dart';
@@ -18,7 +17,7 @@ class SettingPage extends GetView<SettingController> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Get.find<MainController>().bottomNavIndex(2);
+              controller.main.bottomNavIndex(2);
             },
             icon: const Icon(Icons.navigate_before)),
         elevation: 0,
@@ -122,7 +121,7 @@ class SettingPage extends GetView<SettingController> {
                             decoration: BoxDecoration(
                                 color: const Color(0xFFF5F5F5),
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Center(child: Text('대충 즐겨찾기.length')))
+                            child: Center(child: Text(controller.main.myStockSymbolList.length.toString())))
                       ],
                     ),
                   ),

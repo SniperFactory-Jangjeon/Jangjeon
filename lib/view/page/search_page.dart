@@ -22,8 +22,9 @@ class SearchPage extends GetView<SearchController> {
         ),
         leading: IconButton(
             onPressed: () {
-              Get.find<MainController>().getMyStock();
+              Get.find<MainController>().bottomNavIndex(1);
               Get.back();
+              Get.find<MainController>().bottomNavIndex(2);
             },
             icon: Icon(Icons.navigate_before)),
         actions: [
