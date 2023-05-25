@@ -232,6 +232,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                             route: AppRoutes.newsDetail,
                             uploadtime: controller.otherNews[index]['pubDate'],
                             url: controller.otherNews[index]['url'],
+                            isOffAndTo: true,
                           ),
                         ),
                         separatorBuilder: (context, index) =>

@@ -37,6 +37,7 @@ class AllNewsPage extends StatelessWidget {
                   route: AppRoutes.newsDetail,
                   uploadtime: allnews[index]['pubDate'],
                   url: allnews[index]['url'],
+                  isOffAndTo: true
                 ),
               ),
               separatorBuilder: (context, index) => const Divider(thickness: 1),

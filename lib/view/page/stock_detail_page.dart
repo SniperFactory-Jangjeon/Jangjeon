@@ -288,6 +288,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                                 uploadtime: controller.relevantNews[index]
                                     ['pubDate'],
                                 url: controller.relevantNews[index]['url'],
+                                isOffAndTo: false
                               ),
                             ),
                             separatorBuilder: (context, index) =>
@@ -301,7 +302,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        Get.offAndToNamed(AppRoutes.allNews,
+                        Get.toNamed(AppRoutes.allNews,
                             arguments: controller.relevantNews);
                       },
                       child: Text(
