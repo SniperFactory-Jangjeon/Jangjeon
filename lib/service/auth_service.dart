@@ -54,4 +54,7 @@ class AuthService {
 
   //인증 이메일 전송
   sendEamilVerification() => _firebaseAuth.currentUser!.sendEmailVerification();
+
+  //로그인 제공업체 확인
+  providerUser() => _firebaseAuth.currentUser!.providerData;
 }
