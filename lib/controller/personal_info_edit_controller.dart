@@ -18,7 +18,7 @@ class PersonalInfoEditController extends GetxController {
   Rx<User> get user => Get.find<AuthController>().user!.obs;
   Rxn<String> profileUrl =
       Rxn<String>(Get.find<SettingController>().profileUrl.value);
-  Rxn<String> name = Rxn<String>(Get.find<AuthController>().user!.displayName);
+  Rxn<String> name = Rxn<String>(Get.find<SettingController>().name.value);
   PageController pageController = PageController(); //페이지 뷰 컨트롤러
   RxInt currentPage = 0.obs; //개인정보 설정 첫 페이지(휴대폰인증)
 
@@ -101,6 +101,9 @@ class PersonalInfoEditController extends GetxController {
     var res = await DBService().getUserInfo(user.value.uid);
     return res;
   }
+
+  //로그인 제공업체에 따라 아이콘 변경
+  providerUserIcon() {}
 
   //인증요청 버튼 활성화
   certifyButton() {
@@ -212,10 +215,20 @@ class PersonalInfoEditController extends GetxController {
           onConfirm: () => Get.back(),
           cancelText: '취소',
           confirmText: '확인'));
-      AuthService().changePassword(pwconfirmController.text);
-      DBService().updatename(user.value.uid, nameController.text);
+      if (nameController.text.isEmpty) {
+        AuthService().changePassword(pwconfirmController.text);
+      }
+      if (pwConfirmError.value!.length > 15) {
+        DBService().updatename(user.value.uid, nameController.text);
+      }
+      if (nicknameError.value!.length < 15 &&
+          pwConfirmError.value!.length < 15) {
+        AuthService().changePassword(pwconfirmController.text);
+        DBService().updatename(user.value.uid, nameController.text);
+      }
     } else {
-      Get.snackbar('개인정보를 수정하세요.', '개인정보를 수정하지 않았습니다.');
+      // Get.snackbar('개인정보를 수정하세요.', '개인정보를 수정하지 않았습니다.');
+      null;
     }
   }
 

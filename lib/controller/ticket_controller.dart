@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class TicketController extends GetxController {
   PageController pageController = PageController(); //페이지 뷰 컨트롤러
-  RxInt currentPage = 0.obs; //회원탈퇴 현재 페이지
+  RxInt currentPage = 0.obs; //결제 현재 페이지
   bool isContentVisible = false;
   RxInt currentIndex = 0.obs; //현재 선택된 옵션 인덱스
   RxList<bool> isSelected = [true, false].obs; //선택 여부 리스트
