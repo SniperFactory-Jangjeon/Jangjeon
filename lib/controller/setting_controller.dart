@@ -10,6 +10,7 @@ class SettingController extends GetxController {
   var main = Get.find<MainController>();
   Rxn<String> profileUrl =
       Rxn<String>(Get.find<AuthController>().user!.photoURL);
+  Rxn<String> name = Rxn<String>(Get.find<AuthController>().user!.displayName);
   RxBool isNotifycation = false.obs;
   RxBool isMarketingAgree = false.obs;
 

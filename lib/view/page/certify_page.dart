@@ -77,7 +77,7 @@ class CertifyPage extends GetView<PersonalInfoEditController> {
                             const SizedBox(height: 20),
                             //인증하기 버튼이 눌려저있으면서 타이머가 작동되지 않을때
                             !controller.isCertifyButton.value &&
-                                    (controller.timer?.isActive ?? false)
+                                    (controller.timer?.isActive ?? true)
                                 ? Obx(
                                     () => RichText(
                                       text: TextSpan(
