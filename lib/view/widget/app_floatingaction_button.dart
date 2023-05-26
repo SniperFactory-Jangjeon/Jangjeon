@@ -6,11 +6,6 @@ class AppFloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Get.offAllNamed(AppRoutes.main)
-      },
-      child: SvgPicture.asset('assets/svg/floating_action_button.svg')
-    );
+    return SvgPicture.asset('assets/svg/floating_action_button.svg');
   }
 }

@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:html_unescape/html_unescape_small.dart';
 import 'package:intl/intl.dart';
+import 'package:jangjeon/service/cloud_natural_language.dart';
 import 'package:jangjeon/service/cloud_translate.dart';
 import 'package:xml/xml.dart';
 import 'package:http/http.dart' as http;
@@ -57,13 +59,15 @@ class NewsCrawling {
             time = '방금 전';
           }
           title = await CloudTranslate().getTranslation(title);
+          var aiScore = await CloudNaturalLanguage().getNatural(title) * 100;
           list.add({
             'title': HtmlUnescape().convert(title),
             'url': url,
+            'aiScore': aiScore.toInt(),
             'thumbnail': thumbnail,
             'stock': stock,
             'article': articleContent,
-            'pubDate': pubDate,
+            'pubDate': Timestamp.fromDate(pubDate),
             'date': kstDateString,
             'time': time
           });

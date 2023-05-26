@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:jangjeon/controller/stock_detail_controller.dart';
@@ -12,6 +11,7 @@ import 'package:jangjeon/view/widget/news_tile.dart';
 import 'package:jangjeon/view/widget/stock_bar_chart.dart';
 import 'package:jangjeon/view/widget/stock_line_chart.dart';
 import 'package:jangjeon/view/widget/stock_time_tile.dart';
+import '../../controller/main_controller.dart';
 
 class StockDetailPage extends GetView<StockDetailController> {
   const StockDetailPage({super.key});
@@ -24,6 +24,11 @@ class StockDetailPage extends GetView<StockDetailController> {
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              Get.find<MainController>().bottomNavIndex(2);
+            },
+            icon: const Icon(Icons.navigate_before)),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: SafeArea(
@@ -246,11 +251,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                           'AI가 분석한 오늘의 투자 지수',
                           style: AppTextStyle.h4B20(),
                         ),
-                        AIChartBar(
-                            negative: 0.3,
-                            neutrality: 0.2,
-                            positive: 0.5,
-                            investmentIndex: 60),
+                        AIChartBar(investmentIndex: controller.investmentNum),
                       ],
                     ),
                   ),
@@ -266,23 +267,32 @@ class StockDetailPage extends GetView<StockDetailController> {
                           style: AppTextStyle.h4B20(),
                         ),
                         const SizedBox(height: 8),
-                        ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: 3,
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: InkWell(
-                              onTap: () {},
+                        Obx(
+                          () => ListView.separated(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: controller.relevantNews.length > 3
+                                ? 3
+                                : controller.relevantNews.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
                               child: NewsTile(
-                                  title: '테슬라 액면 분할, 삼백슬라되나',
-                                  time: '1',
-                                  aiScore: 50,
-                                  img: 'https://picsum.photos/100/200'),
+                                title: controller.relevantNews[index]['title'],
+                                time: controller.relevantNews[index]['date'],
+                                aiScore: controller.relevantNews[index]
+                                    ['aiScore'],
+                                img: controller.relevantNews[index]
+                                    ['thumbnail'],
+                                news: controller.relevantNews[index],
+                                route: AppRoutes.newsDetail,
+                                uploadtime: controller.relevantNews[index]
+                                    ['pubDate'],
+                                url: controller.relevantNews[index]['url'],
+                                isOffAndTo: false
+                              ),
                             ),
-                          ),
-                          separatorBuilder: (context, index) => const Divider(
-                            thickness: 1,
+                            separatorBuilder: (context, index) =>
+                                const Divider(thickness: 1),
                           ),
                         ),
                       ],
@@ -291,7 +301,10 @@ class StockDetailPage extends GetView<StockDetailController> {
                   const Divider(thickness: 1),
                   Center(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.allNews,
+                            arguments: controller.relevantNews);
+                      },
                       child: Text(
                         '더보기',
                         style: AppTextStyle.b3R16(),

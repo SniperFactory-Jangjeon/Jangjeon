@@ -95,4 +95,42 @@ class DBService {
         FirebaseFirestore.instance.collection('stockList/$stockId/comment');
     await commentRef.doc(id).update({"likes": FieldValue.increment(1)});
   }
+
+  //뉴스 컬렉션 만들기 및 클릭 수 증가
+  clickNews(String url, newsData, Timestamp time) async {
+    final news = FirebaseFirestore.instance.collection('News');
+    var newsId = url.replaceAll("https://", "").replaceAll("/", "");
+    if (!await isDuplicateUniqueName(url)) {
+      news
+          .doc(newsId)
+          .set({'url': url, 'news': newsData, 'click': 1, 'time': time});
+    } else {
+      news.doc(newsId).update({'click': FieldValue.increment(1)});
+    }
+  }
+
+  //파이어베이스에 저장된 뉴스인지
+  Future<bool> isDuplicateUniqueName(String url) async {
+    QuerySnapshot query = await FirebaseFirestore.instance
+        .collection('News')
+        .where('url', isEqualTo: url)
+        .get();
+    return query.docs.isNotEmpty;
+  }
+
+  //핫이슈 읽어오기
+  readHotIssueNews() async {
+    var news = await FirebaseFirestore.instance
+        .collection('News')
+        .orderBy('click', descending: true)
+        .orderBy('time', descending: true)
+        .get();
+    return news.docs;
+  }
+
+  readStock() async {
+    var stockList =
+        await FirebaseFirestore.instance.collection('stockList').get();
+    return stockList.docs;
+  }
 }

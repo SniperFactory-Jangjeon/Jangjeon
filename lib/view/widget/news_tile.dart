@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/util/app_text_style.dart';
+import 'package:jangjeon/view/widget/ai_score.dart';
 
 class NewsTile extends StatelessWidget {
   const NewsTile(
@@ -9,65 +11,73 @@ class NewsTile extends StatelessWidget {
       required this.title,
       required this.time,
       required this.aiScore,
-      required this.img});
+      required this.img,
+      required this.route,
+      required this.news,
+      required this.url,
+      required this.uploadtime,
+      required this.isOffAndTo});
   final String title;
   final String time;
   final int aiScore;
   final String img;
+  final String route;
+  final Map news;
+  final String url;
+  final Timestamp uploadtime;
+  final bool isOffAndTo;
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: Get.width * 0.6,
-            height: 95,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: AppTextStyle.b3M16(),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(time, style: AppTextStyle.b5R12()),
-                    Row(
-                      children: [
-                        aiScore > 0
-                            ? SvgPicture.asset('assets/svg/ai_positive.svg')
-                            : SvgPicture.asset('assets/svg/ai_negative.svg'),
-                        Text(
-                          aiScore > 0 ? ' +$aiScore' : ' $aiScore',
-                          style: AppTextStyle.b4B14(),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+    return InkWell(
+      onTap: () {
+        isOffAndTo
+            ? Get.offAndToNamed(route, arguments: news)
+            : Get.toNamed(route, arguments: news);
+        DBService().clickNews(url, news, uploadtime);
+      },
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: Get.width * 0.6,
+              height: 95,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: AppTextStyle.b3M16(),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(time, style: AppTextStyle.b5R12()),
+                      AiScore(aiScore: aiScore)
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-      Container(
-          width: Get.width * 0.25,
-          height: Get.width * 0.25,
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              image: DecorationImage(
-                image: NetworkImage(
-                  img,
-                ),
-                fit: BoxFit.cover,
-              ))),
-    ]);
+          ],
+        ),
+        Container(
+            width: Get.width * 0.25,
+            height: Get.width * 0.25,
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    img,
+                  ),
+                  fit: BoxFit.cover,
+                ))),
+      ]),
+    );
   }
 }
