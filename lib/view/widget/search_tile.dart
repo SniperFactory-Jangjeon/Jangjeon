@@ -95,8 +95,10 @@ class _SearchTileState extends State<SearchTile> {
           ),
         ),
         IconButton(
-          onPressed: handleBookmarkButton,
+          onPressed:
+              widget.stock.symbol == 'TSLA' ? null : handleBookmarkButton,
           color: widget.bookmark ? Colors.yellow : AppColor.grayscale10,
+          disabledColor: Colors.yellow,
           icon: const Icon(
             Icons.star_rounded,
           ),
