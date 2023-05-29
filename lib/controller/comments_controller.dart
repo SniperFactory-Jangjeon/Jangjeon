@@ -14,12 +14,14 @@ class CommentsController extends GetxController {
   TextEditingController commentController = TextEditingController();
   firebaseAuth.User user = Get.find<AuthController>().user!;
 
-  RxList<Comment> comments = <Comment>[].obs;
+  List<Comment> comments = <Comment>[];
 
+  RxBool isLoading = false.obs;
   RxBool isButtonActivated = false.obs;
 
   //댓글 등록하기
   createComment() async {
+    isLoading(true);
     final uid = Get.find<AuthController>().user!.uid;
     final UserInfo userInfo = await DBService().getUserInfo(uid);
     final docId = const Uuid().v1();
@@ -38,7 +40,8 @@ class CommentsController extends GetxController {
     if (Get.find<SettingController>().userInfo.value != null) {
       Get.find<SettingController>().userInfo.value!.commentCount += 1;
     }
-    readComment();
+    await readComment();
+    isLoading(false);
   }
 
   //댓글 읽어오기
@@ -66,8 +69,10 @@ class CommentsController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    readComment();
+    isLoading(true);
+    await readComment();
+    isLoading(false);
   }
 }

@@ -191,10 +191,12 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               const Divider(thickness: 1),
               Center(
                 child: TextButton(
-                  onPressed: () {
-                    Get.toNamed(AppRoutes.comments, arguments: {
+                  onPressed: () async {
+                    controller.comments.clear();
+                    controller.comments.addAll(
+                        await Get.toNamed(AppRoutes.comments, arguments: {
                       'ticker': currentNews['stock'].toUpperCase()
-                    });
+                    }));
                   },
                   child: Text(
                     '더보기',

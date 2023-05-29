@@ -36,6 +36,7 @@ class NewsDetailController extends GetxController {
   newsStockComments() async {
     comments
         .addAll(await DBService().readComments(news['stock'].toUpperCase()));
+    comments.sort((a, b) => -a.createdAt.compareTo(b.createdAt));
   }
 
   @override

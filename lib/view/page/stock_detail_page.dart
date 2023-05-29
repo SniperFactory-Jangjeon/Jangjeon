@@ -277,19 +277,19 @@ class StockDetailPage extends GetView<StockDetailController> {
                             itemBuilder: (context, index) => Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: NewsTile(
-                                title: controller.relevantNews[index]['title'],
-                                time: controller.relevantNews[index]['date'],
-                                aiScore: controller.relevantNews[index]
-                                    ['aiScore'],
-                                img: controller.relevantNews[index]
-                                    ['thumbnail'],
-                                news: controller.relevantNews[index],
-                                route: AppRoutes.newsDetail,
-                                uploadtime: controller.relevantNews[index]
-                                    ['pubDate'],
-                                url: controller.relevantNews[index]['url'],
-                                isOffAndTo: false
-                              ),
+                                  title: controller.relevantNews[index]
+                                      ['title'],
+                                  time: controller.relevantNews[index]['date'],
+                                  aiScore: controller.relevantNews[index]
+                                      ['aiScore'],
+                                  img: controller.relevantNews[index]
+                                      ['thumbnail'],
+                                  news: controller.relevantNews[index],
+                                  route: AppRoutes.newsDetail,
+                                  uploadtime: controller.relevantNews[index]
+                                      ['pubDate'],
+                                  url: controller.relevantNews[index]['url'],
+                                  isOffAndTo: false),
                             ),
                             separatorBuilder: (context, index) =>
                                 const Divider(thickness: 1),
@@ -323,32 +323,36 @@ class StockDetailPage extends GetView<StockDetailController> {
                           style: AppTextStyle.h4B20(),
                         ),
                         const SizedBox(height: 8),
-                        ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: controller.comments.length < 3
-                              ? controller.comments.length
-                              : 3,
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: Obx(
-                              () => CommentTile(
-                                  onTap: () => controller.increseCommentLikes(
-                                      controller.comments[index]),
-                                  nickname:
-                                      controller.comments[index].userInfo.name,
-                                  profileImg: controller
-                                          .comments[index].userInfo.photoUrl ??
-                                      '',
-                                  content: controller.comments[index].comment,
-                                  like: controller.comments[index].likes.value,
-                                  comment: 1,
-                                  time: DateFormat('yyyy/MM/dd hh시 mm분').format(
-                                      controller.comments[index].createdAt)),
+                        Obx(
+                          () => ListView.separated(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: controller.comments.length < 3
+                                ? controller.comments.length
+                                : 3,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Obx(
+                                () => CommentTile(
+                                    onTap: () => controller.increseCommentLikes(
+                                        controller.comments[index]),
+                                    nickname: controller
+                                        .comments[index].userInfo.name,
+                                    profileImg: controller.comments[index]
+                                            .userInfo.photoUrl ??
+                                        '',
+                                    content: controller.comments[index].comment,
+                                    like:
+                                        controller.comments[index].likes.value,
+                                    comment: 1,
+                                    time: DateFormat('yyyy/MM/dd hh시 mm분')
+                                        .format(controller
+                                            .comments[index].createdAt)),
+                              ),
                             ),
-                          ),
-                          separatorBuilder: (context, index) => const Divider(
-                            thickness: 1,
+                            separatorBuilder: (context, index) => const Divider(
+                              thickness: 1,
+                            ),
                           ),
                         ),
                       ],
@@ -357,8 +361,12 @@ class StockDetailPage extends GetView<StockDetailController> {
                   const Divider(thickness: 1),
                   Center(
                     child: TextButton(
-                      onPressed: () => Get.toNamed(AppRoutes.comments,
-                          arguments: {'ticker': controller.ticker}),
+                      onPressed: () async {
+                        controller.comments.clear();
+                        controller.comments.addAll(await Get.toNamed(
+                            AppRoutes.comments,
+                            arguments: {'ticker': controller.ticker}));
+                      },
                       child: Text(
                         '더보기',
                         style: AppTextStyle.b3R16(),
