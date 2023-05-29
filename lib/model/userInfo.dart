@@ -5,14 +5,16 @@ class UserInfo {
   final String name; //이름
   final String phone; //전화번호
   final String email; //이메일
-  final bool optionalAgreement;
-  final String? photoUrl;
+  final bool optionalAgreement; //마케팅 동의 여부
+  int commentCount; //작성한 댓글 수
+  final String? photoUrl; //이미지 url
 
   UserInfo({
     required this.name,
     required this.phone,
     required this.email,
     required this.optionalAgreement,
+    required this.commentCount,
     this.photoUrl,
   });
 
@@ -22,6 +24,7 @@ class UserInfo {
       'phone': phone,
       'email': email,
       'optionalAgreement': optionalAgreement,
+      'commentCount': commentCount,
       'photoUrl': photoUrl,
     };
   }
@@ -32,6 +35,7 @@ class UserInfo {
       phone: map['phone'] as String,
       email: map['email'] as String,
       optionalAgreement: map['optionalAgreement'] as bool,
+      commentCount: map['commentCount'] as int,
       photoUrl: map['photoUrl'] != null ? map['photoUrl'] as String : null,
     );
   }

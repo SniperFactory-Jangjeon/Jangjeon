@@ -121,7 +121,10 @@ class SettingPage extends GetView<SettingController> {
                             decoration: BoxDecoration(
                                 color: const Color(0xFFF5F5F5),
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Center(child: Text(controller.main.myStockSymbolList.length.toString())))
+                            child: Center(
+                                child: Text(controller
+                                    .main.myStockSymbolList.length
+                                    .toString())))
                       ],
                     ),
                   ),
@@ -142,7 +145,12 @@ class SettingPage extends GetView<SettingController> {
                             decoration: BoxDecoration(
                                 color: const Color(0xFFF5F5F5),
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Center(child: Text('대충 댓글.length')))
+                            child: Center(
+                                child: Obx(
+                              () => Text(controller.userInfo.value?.commentCount
+                                      .toString() ??
+                                  ''),
+                            )))
                       ],
                     ),
                   )

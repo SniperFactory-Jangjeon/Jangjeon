@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
+import 'package:jangjeon/controller/setting_controller.dart';
 import 'package:jangjeon/controller/stock_detail_controller.dart';
 import 'package:jangjeon/model/comment.dart';
 import 'package:jangjeon/model/userInfo.dart';
@@ -33,13 +34,18 @@ class CommentsController extends GetxController {
         likes: 0.obs,
       ),
     );
+    DBService().increseCommentCount(uid);
+    if (Get.find<SettingController>().userInfo.value != null) {
+      Get.find<SettingController>().userInfo.value!.commentCount += 1;
+    }
     readComment();
   }
 
   //댓글 읽어오기
   readComment() async {
     comments.clear();
-    var result = await DBService().readComments(ticker);
+    List<Comment> result = await DBService().readComments(ticker);
+    result.sort((a, b) => -a.createdAt.compareTo(b.createdAt));
     comments.addAll(result);
   }
 
