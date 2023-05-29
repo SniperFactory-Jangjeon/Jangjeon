@@ -47,12 +47,11 @@ dependencies:
   image_picker: ^0.8.7+4
   intl: ^0.18.1
   kakao_flutter_sdk_user: ^1.4.2
+  shared_preferences: ^2.1.1
   uuid: ^3.0.7
   webview_flutter: ^4.2.0
-  toss_payment: ^0.2.6
   xml: ^6.1.0
   yahoofin: ^0.0.8
-  shared_preferences: ^2.1.1
 
 dev_dependencies:
   flutter_lints: ^2.0.1

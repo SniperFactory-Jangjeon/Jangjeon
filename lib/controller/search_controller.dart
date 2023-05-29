@@ -5,6 +5,7 @@ import 'package:jangjeon/model/stock.dart';
 import 'package:jangjeon/service/db_service.dart';
 
 class SearchController extends GetxController {
+  FocusNode focusNode = FocusNode();
   TextEditingController searchTextController = TextEditingController();
   List stockList = [];
   RxList searchList = [].obs;
@@ -17,7 +18,7 @@ class SearchController extends GetxController {
     searchList.addAll(stockList);
   }
 
-  void searchStock() async {
+  searchStock() {
     searchList.clear();
     for (var i = 0; i < stockList.length; i++) {
       if (stockList[i].nameForSearch.contains(searchTextController.text)) {

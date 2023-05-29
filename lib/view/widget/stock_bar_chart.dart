@@ -123,9 +123,7 @@ class StockBarChart extends StatelessWidget {
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
                   String text = '';
-                  if (value == 0) {
-                    text = '0';
-                  } else if (value == overallMax) {
+                  if (value == overallMax) {
                     text = '${overallMax}M';
                   } else if (value == (overallMax * 0.75).round()) {
                     text = '${(overallMax * 0.75).round()}M';
@@ -136,13 +134,16 @@ class StockBarChart extends StatelessWidget {
                   } else if (overallMin < 0 && value == overallMin) {
                     text = '${overallMin}M';
                   } else if (overallMin < 0 &&
-                      value == (overallMin * 0.75).round()) {
+                      value == (overallMin * 0.75).round() &&
+                      value != 0) {
                     text = '${(overallMin * 0.75).round()}M';
                   } else if (overallMin < 0 &&
-                      value == (overallMin * 0.5).round()) {
+                      value == (overallMin * 0.5).round() &&
+                      value != 0) {
                     text = '${(overallMin * 0.5).round()}M';
                   } else if (overallMin < 0 &&
-                      value == (overallMin * 0.25).round()) {
+                      value == (overallMin * 0.25).round() &&
+                      value != 0) {
                     text = '${(overallMin * 0.25).round()}M';
                   }
                   return Padding(
