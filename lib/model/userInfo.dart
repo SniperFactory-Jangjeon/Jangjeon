@@ -2,7 +2,7 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class UserInfo {
-  final String name; //이름
+  String name; //이름
   final String phone; //전화번호
   final String email; //이메일
   final bool optionalAgreement;

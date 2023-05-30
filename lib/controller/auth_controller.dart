@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/service/auth_service.dart';
 import 'package:jangjeon/service/db_service.dart';
@@ -8,6 +9,8 @@ import 'package:jangjeon/view/widget/app_dialog.dart';
 
 class AuthController extends GetxController {
   final Rxn<User> _user = Rxn(); //유저 정보
+  Rx<ImageProvider> providerImage =
+      Rx<ImageProvider>(const AssetImage('assets/icons/circle-user.png'));
 
   User? get user => _user.value; //유저 정보 getter
 
@@ -29,6 +32,10 @@ class AuthController extends GetxController {
   //닉네임 중복 체크
   checkDuplicateNickname(nickname) async =>
       await DBService().checkDuplicateNickname(nickname);
+
+  //이름변경
+  changeDispalyNAme(newname) async =>
+      await AuthService().changeDisplayName(newname);
 
   //토큰 로그인
   signInWithCustomToken(token) => AuthService().signInWithCustomToken(token);
@@ -57,6 +64,17 @@ class AuthController extends GetxController {
         if (value != null) {
           if (_user.value!.emailVerified ||
               _user.value!.uid.substring(0, 5) == 'kakao') {
+            for (UserInfo userInfo in value.providerData) {
+              if (userInfo.providerId == 'kakao.com') {
+                providerImage.value =
+                    const AssetImage('assets/icons/kakao_icon.png');
+                break;
+              } else if (userInfo.providerId == 'password') {
+                providerImage.value =
+                    const AssetImage('assets/icons/jangjeon_icon.png');
+                break;
+              }
+            }
             await Get.offAllNamed(AppRoutes.main);
           } else {
             await verifyEamil();

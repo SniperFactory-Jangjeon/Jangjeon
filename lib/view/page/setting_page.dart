@@ -42,10 +42,15 @@ class SettingPage extends GetView<SettingController> {
                       () => CircleAvatar(
                         radius: 30,
                         backgroundColor: Colors.white,
-                        backgroundImage: controller.profileUrl.value != null
-                            ? NetworkImage(controller.profileUrl.value!)
+                        backgroundImage: controller.personalInfoEditController
+                                    .profileUrl.value !=
+                                null
+                            ? NetworkImage(controller
+                                .personalInfoEditController.profileUrl.value!)
                             : null,
-                        child: controller.profileUrl.value == null
+                        child: controller.personalInfoEditController.profileUrl
+                                    .value ==
+                                null
                             ? Image.asset('assets/icons/circle-user.png')
                             : null,
                       ),
@@ -58,7 +63,10 @@ class SettingPage extends GetView<SettingController> {
                       Row(
                         children: [
                           Obx(
-                            () => Text(controller.userInfo.value?.name ?? '',
+                            () => Text(
+                                controller.personalInfoEditController.userInfo
+                                        .value?.name ??
+                                    '',
                                 style: AppTextStyle.h4B20()),
                           ),
                           const SizedBox(width: 8),
@@ -121,7 +129,10 @@ class SettingPage extends GetView<SettingController> {
                             decoration: BoxDecoration(
                                 color: const Color(0xFFF5F5F5),
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Center(child: Text(controller.main.myStockSymbolList.length.toString())))
+                            child: Center(
+                                child: Text(controller
+                                    .main.myStockSymbolList.length
+                                    .toString())))
                       ],
                     ),
                   ),

@@ -4,29 +4,31 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
-import 'package:jangjeon/controller/setting_controller.dart';
 import 'package:jangjeon/service/auth_service.dart';
 import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/service/sms_service.dart';
 import 'package:jangjeon/service/storage_service.dart';
 import 'package:jangjeon/model/userInfo.dart' as profile;
+import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/view/widget/app_dialog.dart';
 
 class PersonalInfoEditController extends GetxController {
   Rx<User> get user => Get.find<AuthController>().user!.obs;
   Rxn<String> profileUrl =
-      Rxn<String>(Get.find<SettingController>().profileUrl.value);
-  Rxn<String> name = Rxn<String>(Get.find<SettingController>().name.value);
+      Rxn<String>(Get.find<AuthController>().user!.photoURL);
+  Rxn<String> name = Rxn<String>(Get.find<AuthController>().user!.displayName);
   PageController pageController = PageController(); //페이지 뷰 컨트롤러
   RxInt currentPage = 0.obs; //개인정보 설정 첫 페이지(휴대폰인증)
+  var authController = Get.find<AuthController>();
 
   //firebase userInfo 가져오기
   Rxn<profile.UserInfo> userInfo = Rxn<profile.UserInfo>();
 
-  static const int lIMITTIME = 10;
-  final RxInt currentTime = 10.obs; //SMS타이머 1분
+  static const int lIMITTIME = 180;
+  final RxInt currentTime = 180.obs; //SMS타이머 3분
   Timer? timer;
 
   var phoneController = TextEditingController(); //본인인증 전화번호
@@ -52,7 +54,7 @@ class PersonalInfoEditController extends GetxController {
     var storageService = StorageService();
     var url = await storageService.gallery();
     profileUrl.value = url.value;
-    Get.find<SettingController>().profileUrl(url.value);
+    profileUrl(url.value);
     Get.back();
   }
 
@@ -60,7 +62,7 @@ class PersonalInfoEditController extends GetxController {
     var storageService = StorageService();
     var url = await storageService.camera();
     profileUrl.value = url.value;
-    Get.find<SettingController>().profileUrl(url.value);
+    profileUrl(url.value);
     Get.back();
   }
 
@@ -68,7 +70,7 @@ class PersonalInfoEditController extends GetxController {
     var storageService = StorageService();
     await storageService.defalutImage();
     profileUrl.value = null;
-    Get.find<SettingController>().profileUrl.value = null;
+    // Get.find<SettingController>().profileUrl.value = null;
     Get.back();
   }
 
@@ -101,9 +103,6 @@ class PersonalInfoEditController extends GetxController {
     var res = await DBService().getUserInfo(user.value.uid);
     return res;
   }
-
-  //로그인 제공업체에 따라 아이콘 변경
-  providerUserIcon() {}
 
   //인증요청 버튼 활성화
   certifyButton() {
@@ -205,27 +204,40 @@ class PersonalInfoEditController extends GetxController {
     }
   }
 
+  editSave() {
+    if (nameController.text.isEmpty) {
+      AuthService().changePassword(pwconfirmController.text);
+    }
+    if (pwConfirmError.value!.length > 15) {
+      DBService().updatename(user.value.uid, nameController.text);
+      //userInfo의 name값을 nameController.text로 변경하는게 아닌가
+      userInfo.update((userInfo) {
+        userInfo?.name = nameController.text;
+      });
+    }
+    if (nicknameError.value!.length < 15 && pwConfirmError.value!.length < 15) {
+      AuthService().changePassword(pwconfirmController.text);
+      DBService().updatename(user.value.uid, nameController.text);
+      userInfo.update((userInfo) {
+        userInfo?.name = nameController.text;
+      });
+    }
+    Get.back();
+    nameController.clear();
+    pwController.clear();
+    pwconfirmController.clear();
+  }
+
   //개인정보 수정
   changeUserInfo() {
     if (nicknameError.value!.length < 15 || pwConfirmError.value!.length < 15) {
       Get.dialog(AppDialog(
-          content: '저장완료',
-          subcontent: '개인정보 변경이 완료되었습니다.',
+          content: '개인정보 변경',
+          subcontent: '개인정보를 변경하시겠습니까?',
           onCancel: () => Get.back(),
-          onConfirm: () => Get.back(),
+          onConfirm: () => editSave(),
           cancelText: '취소',
           confirmText: '확인'));
-      if (nameController.text.isEmpty) {
-        AuthService().changePassword(pwconfirmController.text);
-      }
-      if (pwConfirmError.value!.length > 15) {
-        DBService().updatename(user.value.uid, nameController.text);
-      }
-      if (nicknameError.value!.length < 15 &&
-          pwConfirmError.value!.length < 15) {
-        AuthService().changePassword(pwconfirmController.text);
-        DBService().updatename(user.value.uid, nameController.text);
-      }
     } else {
       // Get.snackbar('개인정보를 수정하세요.', '개인정보를 수정하지 않았습니다.');
       null;

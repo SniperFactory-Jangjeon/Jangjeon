@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/ticket_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/app_elevated_button.dart';
 import 'package:jangjeon/view/widget/app_floatingaction_button.dart';
@@ -41,11 +42,11 @@ class TicketPage extends GetView<TicketController> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 16, horizontal: 6.8),
                         decoration: BoxDecoration(
-                          color: controller.currentIndex.value == 0
+                          color: controller.currentTicketIndex.value == 0
                               ? AppColor.red10
                               : AppColor.grey,
                           borderRadius: BorderRadius.circular(10),
-                          border: controller.currentIndex.value == 0
+                          border: controller.currentTicketIndex.value == 0
                               ? Border.all(
                                   color: AppColor.red100,
                                 )
@@ -60,18 +61,21 @@ class TicketPage extends GetView<TicketController> {
                                 Text(
                                   'Basic',
                                   style: AppTextStyle.h3B24(
-                                    color: controller.currentIndex.value == 1
-                                        ? AppColor.grayscale30
-                                        : AppColor.red100,
+                                    color:
+                                        controller.currentTicketIndex.value == 1
+                                            ? AppColor.grayscale30
+                                            : AppColor.red100,
                                   ),
                                 ),
                                 Container(
                                   width: 50,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(17),
-                                      color: controller.currentIndex.value == 1
-                                          ? AppColor.grayscale30
-                                          : AppColor.red100),
+                                      color:
+                                          controller.currentTicketIndex.value ==
+                                                  1
+                                              ? AppColor.grayscale30
+                                              : AppColor.red100),
                                   child: Center(
                                     child: Text('이용중',
                                         style: AppTextStyle.b5R12(
@@ -84,9 +88,10 @@ class TicketPage extends GetView<TicketController> {
                             Text(
                               'Free / 월',
                               style: AppTextStyle.b5R12(
-                                  color: controller.currentIndex.value == 1
-                                      ? AppColor.grayscale30
-                                      : AppColor.grayscale80),
+                                  color:
+                                      controller.currentTicketIndex.value == 1
+                                          ? AppColor.grayscale30
+                                          : AppColor.grayscale80),
                             ),
                             const SizedBox(height: 10),
                             Row(
@@ -94,16 +99,18 @@ class TicketPage extends GetView<TicketController> {
                                 Icon(
                                   Icons.circle,
                                   size: 5,
-                                  color: controller.currentIndex.value == 1
-                                      ? AppColor.grayscale30
-                                      : AppColor.grayscale100,
+                                  color:
+                                      controller.currentTicketIndex.value == 1
+                                          ? AppColor.grayscale30
+                                          : AppColor.grayscale100,
                                 ),
                                 Text(' 관심기업 갯수 10개',
                                     style: AppTextStyle.b4M14(
-                                        color:
-                                            controller.currentIndex.value == 1
-                                                ? AppColor.grayscale30
-                                                : AppColor.grayscale100)),
+                                        color: controller
+                                                    .currentTicketIndex.value ==
+                                                1
+                                            ? AppColor.grayscale30
+                                            : AppColor.grayscale100)),
                               ],
                             ),
                             const SizedBox(height: 2),
@@ -112,16 +119,18 @@ class TicketPage extends GetView<TicketController> {
                                 Icon(
                                   Icons.circle,
                                   size: 5,
-                                  color: controller.currentIndex.value == 1
-                                      ? AppColor.grayscale30
-                                      : AppColor.grayscale100,
+                                  color:
+                                      controller.currentTicketIndex.value == 1
+                                          ? AppColor.grayscale30
+                                          : AppColor.grayscale100,
                                 ),
                                 Text(' 실시간 번역서비스 10개 조회',
                                     style: AppTextStyle.b4M14(
-                                        color:
-                                            controller.currentIndex.value == 1
-                                                ? AppColor.grayscale30
-                                                : AppColor.grayscale100)),
+                                        color: controller
+                                                    .currentTicketIndex.value ==
+                                                1
+                                            ? AppColor.grayscale30
+                                            : AppColor.grayscale100)),
                               ],
                             ),
                             const SizedBox(height: 2),
@@ -130,16 +139,18 @@ class TicketPage extends GetView<TicketController> {
                                 Icon(
                                   Icons.circle,
                                   size: 5,
-                                  color: controller.currentIndex.value == 1
-                                      ? AppColor.grayscale30
-                                      : AppColor.grayscale100,
+                                  color:
+                                      controller.currentTicketIndex.value == 1
+                                          ? AppColor.grayscale30
+                                          : AppColor.grayscale100,
                                 ),
                                 Text(' 10개 이상 조회 시 광고',
                                     style: AppTextStyle.b4M14(
-                                        color:
-                                            controller.currentIndex.value == 1
-                                                ? AppColor.grayscale30
-                                                : AppColor.grayscale100)),
+                                        color: controller
+                                                    .currentTicketIndex.value ==
+                                                1
+                                            ? AppColor.grayscale30
+                                            : AppColor.grayscale100)),
                               ],
                             ),
                           ],
@@ -158,11 +169,11 @@ class TicketPage extends GetView<TicketController> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 16, horizontal: 15),
                         decoration: BoxDecoration(
-                          color: controller.currentIndex.value == 1
+                          color: controller.currentTicketIndex.value == 1
                               ? AppColor.red10
                               : AppColor.grey,
                           borderRadius: BorderRadius.circular(10),
-                          border: controller.currentIndex.value == 1
+                          border: controller.currentTicketIndex.value == 1
                               ? Border.all(
                                   color: AppColor.red100,
                                 )
@@ -174,32 +185,36 @@ class TicketPage extends GetView<TicketController> {
                             Text(
                               'Pro',
                               style: AppTextStyle.h3B24(
-                                  color: controller.currentIndex.value == 1
-                                      ? AppColor.red100
-                                      : AppColor.grayscale30),
+                                  color:
+                                      controller.currentTicketIndex.value == 1
+                                          ? AppColor.red100
+                                          : AppColor.grayscale30),
                             ),
                             const SizedBox(height: 2),
                             Text(
                               '8,000원 / 월',
                               style: AppTextStyle.b5R12(
-                                  color: controller.currentIndex.value == 1
-                                      ? AppColor.grayscale80
-                                      : AppColor.grayscale30),
+                                  color:
+                                      controller.currentTicketIndex.value == 1
+                                          ? AppColor.grayscale80
+                                          : AppColor.grayscale30),
                             ),
                             const SizedBox(height: 10),
                             Row(
                               children: [
                                 Icon(Icons.circle,
                                     size: 5,
-                                    color: controller.currentIndex.value == 1
-                                        ? AppColor.grayscale100
-                                        : AppColor.grayscale30),
+                                    color:
+                                        controller.currentTicketIndex.value == 1
+                                            ? AppColor.grayscale100
+                                            : AppColor.grayscale30),
                                 Text(' 관심기업 갯수 무제한',
                                     style: AppTextStyle.b4M14(
-                                        color:
-                                            controller.currentIndex.value == 1
-                                                ? AppColor.grayscale100
-                                                : AppColor.grayscale30)),
+                                        color: controller
+                                                    .currentTicketIndex.value ==
+                                                1
+                                            ? AppColor.grayscale100
+                                            : AppColor.grayscale30)),
                               ],
                             ),
                             const SizedBox(height: 2),
@@ -207,15 +222,17 @@ class TicketPage extends GetView<TicketController> {
                               children: [
                                 Icon(Icons.circle,
                                     size: 5,
-                                    color: controller.currentIndex.value == 1
-                                        ? AppColor.grayscale100
-                                        : AppColor.grayscale30),
+                                    color:
+                                        controller.currentTicketIndex.value == 1
+                                            ? AppColor.grayscale100
+                                            : AppColor.grayscale30),
                                 Text(' 실시간 번역서비스 무제한',
                                     style: AppTextStyle.b4M14(
-                                        color:
-                                            controller.currentIndex.value == 1
-                                                ? AppColor.grayscale100
-                                                : AppColor.grayscale30)),
+                                        color: controller
+                                                    .currentTicketIndex.value ==
+                                                1
+                                            ? AppColor.grayscale100
+                                            : AppColor.grayscale30)),
                               ],
                             ),
                             const SizedBox(height: 2),
@@ -223,15 +240,17 @@ class TicketPage extends GetView<TicketController> {
                               children: [
                                 Icon(Icons.circle,
                                     size: 5,
-                                    color: controller.currentIndex.value == 1
-                                        ? AppColor.grayscale100
-                                        : AppColor.grayscale30),
+                                    color:
+                                        controller.currentTicketIndex.value == 1
+                                            ? AppColor.grayscale100
+                                            : AppColor.grayscale30),
                                 Text(' 광고 제거',
                                     style: AppTextStyle.b4M14(
-                                        color:
-                                            controller.currentIndex.value == 1
-                                                ? AppColor.grayscale100
-                                                : AppColor.grayscale30)),
+                                        color: controller
+                                                    .currentTicketIndex.value ==
+                                                1
+                                            ? AppColor.grayscale100
+                                            : AppColor.grayscale30)),
                               ],
                             ),
                           ],
@@ -249,7 +268,7 @@ class TicketPage extends GetView<TicketController> {
                 () => AppElevatedButton(
                     childText: '다음단계',
                     onPressed: controller.isNextPageBtnActivated.value
-                        ? () => print('다음단계 페이지')
+                        ? () => Get.toNamed(AppRoutes.paymentmethod)
                         : null),
               ),
             )

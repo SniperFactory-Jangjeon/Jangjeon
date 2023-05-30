@@ -30,15 +30,17 @@ class AccountDeleteScreen extends GetView<AccountDeleteController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text.rich(TextSpan(
-                      text: controller.user.value.displayName,
-                      style: AppTextStyle.h2B28(color: AppColor.red100),
-                      children: [
-                        TextSpan(
-                          text: ' 님\n정말로 탈퇴하시겠어요?',
-                          style: AppTextStyle.h2B28(),
-                        )
-                      ])),
+                  Obx(
+                    () => Text.rich(TextSpan(
+                        text: controller.userInfo.value?.name ?? '',
+                        style: AppTextStyle.h2B28(color: AppColor.red100),
+                        children: [
+                          TextSpan(
+                            text: ' 님\n정말로 탈퇴하시겠어요?',
+                            style: AppTextStyle.h2B28(),
+                          )
+                        ])),
+                  ),
                   const SizedBox(height: 29),
                   Text(
                     '1. 지금 탈퇴하시게 되면 저장하신 모든 기업들의 기사 및 리스트가 사라지게 됩니다!',
