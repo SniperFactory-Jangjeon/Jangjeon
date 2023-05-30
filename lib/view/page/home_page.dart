@@ -112,6 +112,8 @@ class HomePage extends GetView<MainController> {
                                       controller.currentStock.value = controller
                                           .myStockList[index]['symbol'];
                                       controller.getNews();
+                                      controller.todayStockNatural(
+                                          '오늘의 ${controller.currentStock.value} 투자 지수');
                                     },
                                     child: Obx(
                                       () => CircleAvatar(
@@ -124,6 +126,8 @@ class HomePage extends GetView<MainController> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(2.0),
                                           child: CircleAvatar(
+                                            backgroundColor:
+                                                AppColor.grayscale0,
                                             backgroundImage: NetworkImage(
                                                 controller.myStockList[index]
                                                     ['logo']),
@@ -180,37 +184,29 @@ class HomePage extends GetView<MainController> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: Get.width * 0.8,
-                          height: 70,
-                          child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: AppFilter.keyword.length,
-                            itemBuilder: (context, index) => Center(
-                              child: InkWell(
-                                onTap: () {
-                                  controller.filterNews(index);
-                                },
-                                child: Obx(
-                                  () => FilterTile(
-                                    text: AppFilter.keyword[index],
-                                    selected:
-                                        controller.isSeletedFilter.value ==
-                                            index,
-                                  ),
-                                ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 70,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: AppFilter.keyword.length,
+                        itemBuilder: (context, index) => Center(
+                          child: InkWell(
+                            onTap: () {
+                              controller.filterNews(index);
+                            },
+                            child: Obx(
+                              () => FilterTile(
+                                text: AppFilter.keyword[index],
+                                selected:
+                                    controller.isSeletedFilter.value == index,
                               ),
                             ),
                           ),
                         ),
-                        GestureDetector(
-                            onTap: () {},
-                            child: const FaIcon(FontAwesomeIcons.sliders))
-                      ],
+                      ),
                     ),
                     Obx(
                       () => ListView.builder(

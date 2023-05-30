@@ -195,8 +195,9 @@ class StockDetailController extends GetxController {
     comment.likes += 1;
   }
 
-  getRelevantNews() {
-    NewsCrawling().newsCrawling(ticker, relevantNews);
+  getRelevantNews() async {
+    relevantNews.clear();
+    await NewsCrawling().newsCrawling(ticker, relevantNews);
   }
 
   //투자 지수 가져오기
