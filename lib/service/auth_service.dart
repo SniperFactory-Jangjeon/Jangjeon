@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:jangjeon/service/db_service.dart';
 
 class AuthService {
@@ -55,6 +57,7 @@ class AuthService {
   //인증 이메일 전송
   sendEamilVerification() => _firebaseAuth.currentUser!.sendEmailVerification();
 
-  //로그인 제공업체 확인
-  providerUser() => _firebaseAuth.currentUser!.providerData;
+  //이름 변경
+  changeDisplayName(newname) =>
+      _firebaseAuth.currentUser!.updateDisplayName(newname);
 }
