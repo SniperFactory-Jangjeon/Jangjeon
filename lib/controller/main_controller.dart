@@ -10,7 +10,7 @@ class MainController extends GetxController {
   RxDouble investmentIndex = (-1.0).obs;
   RxInt bottomNavIndex = 2.obs;
   RxList news = [].obs;
-  RxInt isSeletedFilter = 10.obs;
+  RxInt isSeletedFilter = 0.obs;
   RxMap hotIssueNews = {}.obs;
   RxString currentStock = ''.obs;
   RxList<Stock> stockList = <Stock>[].obs;
@@ -48,6 +48,7 @@ class MainController extends GetxController {
   }
 
   getNews() {
+    isSeletedFilter(10);
     news.clear();
     NewsCrawling().newsCrawling(currentStock.value.toLowerCase(), news);
   }
@@ -64,6 +65,7 @@ class MainController extends GetxController {
       news.sort((a, b) => b['aiScore'].compareTo(a['aiScore']));
     } else if (index == 3) {
       //댓글 순
+      news.sort((a, b) => a['aiScore'].compareTo(b['aiScore']));
     }
     isSeletedFilter(index);
   }

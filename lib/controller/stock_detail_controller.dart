@@ -36,7 +36,7 @@ class StockDetailController extends GetxController {
   List<double> revenus = [];
   List<double> earnings = [];
 
-  List<Comment> comments = [];
+  RxList<Comment> comments = <Comment>[].obs;
   RxList relevantNews = [].obs;
 
   //환율 가져오기
@@ -185,7 +185,8 @@ class StockDetailController extends GetxController {
 
   //댓글 읽어오기
   readComments() async {
-    comments = await DBService().readComments(ticker);
+    comments(await DBService().readComments(ticker));
+    comments.sort((a, b) => -a.createdAt.compareTo(b.createdAt));
   }
 
   //댓글 좋아요 수 증가
@@ -194,8 +195,9 @@ class StockDetailController extends GetxController {
     comment.likes += 1;
   }
 
-  getRelevantNews() {
-    NewsCrawling().newsCrawling(ticker, relevantNews);
+  getRelevantNews() async {
+    relevantNews.clear();
+    await NewsCrawling().newsCrawling(ticker, relevantNews);
   }
 
   //투자 지수 가져오기

@@ -10,7 +10,7 @@ import 'package:jangjeon/view/widget/app_dialog.dart';
 class AuthController extends GetxController {
   final Rxn<User> _user = Rxn(); //유저 정보
   Rx<ImageProvider> providerImage =
-      Rx<ImageProvider>(const AssetImage('assets/icons/circle-user.png'));
+      Rx<ImageProvider>(const AssetImage('assets/icons/jangjeon_icon.png'));
 
   User? get user => _user.value; //유저 정보 getter
 
@@ -64,16 +64,9 @@ class AuthController extends GetxController {
         if (value != null) {
           if (_user.value!.emailVerified ||
               _user.value!.uid.substring(0, 5) == 'kakao') {
-            for (UserInfo userInfo in value.providerData) {
-              if (userInfo.providerId == 'kakao.com') {
-                providerImage.value =
-                    const AssetImage('assets/icons/kakao_icon.png');
-                break;
-              } else if (userInfo.providerId == 'password') {
-                providerImage.value =
-                    const AssetImage('assets/icons/jangjeon_icon.png');
-                break;
-              }
+            if (_user.value!.uid.substring(0, 5) == 'kakao') {
+              providerImage.value =
+                  const AssetImage('assets/icons/kakao_icon.png');
             }
             await Get.offAllNamed(AppRoutes.main);
           } else {

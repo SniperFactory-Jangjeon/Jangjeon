@@ -295,6 +295,7 @@ class SignupController extends GetxController {
         name: nameController.text,
         phone: phoneController.value.text,
         email: emailController.text,
+        commentCount: 0,
         optionalAgreement: agreement[3]['value'].value);
 
     await Get.find<AuthController>()

@@ -96,6 +96,13 @@ class DBService {
     await commentRef.doc(id).update({"likes": FieldValue.increment(1)});
   }
 
+  //내 댓글 작성 수 증가
+  increseCommentCount(uid) async {
+    await userInfoRef
+        .doc(uid)
+        .update({"commentCount": FieldValue.increment(1)});
+  }
+
   //뉴스 컬렉션 만들기 및 클릭 수 증가
   clickNews(String url, newsData, Timestamp time) async {
     final news = FirebaseFirestore.instance.collection('News');

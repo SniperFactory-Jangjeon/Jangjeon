@@ -19,6 +19,10 @@ class CommentsPage extends GetView<CommentsController> {
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () => Get.back(result: controller.comments),
+          icon: Icon(Icons.arrow_back),
+        ),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: Column(
@@ -84,37 +88,44 @@ class CommentsPage extends GetView<CommentsController> {
           ),
           const Divider(thickness: 10),
           Expanded(
-            child: Obx(
-              () => ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                itemCount: controller.comments.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Obx(
-                      () => CommentTile(
-                          onTap: () => controller.increseCommentLikes(
-                              controller.comments[index], index),
-                          nickname: controller.comments[index].userInfo.name,
-                          profileImg:
-                              controller.comments[index].userInfo.photoUrl ??
-                                  '',
-                          content: controller.comments[index].comment,
-                          like: controller.comments[index].likes.value,
-                          comment: 1,
-                          time: DateFormat('yyyy/MM/dd hh시 mm분')
-                              .format(controller.comments[index].createdAt)),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider(
-                    indent: 20,
-                    endIndent: 20,
-                  );
-                },
-              ),
-            ),
+            child: Obx(() {
+              if (controller.isLoading.value) {
+                return const Center(
+                    child: CircularProgressIndicator(
+                  color: AppColor.red100,
+                ));
+              } else {
+                return ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: controller.comments.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Obx(
+                        () => CommentTile(
+                            onTap: () => controller.increseCommentLikes(
+                                controller.comments[index], index),
+                            nickname: controller.comments[index].userInfo.name,
+                            profileImg:
+                                controller.comments[index].userInfo.photoUrl ??
+                                    '',
+                            content: controller.comments[index].comment,
+                            like: controller.comments[index].likes.value,
+                            comment: 1,
+                            time: DateFormat('yyyy/MM/dd hh시 mm분')
+                                .format(controller.comments[index].createdAt)),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      indent: 20,
+                      endIndent: 20,
+                    );
+                  },
+                );
+              }
+            }),
           )
         ],
       ),

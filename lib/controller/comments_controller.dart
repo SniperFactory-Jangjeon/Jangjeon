@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
+import 'package:jangjeon/controller/setting_controller.dart';
 import 'package:jangjeon/controller/stock_detail_controller.dart';
 import 'package:jangjeon/model/comment.dart';
 import 'package:jangjeon/model/userInfo.dart';
@@ -13,12 +14,14 @@ class CommentsController extends GetxController {
   TextEditingController commentController = TextEditingController();
   firebaseAuth.User user = Get.find<AuthController>().user!;
 
-  RxList<Comment> comments = <Comment>[].obs;
+  List<Comment> comments = <Comment>[];
 
+  RxBool isLoading = false.obs;
   RxBool isButtonActivated = false.obs;
 
   //댓글 등록하기
   createComment() async {
+    isLoading(true);
     final uid = Get.find<AuthController>().user!.uid;
     final UserInfo userInfo = await DBService().getUserInfo(uid);
     final docId = const Uuid().v1();
@@ -33,13 +36,19 @@ class CommentsController extends GetxController {
         likes: 0.obs,
       ),
     );
-    readComment();
+    DBService().increseCommentCount(uid);
+    if (Get.find<SettingController>().userInfo.value != null) {
+      Get.find<SettingController>().userInfo.value!.commentCount += 1;
+    }
+    await readComment();
+    isLoading(false);
   }
 
   //댓글 읽어오기
   readComment() async {
     comments.clear();
-    var result = await DBService().readComments(ticker);
+    List<Comment> result = await DBService().readComments(ticker);
+    result.sort((a, b) => -a.createdAt.compareTo(b.createdAt));
     comments.addAll(result);
   }
 
@@ -60,8 +69,10 @@ class CommentsController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    readComment();
+    isLoading(true);
+    await readComment();
+    isLoading(false);
   }
 }

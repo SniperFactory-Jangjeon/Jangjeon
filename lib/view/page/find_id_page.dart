@@ -173,14 +173,11 @@ class FindIdPage extends GetView<FindIdController> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SuccessTile(
-                title: '문자를 전송했습니다.',
-                message: '인증하신 번호로 이메일 주소를 보냈습니다.\n이메일 주소를 확인하여 로그인해주세요.',
-                btnText: '로그인하기',
-                onPressed: () => Get.back(),
-              ),
+            SuccessTile(
+              title: '문자를 전송했습니다.',
+              message: '인증하신 번호로 이메일 주소를 보냈습니다.\n이메일 주소를 확인하여 로그인해주세요.',
+              btnText: '로그인하기',
+              onPressed: () => Get.back(),
             ),
           ],
         ),
