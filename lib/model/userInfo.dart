@@ -3,7 +3,7 @@ import 'dart:convert';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class UserInfo {
   final String name; //이름
-  final String phone; //전화번호
+  final String? phone; //전화번호
   final String email; //이메일
   final bool optionalAgreement; //마케팅 동의 여부
   int commentCount; //작성한 댓글 수
@@ -11,7 +11,7 @@ class UserInfo {
 
   UserInfo({
     required this.name,
-    required this.phone,
+    this.phone,
     required this.email,
     required this.optionalAgreement,
     required this.commentCount,
@@ -32,7 +32,7 @@ class UserInfo {
   factory UserInfo.fromMap(Map<String, dynamic> map) {
     return UserInfo(
       name: map['name'] as String,
-      phone: map['phone'] as String,
+      phone: map['phone'] != null ? map['phone'] as String : null,
       email: map['email'] as String,
       optionalAgreement: map['optionalAgreement'] as bool,
       commentCount: map['commentCount'] as int,
