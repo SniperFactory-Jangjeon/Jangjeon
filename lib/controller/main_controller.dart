@@ -18,6 +18,7 @@ class MainController extends GetxController {
   List<String> myStockSymbolList = [];
   SharedPreferences? prefs;
   List myStockInfo = [];
+  RxBool isNewsLoading = false.obs;
 
   bool readBookmark(String stock) {
     return myStockSymbolList.contains(stock);
@@ -47,10 +48,12 @@ class MainController extends GetxController {
     return myStockInfo;
   }
 
-  getNews() {
+  getNews() async {
+    isNewsLoading(true);
     isSeletedFilter(10);
     news.clear();
-    NewsCrawling().newsCrawling(currentStock.value.toLowerCase(), news);
+    await NewsCrawling().newsCrawling(currentStock.value.toLowerCase(), news);
+    isNewsLoading(false);
   }
 
   filterNews(int index) {
