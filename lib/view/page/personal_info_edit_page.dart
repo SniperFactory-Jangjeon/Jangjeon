@@ -81,7 +81,11 @@ class PersonalInfoEditPage extends GetView<PersonalInfoEditController> {
             const SizedBox(height: 10),
             Row(
               children: [
-                const Icon(Icons.circle),
+                Obx(() => Image(
+                      width: 20,
+                      height: 20,
+                      image: controller.authController.providerImage.value,
+                    )),
                 const SizedBox(width: 10),
                 Obx(() => Text(controller.userInfo.value?.email ?? ''))
               ],
