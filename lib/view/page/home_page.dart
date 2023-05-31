@@ -10,6 +10,8 @@ import 'package:jangjeon/view/widget/ai_chart_bar.dart';
 import 'package:jangjeon/view/widget/ai_chart_pie.dart';
 import 'package:jangjeon/view/widget/filter_tile.dart';
 import 'package:jangjeon/view/widget/main_news_tile.dart';
+import 'package:jangjeon/view/widget/news_shimmer_box.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends GetView<MainController> {
   const HomePage({super.key});
@@ -25,8 +27,9 @@ class HomePage extends GetView<MainController> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-              onPressed: () => Get.toNamed(AppRoutes.search),
-              icon: const Icon(Icons.search))
+            onPressed: () => Get.toNamed(AppRoutes.search),
+            icon: const Icon(Icons.search),
+          )
         ],
       ),
       body: SafeArea(
@@ -215,19 +218,25 @@ class HomePage extends GetView<MainController> {
                         itemCount: controller.news.length > 3
                             ? 3
                             : controller.news.length,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: MainNewsTile(
-                            title: controller.news[index]['title'],
-                            time: controller.news[index]['date'],
-                            aiScore: controller.news[index]['aiScore'],
-                            img: controller.news[index]['thumbnail'],
-                            route: AppRoutes.newsDetail,
-                            news: controller.news[index],
-                            uploadtime: controller.news[index]['pubDate'],
-                            url: controller.news[index]['url'],
-                          ),
-                        ),
+                        itemBuilder: (context, index) {
+                          if (controller.isNewsLoading.value) {
+                            return const NewsShimmerBox();
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: MainNewsTile(
+                                title: controller.news[index]['title'],
+                                time: controller.news[index]['date'],
+                                aiScore: controller.news[index]['aiScore'],
+                                img: controller.news[index]['thumbnail'],
+                                route: AppRoutes.newsDetail,
+                                news: controller.news[index],
+                                uploadtime: controller.news[index]['pubDate'],
+                                url: controller.news[index]['url'],
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ),
                   ],

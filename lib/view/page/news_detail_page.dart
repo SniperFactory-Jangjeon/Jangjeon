@@ -26,9 +26,13 @@ class NewsDetailPage extends GetView<NewsDetailController> {
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.navigate_before),
+          icon: const Icon(Icons.navigate_before),
         ),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        actions: [
+          IconButton(
+              onPressed: () => Get.toNamed(AppRoutes.search),
+              icon: const Icon(Icons.search))
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

@@ -7,6 +7,7 @@ import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/ai_chart_bar.dart';
 import 'package:jangjeon/view/widget/comment_tile.dart';
+import 'package:jangjeon/view/widget/news_shimmer_box.dart';
 import 'package:jangjeon/view/widget/news_tile.dart';
 import 'package:jangjeon/view/widget/stock_bar_chart.dart';
 import 'package:jangjeon/view/widget/stock_line_chart.dart';
@@ -29,7 +30,12 @@ class StockDetailPage extends GetView<StockDetailController> {
               Get.find<MainController>().bottomNavIndex(2);
             },
             icon: const Icon(Icons.navigate_before)),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        actions: [
+          IconButton(
+            onPressed: () => Get.toNamed(AppRoutes.search),
+            icon: const Icon(Icons.search),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Obx(() {
@@ -274,23 +280,32 @@ class StockDetailPage extends GetView<StockDetailController> {
                             itemCount: controller.relevantNews.length > 3
                                 ? 3
                                 : controller.relevantNews.length,
-                            itemBuilder: (context, index) => Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: NewsTile(
-                                  title: controller.relevantNews[index]
-                                      ['title'],
-                                  time: controller.relevantNews[index]['date'],
-                                  aiScore: controller.relevantNews[index]
-                                      ['aiScore'],
-                                  img: controller.relevantNews[index]
-                                      ['thumbnail'],
-                                  news: controller.relevantNews[index],
-                                  route: AppRoutes.newsDetail,
-                                  uploadtime: controller.relevantNews[index]
-                                      ['pubDate'],
-                                  url: controller.relevantNews[index]['url'],
-                                  isOffAndTo: false),
-                            ),
+                            itemBuilder: (context, index) {
+                              if (controller.isNewsLoading.value) {
+                                return NewsShimmerBox();
+                              } else {
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: NewsTile(
+                                      title: controller.relevantNews[index]
+                                          ['title'],
+                                      time: controller.relevantNews[index]
+                                          ['date'],
+                                      aiScore: controller.relevantNews[index]
+                                          ['aiScore'],
+                                      img: controller.relevantNews[index]
+                                          ['thumbnail'],
+                                      news: controller.relevantNews[index],
+                                      route: AppRoutes.newsDetail,
+                                      uploadtime: controller.relevantNews[index]
+                                          ['pubDate'],
+                                      url: controller.relevantNews[index]
+                                          ['url'],
+                                      isOffAndTo: false),
+                                );
+                              }
+                            },
                             separatorBuilder: (context, index) =>
                                 const Divider(thickness: 1),
                           ),

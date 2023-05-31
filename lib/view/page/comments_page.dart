@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:jangjeon/controller/comments_controller.dart';
-import 'package:jangjeon/controller/stock_detail_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/comment_tile.dart';
 
@@ -21,9 +21,14 @@ class CommentsPage extends GetView<CommentsController> {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Get.back(result: controller.comments),
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        actions: [
+          IconButton(
+            onPressed: () => Get.toNamed(AppRoutes.search),
+            icon: const Icon(Icons.search),
+          ),
+        ],
       ),
       body: Column(
         children: [

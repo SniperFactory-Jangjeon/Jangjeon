@@ -27,6 +27,7 @@ class StockDetailController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isChartLoading = false.obs;
   RxBool isDollarChecked = true.obs;
+  RxBool isNewsLoading = false.obs;
 
   double investmentNum = 0;
   Exchange? exchange;
@@ -196,8 +197,10 @@ class StockDetailController extends GetxController {
   }
 
   getRelevantNews() async {
+    isNewsLoading(true);
     relevantNews.clear();
     await NewsCrawling().newsCrawling(ticker, relevantNews);
+    isNewsLoading(false);
   }
 
   //투자 지수 가져오기
@@ -213,7 +216,7 @@ class StockDetailController extends GetxController {
     await getCompanyInfo();
     await getCompanyPerfomance();
     await readComments();
-    await getRelevantNews();
+    getRelevantNews();
     await getPositiveNatural();
     isLoading(false);
   }
