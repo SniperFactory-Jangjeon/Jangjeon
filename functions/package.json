@@ -15,7 +15,9 @@
   "dependencies": {
     "firebase-admin": "^11.5.0",
     "firebase-auth": "^0.1.2",
-    "firebase-functions": "^4.2.0"
+    "firebase-functions": "^4.2.0",
+    "node-fetch": "^2.6.6",
+    "xmldom": "^0.6.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^3.0.0"
