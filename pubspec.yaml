@@ -53,6 +53,10 @@ dependencies:
   webview_flutter: ^4.2.0
   xml: ^6.1.0
   yahoofin: ^0.0.8
+  toss_payment:
+    git:
+      url: https://github.com/monocsp/-toss_payment_fork
+      path: toss_payment/
 
 dev_dependencies:
   flutter_lints: ^2.0.1

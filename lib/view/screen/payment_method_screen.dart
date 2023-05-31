@@ -4,10 +4,10 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/ticket_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_text_style.dart';
 
-class PaymentMethodPage extends GetView<TicketController> {
-  const PaymentMethodPage({super.key});
-  static const route = '/paymentmethod';
+class PaymentMethodScreen extends GetView<TicketController> {
+  const PaymentMethodScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class PaymentMethodPage extends GetView<TicketController> {
           leading: IconButton(
               onPressed: () => Get.back(),
               icon: const Icon(Icons.arrow_back_ios_new))),
-      body: Center(child: Text('결제수단 페이지')),
+      body: Text('결제수단', style: AppTextStyle.b1B24()),
     );
   }
 }

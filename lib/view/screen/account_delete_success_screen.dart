@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/account_delete_controller.dart';
-import 'package:jangjeon/util/app_color.dart';
-import 'package:jangjeon/util/app_text_style.dart';
-import 'package:jangjeon/view/widget/app_elevated_button.dart';
 import 'package:jangjeon/view/widget/success_tile.dart';
 
 class AccountDeleteSuccessScreen extends GetView<AccountDeleteController> {
