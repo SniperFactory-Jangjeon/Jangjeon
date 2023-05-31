@@ -1,6 +1,5 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-const auth = require("firebase-auth");
 
 var serviceAccount = require("./jangjeon-8722f-firebase-adminsdk-jwgjc-8ebd3688a9.json");
 
@@ -23,6 +22,14 @@ exports.createKakaoToken = functions.https.onRequest(async (request, response) =
     } catch (error) {
         updateParams["uid"] = uid;
         await admin.auth().createUser(updateParams);
+        await admin.firestore().collection('userInfo').doc(uid).set({
+            email: user.email,
+            photoUrl: user.photoURL,
+            name: user.displayName,
+            optionalAgreement: false,
+            phone: null,
+            commentCount: 0
+        }, { merge: true });
     }
 
     const token = await admin.auth().createCustomToken(uid);

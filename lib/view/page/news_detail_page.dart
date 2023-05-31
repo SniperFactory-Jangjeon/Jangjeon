@@ -26,9 +26,13 @@ class NewsDetailPage extends GetView<NewsDetailController> {
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.navigate_before),
+          icon: const Icon(Icons.navigate_before),
         ),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        actions: [
+          IconButton(
+              onPressed: () => Get.toNamed(AppRoutes.search),
+              icon: const Icon(Icons.search))
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -191,10 +195,12 @@ class NewsDetailPage extends GetView<NewsDetailController> {
               const Divider(thickness: 1),
               Center(
                 child: TextButton(
-                  onPressed: () {
-                    Get.toNamed(AppRoutes.comments, arguments: {
+                  onPressed: () async {
+                    controller.comments.clear();
+                    controller.comments.addAll(
+                        await Get.toNamed(AppRoutes.comments, arguments: {
                       'ticker': currentNews['stock'].toUpperCase()
-                    });
+                    }));
                   },
                   child: Text(
                     '더보기',

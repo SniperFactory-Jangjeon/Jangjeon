@@ -25,17 +25,14 @@ class SignupPage extends GetView<SignupController> {
                 ),
               )
             : null,
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: PageView(
-            controller: controller.pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: const [
-              VerificationScreen(),
-              SignupScreen(),
-              SignupSuccessScreen(),
-            ],
-          ),
+        body: PageView(
+          controller: controller.pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            VerificationScreen(),
+            SignupScreen(),
+            SignupSuccessScreen(),
+          ],
         ),
       ),
     );

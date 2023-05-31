@@ -12,148 +12,152 @@ class SignupScreen extends GetView<SignupController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  style: AppTextStyle.h2B28(),
-                  '회원가입',
-                ),
-                const SizedBox(height: 27),
-                Text(
-                  style: AppTextStyle.b3M16(),
-                  '이메일 주소',
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Obx(
-                        () => AppTextField(
-                          controller: controller.emailController,
-                          hintText: '이메일 주소',
-                          errorText: controller.emailError.value,
-                          onChanged: controller.checkEmailValidation,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      flex: 1,
-                      child: Obx(
-                        () => AppElevatedButton(
-                          childText: '중복 확인',
-                          onPressed: controller.emailError.value == null
-                              ? controller.checkIdDuplicate
-                              : null,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 33),
-                Text(
-                  style: AppTextStyle.b3M16(),
-                  '비밀번호',
-                ),
-                const SizedBox(height: 10),
-                Obx(
-                  () => AppTextField(
-                    controller: controller.pwController,
-                    hintText: '비밀번호 입력',
-                    errorText: controller.pwError.value,
-                    onChanged: controller.checkPwValidation,
-                    obscureText: true,
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    style: AppTextStyle.h2B28(),
+                    '회원가입',
                   ),
-                ),
-                const SizedBox(height: 33),
-                Text(
-                  style: AppTextStyle.b3M16(),
-                  '비밀번호 확인',
-                ),
-                const SizedBox(height: 10),
-                Obx(
-                  () => AppTextField(
-                    controller: controller.pwConfirmController,
-                    hintText: '비밀번호 확인',
-                    errorText: controller.pwConfirmError.value,
-                    onChanged: controller.checkPwConfirmValidation,
-                    obscureText: true,
+                  const SizedBox(height: 27),
+                  Text(
+                    style: AppTextStyle.b3M16(),
+                    '이메일 주소',
                   ),
-                ),
-                const SizedBox(height: 48),
-                Text(
-                  style: AppTextStyle.h2B28(),
-                  '약관동의',
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: Transform.scale(
-                        scale: 1.3,
+                  const SizedBox(height: 10),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
                         child: Obx(
-                          () => Checkbox(
-                            splashRadius: 0,
-                            activeColor: AppColor.red100,
-                            shape: const CircleBorder(),
-                            side: const BorderSide(
-                              color: AppColor.red100,
-                            ),
-                            value: controller.isAllChecked.value,
-                            onChanged: controller.checkAllAgreement,
+                          () => AppTextField(
+                            controller: controller.emailController,
+                            hintText: '이메일 주소',
+                            errorText: controller.emailError.value,
+                            onChanged: controller.checkEmailValidation,
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      style: AppTextStyle.b2M18(),
-                      '모두 동의합니다',
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                const Divider(),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: controller.agreement.length,
-                  itemBuilder: (context, index) {
-                    return Obx(
-                      () => AgreementTile(
-                        title: controller.agreement[index]['title'],
-                        content: controller.agreement[index]['content'],
-                        checkValue: controller.agreement[index]['value'].value,
-                        onChanged: (value) =>
-                            controller.checkAgreement(index, value),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        flex: 1,
+                        child: Obx(
+                          () => AppElevatedButton(
+                            childText: '중복 확인',
+                            onPressed: controller.emailError.value == null
+                                ? controller.checkIdDuplicate
+                                : null,
+                          ),
+                        ),
                       ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 20),
-              ],
+                    ],
+                  ),
+                  const SizedBox(height: 33),
+                  Text(
+                    style: AppTextStyle.b3M16(),
+                    '비밀번호',
+                  ),
+                  const SizedBox(height: 10),
+                  Obx(
+                    () => AppTextField(
+                      controller: controller.pwController,
+                      hintText: '비밀번호 입력',
+                      errorText: controller.pwError.value,
+                      onChanged: controller.checkPwValidation,
+                      obscureText: true,
+                    ),
+                  ),
+                  const SizedBox(height: 33),
+                  Text(
+                    style: AppTextStyle.b3M16(),
+                    '비밀번호 확인',
+                  ),
+                  const SizedBox(height: 10),
+                  Obx(
+                    () => AppTextField(
+                      controller: controller.pwConfirmController,
+                      hintText: '비밀번호 확인',
+                      errorText: controller.pwConfirmError.value,
+                      onChanged: controller.checkPwConfirmValidation,
+                      obscureText: true,
+                    ),
+                  ),
+                  const SizedBox(height: 48),
+                  Text(
+                    style: AppTextStyle.h2B28(),
+                    '약관동의',
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: Transform.scale(
+                          scale: 1.3,
+                          child: Obx(
+                            () => Checkbox(
+                              splashRadius: 0,
+                              activeColor: AppColor.red100,
+                              shape: const CircleBorder(),
+                              side: const BorderSide(
+                                color: AppColor.red100,
+                              ),
+                              value: controller.isAllChecked.value,
+                              onChanged: controller.checkAllAgreement,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        style: AppTextStyle.b2M18(),
+                        '모두 동의합니다',
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const Divider(),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.agreement.length,
+                    itemBuilder: (context, index) {
+                      return Obx(
+                        () => AgreementTile(
+                          title: controller.agreement[index]['title'],
+                          content: controller.agreement[index]['content'],
+                          checkValue:
+                              controller.agreement[index]['value'].value,
+                          onChanged: (value) =>
+                              controller.checkAgreement(index, value),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
           ),
-        ),
-        Obx(
-          () => AppElevatedButton(
-            childText: '가입하기',
-            onPressed: controller.isSignupBtnActivated.value
-                ? controller.signup
-                : null,
+          Obx(
+            () => AppElevatedButton(
+              childText: '가입하기',
+              onPressed: controller.isSignupBtnActivated.value
+                  ? controller.signup
+                  : null,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
