@@ -73,9 +73,8 @@ class MainController extends GetxController {
     isSeletedFilter(index);
   }
 
-  todayStockNatural(String txt) async {
-    investmentIndex.value =
-        await CloudNaturalLanguage().getPositiveNatural(txt);
+  todayStockNatural(int index) async {
+    investmentIndex.value = myStockInfo[index]['aiScore'].toDouble();
   }
 
   getHotIssueNews() async {
@@ -89,6 +88,7 @@ class MainController extends GetxController {
 
   getMyStock() async {
     myStockList(await readMyStockInfo());
+    investmentIndex.value = myStockInfo[0]['aiScore'].toDouble();
   }
 
   @override
@@ -102,7 +102,6 @@ class MainController extends GetxController {
     getMyStock();
     currentStock.value = myStockSymbolList.first;
     getNews();
-    todayStockNatural('오늘의 ${currentStock.value} 투자 지수');
     getHotIssueNews();
   }
 }

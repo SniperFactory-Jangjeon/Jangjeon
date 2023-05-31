@@ -30,7 +30,7 @@ class NewsDetailController extends GetxController {
 
   newsStockNatural() async {
     investmentIndex.value =
-        await CloudNaturalLanguage().getPositiveNatural('오늘의 ${news['stock']}');
+        await CloudNaturalLanguage().getPositiveNatural(news['title']);
   }
 
   newsStockComments() async {

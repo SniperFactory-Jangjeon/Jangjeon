@@ -6,11 +6,13 @@ class Stock {
   String name;
   String nameForSearch;
   String symbol;
+  double aiScore;
   Stock({
     required this.logo,
     required this.name,
     required this.nameForSearch,
     required this.symbol,
+    required this.aiScore,
   });
 
   Map<String, dynamic> toMap() {
@@ -19,6 +21,7 @@ class Stock {
       'name': name,
       'nameForSearch': nameForSearch,
       'symbol': symbol,
+      'aiScore': aiScore,
     };
   }
 
@@ -28,6 +31,7 @@ class Stock {
       name: map['name'] as String,
       nameForSearch: map['name for search'] as String,
       symbol: map['symbol'] as String,
+      aiScore: map['aiScore'].toDouble(),
     );
   }
 
