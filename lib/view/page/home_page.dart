@@ -27,8 +27,9 @@ class HomePage extends GetView<MainController> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-              onPressed: () => Get.toNamed(AppRoutes.search),
-              icon: const Icon(Icons.search))
+            onPressed: () => Get.toNamed(AppRoutes.search),
+            icon: const Icon(Icons.search),
+          )
         ],
       ),
       body: SafeArea(

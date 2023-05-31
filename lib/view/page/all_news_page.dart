@@ -16,7 +16,12 @@ class AllNewsPage extends StatelessWidget {
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        actions: [
+          IconButton(
+            onPressed: () => Get.toNamed(AppRoutes.search),
+            icon: const Icon(Icons.search),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Obx(
@@ -29,16 +34,15 @@ class AllNewsPage extends StatelessWidget {
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: NewsTile(
-                  title: allnews[index]['title'],
-                  time: allnews[index]['date'],
-                  aiScore: allnews[index]['aiScore'],
-                  img: allnews[index]['thumbnail'],
-                  news: allnews[index],
-                  route: AppRoutes.newsDetail,
-                  uploadtime: allnews[index]['pubDate'],
-                  url: allnews[index]['url'],
-                  isOffAndTo: true
-                ),
+                    title: allnews[index]['title'],
+                    time: allnews[index]['date'],
+                    aiScore: allnews[index]['aiScore'],
+                    img: allnews[index]['thumbnail'],
+                    news: allnews[index],
+                    route: AppRoutes.newsDetail,
+                    uploadtime: allnews[index]['pubDate'],
+                    url: allnews[index]['url'],
+                    isOffAndTo: true),
               ),
               separatorBuilder: (context, index) => const Divider(thickness: 1),
             ),

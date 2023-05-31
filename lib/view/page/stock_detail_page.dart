@@ -30,7 +30,12 @@ class StockDetailPage extends GetView<StockDetailController> {
               Get.find<MainController>().bottomNavIndex(2);
             },
             icon: const Icon(Icons.navigate_before)),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        actions: [
+          IconButton(
+            onPressed: () => Get.toNamed(AppRoutes.search),
+            icon: const Icon(Icons.search),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Obx(() {

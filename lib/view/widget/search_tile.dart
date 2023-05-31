@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/model/stock.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 
 class SearchTile extends StatefulWidget {
@@ -54,56 +55,60 @@ class _SearchTileState extends State<SearchTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(widget.index.toString()),
-        const SizedBox(width: 8),
-        Container(
-          width: 56,
-          height: 56,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(40),
+    return InkWell(
+      onTap: () {},
+      child: Row(
+        children: [
+          Text(widget.index.toString()),
+          const SizedBox(width: 8),
+          Container(
+            width: 56,
+            height: 56,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(40),
+            ),
+            child: Image.network(
+              widget.stock.logo,
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                return SvgPicture.asset(
+                    'assets/svg/floating_action_button.svg');
+              },
+            ),
           ),
-          child: Image.network(
-            widget.stock.logo,
-            errorBuilder: (BuildContext context, Object exception,
-                StackTrace? stackTrace) {
-              return SvgPicture.asset('assets/svg/floating_action_button.svg');
-            },
+          const SizedBox(
+            width: 15,
           ),
-        ),
-        const SizedBox(
-          width: 15,
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyle.b3B16(color: AppColor.grayscale100),
-                widget.stock.name,
-              ),
-              Text(
-                style: AppTextStyle.b4M14(color: AppColor.grayscale50),
-                widget.stock.symbol,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyle.b3B16(color: AppColor.grayscale100),
+                  widget.stock.name,
+                ),
+                Text(
+                  style: AppTextStyle.b4M14(color: AppColor.grayscale50),
+                  widget.stock.symbol,
+                ),
+              ],
+            ),
           ),
-        ),
-        IconButton(
-          onPressed:
-              widget.stock.symbol == 'TSLA' ? null : handleBookmarkButton,
-          color: widget.bookmark ? Colors.yellow : AppColor.grayscale10,
-          disabledColor: Colors.yellow,
-          icon: const Icon(
-            Icons.star_rounded,
+          IconButton(
+            onPressed:
+                widget.stock.symbol == 'TSLA' ? null : handleBookmarkButton,
+            color: widget.bookmark ? Colors.yellow : AppColor.grayscale10,
+            disabledColor: Colors.yellow,
+            icon: const Icon(
+              Icons.star_rounded,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
