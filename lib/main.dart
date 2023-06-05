@@ -7,7 +7,7 @@ import 'package:jangjeon/controller/find_id_controller.dart';
 import 'package:jangjeon/controller/find_password_controller.dart';
 import 'package:jangjeon/controller/news_detail_controller.dart';
 import 'package:jangjeon/controller/personal_info_edit_controller.dart';
-// import 'package:jangjeon/controller/search_controller.dart';
+import 'package:jangjeon/controller/stock_search_controller.dart';
 import 'package:jangjeon/controller/setting_controller.dart';
 import 'package:jangjeon/controller/account_delete_controller.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => TicketController(), fenix: true);
         Get.lazyPut(() => NewsDetailController(), fenix: true);
         Get.lazyPut(() => CommentsController(), fenix: true);
-        // Get.lazyPut(() => SearchController(), fenix: true);
+        Get.lazyPut(() => StockSearchController(), fenix: true);
       }),
       debugShowCheckedModeBanner: false, //우측 상단 DEBUG리본 없애기
       initialRoute: AppRoutes.login,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
@@ -11,7 +10,6 @@ import 'package:jangjeon/view/widget/ai_chart_pie.dart';
 import 'package:jangjeon/view/widget/filter_tile.dart';
 import 'package:jangjeon/view/widget/main_news_tile.dart';
 import 'package:jangjeon/view/widget/news_shimmer_box.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomePage extends GetView<MainController> {
   const HomePage({super.key});
@@ -111,12 +109,11 @@ class HomePage extends GetView<MainController> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   GestureDetector(
-                                    onTap: () {
+                                    onTap: () async {
                                       controller.currentStock.value = controller
                                           .myStockList[index]['symbol'];
                                       controller.getNews();
-                                      controller.todayStockNatural(
-                                          '오늘의 ${controller.currentStock.value} 투자 지수');
+                                      controller.todayStockNatural(index);
                                     },
                                     child: Obx(
                                       () => CircleAvatar(
@@ -219,7 +216,8 @@ class HomePage extends GetView<MainController> {
                             ? 3
                             : controller.news.length,
                         itemBuilder: (context, index) {
-                          if (controller.isNewsLoading.value) {
+                          if (controller.news.length < 3 &&
+                              controller.isNewsLoading.value) {
                             return const NewsShimmerBox();
                           } else {
                             return Padding(

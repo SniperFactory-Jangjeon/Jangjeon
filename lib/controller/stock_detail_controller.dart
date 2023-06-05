@@ -7,8 +7,7 @@ import 'package:html/parser.dart' as parser;
 import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/model/comment.dart';
 import 'package:jangjeon/model/exchange.dart';
-import 'package:jangjeon/service/cloud_natural_language.dart';
-import 'package:jangjeon/service/cloud_translate.dart';
+import 'package:jangjeon/service/cloud_api.dart';
 import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/service/news_crawling.dart';
 import 'package:yahoofin/yahoofin.dart';
@@ -29,7 +28,7 @@ class StockDetailController extends GetxController {
   RxBool isDollarChecked = true.obs;
   RxBool isNewsLoading = false.obs;
 
-  double investmentNum = 0;
+  double investmentNum = Get.find<MainController>().investmentIndex.value;
   Exchange? exchange;
   List cost = [];
   String companyInfo = '';
@@ -142,9 +141,9 @@ class StockDetailController extends GetxController {
           'section[data-yaft-module="tdv2-applet-CompanyProfile"] p');
       if (elements.isNotEmpty) {
         industry =
-            await CloudTranslate().getTranslation(elements[1].children[4].text);
-        companyInfo =
-            await CloudTranslate().getTranslation(elements[2].text.trim());
+            await CloudAPI().getTranslation(elements[1].children[4].text);
+        companyInfo = await CloudAPI().summarizeText(elements[2].text.trim(), 4);
+        companyInfo = await CloudAPI().getTranslation(companyInfo);
       }
     } else {
       throw Exception('Failed to fetch data from Yahoo Finance');
@@ -203,11 +202,6 @@ class StockDetailController extends GetxController {
     isNewsLoading(false);
   }
 
-  //투자 지수 가져오기
-  getPositiveNatural() async {
-    investmentNum = await CloudNaturalLanguage().getPositiveNatural(ticker);
-  }
-
   startStockPage() async {
     isLoading(true);
     await getExchangeRate();
@@ -217,7 +211,7 @@ class StockDetailController extends GetxController {
     await getCompanyPerfomance();
     await readComments();
     getRelevantNews();
-    await getPositiveNatural();
+    investmentNum = Get.find<MainController>().investmentIndex.value;
     isLoading(false);
   }
 

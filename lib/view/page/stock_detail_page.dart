@@ -281,7 +281,8 @@ class StockDetailPage extends GetView<StockDetailController> {
                                 ? 3
                                 : controller.relevantNews.length,
                             itemBuilder: (context, index) {
-                              if (controller.isNewsLoading.value) {
+                              if (controller.isNewsLoading.value &&
+                                  controller.relevantNews.length < 3) {
                                 return NewsShimmerBox();
                               } else {
                                 return Padding(

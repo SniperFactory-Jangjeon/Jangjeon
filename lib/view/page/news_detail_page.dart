@@ -8,6 +8,7 @@ import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/ai_chart_bar.dart';
 import 'package:jangjeon/view/widget/ai_score.dart';
 import 'package:jangjeon/view/widget/comment_tile.dart';
+import 'package:jangjeon/view/widget/news_shimmer_box.dart';
 import 'package:jangjeon/view/widget/news_tile.dart';
 
 class NewsDetailPage extends GetView<NewsDetailController> {
@@ -116,21 +117,6 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                 ),
               ),
               const Divider(thickness: 10),
-              // Padding(
-              //   padding: const EdgeInsets.all(20.0),
-              //   //파트 2
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         'AI가 분석한 키워드',
-              //         style: AppTextStyle.h4B20(),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // const SizedBox(height: 20),
-              // const Divider(thickness: 10),
               //파트 3
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -141,7 +127,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                       'AI가 분석한 오늘의 투자 지수',
                       style: AppTextStyle.h4B20(),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Obx(() => AIChartBar(
                         investmentIndex: controller.investmentIndex.value)),
                   ],
@@ -227,20 +213,28 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                         itemCount: controller.otherNews.length > 3
                             ? 3
                             : controller.otherNews.length,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: NewsTile(
-                            title: controller.otherNews[index]['title'],
-                            time: controller.otherNews[index]['date'],
-                            aiScore: controller.otherNews[index]['aiScore'],
-                            img: controller.otherNews[index]['thumbnail'],
-                            news: controller.otherNews[index],
-                            route: AppRoutes.newsDetail,
-                            uploadtime: controller.otherNews[index]['pubDate'],
-                            url: controller.otherNews[index]['url'],
-                            isOffAndTo: true,
-                          ),
-                        ),
+                        itemBuilder: (context, index) {
+                         if (controller.isNewsLoading.value &&
+                                  controller.otherNews.length < 3) {
+                                return NewsShimmerBox();
+                              } else {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: NewsTile(
+                                title: controller.otherNews[index]['title'],
+                                time: controller.otherNews[index]['date'],
+                                aiScore: controller.otherNews[index]['aiScore'],
+                                img: controller.otherNews[index]['thumbnail'],
+                                news: controller.otherNews[index],
+                                route: AppRoutes.newsDetail,
+                                uploadtime: controller.otherNews[index]
+                                    ['pubDate'],
+                                url: controller.otherNews[index]['url'],
+                                isOffAndTo: true,
+                              ),
+                            );
+                          }
+                        },
                         separatorBuilder: (context, index) =>
                             const Divider(thickness: 1),
                       ),
