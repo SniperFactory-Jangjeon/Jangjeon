@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:jangjeon/model/stock.dart';
 import 'package:jangjeon/service/db_service.dart';
 
-class SearchController extends GetxController {
+class StockSearchController extends GetxController {
   FocusNode focusNode = FocusNode();
   TextEditingController searchTextController = TextEditingController();
   List stockList = [];

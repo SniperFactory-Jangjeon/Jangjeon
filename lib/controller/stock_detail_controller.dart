@@ -28,7 +28,7 @@ class StockDetailController extends GetxController {
   RxBool isDollarChecked = true.obs;
   RxBool isNewsLoading = false.obs;
 
-  double investmentNum = 0;
+  double investmentNum = Get.find<MainController>().investmentIndex.value;
   Exchange? exchange;
   List cost = [];
   String companyInfo = '';
@@ -202,11 +202,6 @@ class StockDetailController extends GetxController {
     isNewsLoading(false);
   }
 
-  //투자 지수 가져오기
-  getPositiveNatural() async {
-    investmentNum = await CloudAPI().getPositiveNatural(ticker);
-  }
-
   startStockPage() async {
     isLoading(true);
     await getExchangeRate();
@@ -216,7 +211,7 @@ class StockDetailController extends GetxController {
     await getCompanyPerfomance();
     await readComments();
     getRelevantNews();
-    await getPositiveNatural();
+    investmentNum = Get.find<MainController>().investmentIndex.value;
     isLoading(false);
   }
 

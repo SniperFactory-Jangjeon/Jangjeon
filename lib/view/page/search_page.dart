@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/main_controller.dart';
-import 'package:jangjeon/controller/search_controller.dart';
+import 'package:jangjeon/controller/stock_search_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/view/widget/search_tile.dart';
 
-class SearchPage extends GetView<SearchController> {
+class SearchPage extends GetView<StockSearchController> {
   const SearchPage({super.key});
   static const route = '/search';
 

@@ -113,8 +113,7 @@ class HomePage extends GetView<MainController> {
                                       controller.currentStock.value = controller
                                           .myStockList[index]['symbol'];
                                       controller.getNews();
-                                      controller.todayStockNatural(
-                                          '오늘의 ${controller.currentStock.value} 투자 지수');
+                                      controller.todayStockNatural(index);
                                     },
                                     child: Obx(
                                       () => CircleAvatar(
