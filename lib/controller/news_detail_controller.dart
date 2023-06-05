@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:jangjeon/model/comment.dart';
-import 'package:jangjeon/service/cloud_natural_language.dart';
-import 'package:jangjeon/service/cloud_summarize.dart';
+import 'package:jangjeon/service/cloud_api.dart';
 import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/service/news_crawling.dart';
 
@@ -10,11 +9,13 @@ class NewsDetailController extends GetxController {
   RxString summarContent = ''.obs;
   RxList otherNews = [].obs;
   var news = Get.arguments;
-
   RxList<Comment> comments = <Comment>[].obs;
+  RxBool isNewsLoading = false.obs;
 
   getOtherNews(String stock) async {
-    await NewsCrawling().newsCrawling(stock, otherNews);
+    isNewsLoading(true);
+    await NewsCrawling().newsCrawling(stock, otherNews,);
+    isNewsLoading(false);
   }
 
   //댓글 좋아요 수 증가
@@ -24,13 +25,12 @@ class NewsDetailController extends GetxController {
   }
 
   newsSummarized() async {
-    summarContent.value =
-        await CloudSummarize().summarizeText(news['article'], 4);
+    summarContent.value = await CloudAPI().summarizeText(news['article'], 4);
   }
 
   newsStockNatural() async {
     investmentIndex.value =
-        await CloudNaturalLanguage().getPositiveNatural('오늘의 ${news['stock']}');
+        await CloudAPI().getPositiveNatural('오늘의 ${news['stock']}');
   }
 
   newsStockComments() async {

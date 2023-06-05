@@ -1,7 +1,10 @@
+import 'dart:async';
+
+import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/model/stock.dart';
-import 'package:jangjeon/service/cloud_natural_language.dart';
+import 'package:jangjeon/service/cloud_api.dart';
 import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/service/news_crawling.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,15 +70,14 @@ class MainController extends GetxController {
       //투자지수 높은순
       news.sort((a, b) => b['aiScore'].compareTo(a['aiScore']));
     } else if (index == 3) {
-      //댓글 순
+      //투자지수 낮은순
       news.sort((a, b) => a['aiScore'].compareTo(b['aiScore']));
     }
     isSeletedFilter(index);
   }
 
   todayStockNatural(String txt) async {
-    investmentIndex.value =
-        await CloudNaturalLanguage().getPositiveNatural(txt);
+    investmentIndex.value = await CloudAPI().getPositiveNatural(txt);
   }
 
   getHotIssueNews() async {

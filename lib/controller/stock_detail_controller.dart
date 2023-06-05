@@ -7,8 +7,7 @@ import 'package:html/parser.dart' as parser;
 import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/model/comment.dart';
 import 'package:jangjeon/model/exchange.dart';
-import 'package:jangjeon/service/cloud_natural_language.dart';
-import 'package:jangjeon/service/cloud_translate.dart';
+import 'package:jangjeon/service/cloud_api.dart';
 import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/service/news_crawling.dart';
 import 'package:yahoofin/yahoofin.dart';
@@ -142,9 +141,9 @@ class StockDetailController extends GetxController {
           'section[data-yaft-module="tdv2-applet-CompanyProfile"] p');
       if (elements.isNotEmpty) {
         industry =
-            await CloudTranslate().getTranslation(elements[1].children[4].text);
-        companyInfo =
-            await CloudTranslate().getTranslation(elements[2].text.trim());
+            await CloudAPI().getTranslation(elements[1].children[4].text);
+        companyInfo = await CloudAPI().summarizeText(elements[2].text.trim(), 4);
+        companyInfo = await CloudAPI().getTranslation(companyInfo);
       }
     } else {
       throw Exception('Failed to fetch data from Yahoo Finance');
@@ -205,7 +204,7 @@ class StockDetailController extends GetxController {
 
   //투자 지수 가져오기
   getPositiveNatural() async {
-    investmentNum = await CloudNaturalLanguage().getPositiveNatural(ticker);
+    investmentNum = await CloudAPI().getPositiveNatural(ticker);
   }
 
   startStockPage() async {

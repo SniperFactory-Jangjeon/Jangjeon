@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,13 +6,13 @@ import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:html_unescape/html_unescape_small.dart';
 import 'package:intl/intl.dart';
-import 'package:jangjeon/service/cloud_natural_language.dart';
-import 'package:jangjeon/service/cloud_translate.dart';
+import 'package:jangjeon/service/cloud_api.dart';
 import 'package:xml/xml.dart';
 import 'package:http/http.dart' as http;
 
 class NewsCrawling {
   newsCrawling(String stock, RxList list) async {
+    list.clear();
     var newsUrl =
         'https://feeds.finance.yahoo.com/rss/2.0/headline?s=$stock&region=US&lang=en-US';
     var response = await http.get(Uri.parse(newsUrl));
@@ -21,12 +22,11 @@ class NewsCrawling {
       for (var item in items) {
         var title = item.findElements('title').single.text;
         var url = item.findElements('link').single.text;
-        //var description = item.findElements('description').single.text;
         var date = item.findElements('pubDate').single.text;
-        var pubDate =
-            HttpDate.parse('${date.substring(0, date.indexOf('+'))}GMT');
-        // UTC 시간을 한국 시간으로 변환
-        DateTime dateTime = pubDate.add(const Duration(hours: 9));
+        var pubDate = HttpDate.parse(
+            '${date.substring(0, date.indexOf('+'))}GMT'); //문자열 시간 데이트 타입으로 형변환
+        DateTime dateTime =
+            pubDate.add(const Duration(hours: 9)); // UTC 시간을 한국 시간으로 변환
         String kstDateString =
             DateFormat('yyyy.MM.dd HH:mm').format(dateTime); // 한국 시간을 문자열로 변환
         //기사 링크 들어가서 썸네일, 기사 내용 가져오기
@@ -42,24 +42,10 @@ class NewsCrawling {
           var paragraphs = articleBody?.querySelectorAll('p') ?? [];
           var articleContent = '';
           for (var p in paragraphs) {
-            articleContent += p.text;
+            articleContent += '${p.text}\n';
           }
-
-          //현재 시간과 비교하여 몇 시간 전에 올라왔는지
-          var now = DateTime.now();
-          var diff = now.difference(pubDate.add(const Duration(hours: 9)));
-          String time;
-          if (diff.inDays >= 1) {
-            time = '${diff.inDays}일 전';
-          } else if (diff.inHours >= 1) {
-            time = '${diff.inHours}시간 전';
-          } else if (diff.inMinutes >= 1) {
-            time = '${diff.inMinutes}분 전';
-          } else {
-            time = '방금 전';
-          }
-          title = await CloudTranslate().getTranslation(title);
-          var aiScore = await CloudNaturalLanguage().getNatural(title) * 100;
+          var aiScore = await CloudAPI().getNatural(title) * 100;
+          title = await CloudAPI().getTranslation(title);
           list.add({
             'title': HtmlUnescape().convert(title),
             'url': url,
@@ -69,14 +55,13 @@ class NewsCrawling {
             'article': articleContent,
             'pubDate': Timestamp.fromDate(pubDate),
             'date': kstDateString,
-            'time': time
           });
         } else {
-          print('Failed to fetch page.');
+          log('Failed to fetch page.');
         }
       }
     } else {
-      print('Failed to fetch RSS feed.');
+      log('Failed to fetch RSS feed.');
     }
   }
 }
