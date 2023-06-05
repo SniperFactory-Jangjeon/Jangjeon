@@ -19,7 +19,11 @@ class PaymentMethodScreen extends GetView<TicketController> {
           leading: IconButton(
               onPressed: () => Get.back(),
               icon: const Icon(Icons.arrow_back_ios_new))),
-      body: Text('결제수단', style: AppTextStyle.b1B24()),
+      body: Column(
+        children: [
+          Text('결제수단', style: AppTextStyle.b1B24()),
+        ],
+      ),
     );
   }
 }

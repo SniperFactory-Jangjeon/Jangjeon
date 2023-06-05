@@ -15,6 +15,7 @@ import 'package:jangjeon/controller/login_controller.dart';
 import 'package:jangjeon/controller/terms_of_service_controller.dart';
 import 'package:jangjeon/controller/ticket_controller.dart';
 import 'package:jangjeon/firebase_options.dart';
+import 'package:jangjeon/service/mock_server.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/controller/stock_detail_controller.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -26,6 +27,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  /// 예시를 위해 만든 mock server 입니다.
+  await MockServer.startServer();
   KakaoSdk.init(nativeAppKey: '6a87bfbd18f4ebe698eecbcceba07d34');
   runApp(const MyApp());
 }

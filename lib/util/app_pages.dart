@@ -43,6 +43,7 @@ class AppPages {
     GetPage(name: AppRoutes.news, page: () => const NewsPage()),
     GetPage(name: AppRoutes.comments, page: () => const CommentsPage()),
     GetPage(name: AppRoutes.allNews, page: () => const AllNewsPage()),
-    GetPage(name: AppRoutes.search, page: () => const SearchPage()),
+    // GetPage(name: AppRoutes.search, page: () => const SearchPage()),
+    GetPage(name: AppRoutes.search, page: () => const AllNewsPage()),
   ];
 }
