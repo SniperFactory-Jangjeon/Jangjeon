@@ -14,7 +14,10 @@ class NewsDetailController extends GetxController {
 
   getOtherNews(String stock) async {
     isNewsLoading(true);
-    await NewsCrawling().newsCrawling(stock, otherNews,);
+    await NewsCrawling().newsCrawling(
+      stock,
+      otherNews,
+    );
     isNewsLoading(false);
   }
 
@@ -29,8 +32,7 @@ class NewsDetailController extends GetxController {
   }
 
   newsStockNatural() async {
-    investmentIndex.value =
-        await CloudNaturalLanguage().getPositiveNatural(news['title']);
+    investmentIndex.value = await CloudAPI().getPositiveNatural(news['title']);
   }
 
   newsStockComments() async {
