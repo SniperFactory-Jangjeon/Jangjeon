@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/account_delete_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
-import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/app_elevated_button.dart';
 

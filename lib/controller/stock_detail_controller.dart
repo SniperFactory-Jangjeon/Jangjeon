@@ -9,7 +9,6 @@ import 'package:jangjeon/model/comment.dart';
 import 'package:jangjeon/model/exchange.dart';
 import 'package:jangjeon/service/cloud_api.dart';
 import 'package:jangjeon/service/db_service.dart';
-import 'package:jangjeon/service/news_crawling.dart';
 import 'package:yahoofin/yahoofin.dart';
 
 class StockDetailController extends GetxController {

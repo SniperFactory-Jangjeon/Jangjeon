@@ -31,7 +31,7 @@ class SettingPage extends GetView<SettingController> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               Row(

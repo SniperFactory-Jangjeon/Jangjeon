@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
 import 'package:jangjeon/service/firebase_auth_remote_data_source.dart';
-import 'package:jangjeon/util/app_routes.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 
 class LoginController extends GetxController {

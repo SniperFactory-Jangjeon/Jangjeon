@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jangjeon/controller/news_detail_controller.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/view/widget/news_tile.dart';
 
@@ -38,7 +37,7 @@ class AllNewsPage extends StatelessWidget {
                     time: allnews[index].date,
                     aiScore: allnews[index].aiScore,
                     img: allnews[index].thumbnail,
-                    news: allnews[index].toMap(),
+                    news: allnews[index],
                     route: AppRoutes.newsDetail,
                     uploadtime: allnews[index].pubDate,
                     url: allnews[index].url,

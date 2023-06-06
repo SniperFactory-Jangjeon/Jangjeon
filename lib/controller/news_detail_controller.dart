@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:jangjeon/model/comment.dart';
 import 'package:jangjeon/service/cloud_api.dart';
 import 'package:jangjeon/service/db_service.dart';
-import 'package:jangjeon/service/news_crawling.dart';
 
 class NewsDetailController extends GetxController {
   RxDouble investmentIndex = (-1.0).obs;

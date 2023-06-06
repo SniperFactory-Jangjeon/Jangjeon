@@ -62,7 +62,7 @@ class MainNewsTile extends StatelessWidget {
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Text('$time', style: AppTextStyle.b5R12()),
+                      Text(time.toString(), style: AppTextStyle.b5R12()),
                     ],
                   ),
                 ),

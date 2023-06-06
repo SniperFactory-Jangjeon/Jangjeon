@@ -17,18 +17,18 @@ class MainPage extends GetView<MainController> {
       () => Scaffold(
           body: SafeArea(
               child: [
-            StockDetailPage(),
-            SettingPage(),
-            HomePage()
+            const StockDetailPage(),
+            const SettingPage(),
+            const HomePage()
           ][controller.bottomNavIndex.value]),
           floatingActionButton: GestureDetector(
               onTap: () {
                 controller.bottomNavIndex(2);
               },
-              child: AppFloatingActionButton()),
+              child: const AppFloatingActionButton()),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: AppNavigationBar()),
+          bottomNavigationBar: const AppNavigationBar()),
     );
   }
 }

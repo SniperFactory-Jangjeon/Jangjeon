@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:jangjeon/controller/news_detail_controller.dart';
-import 'package:jangjeon/util/app_color.dart';
 import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/ai_chart_bar.dart';
@@ -216,7 +215,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                         itemBuilder: (context, index) {
                           if (controller.isNewsLoading.value &&
                               controller.otherNews.length < 3) {
-                            return NewsShimmerBox();
+                            return const NewsShimmerBox();
                           } else {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
@@ -225,7 +224,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                                 time: controller.otherNews[index].date,
                                 aiScore: controller.otherNews[index].aiScore,
                                 img: controller.otherNews[index].thumbnail,
-                                news: controller.otherNews[index].toMap(),
+                                news: controller.otherNews[index],
                                 route: AppRoutes.newsDetail,
                                 uploadtime: controller.otherNews[index].pubDate,
                                 url: controller.otherNews[index].url,

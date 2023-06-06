@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:jangjeon/controller/ticket_controller.dart';
 import 'package:jangjeon/model/payment_request.dart';
 import 'package:jangjeon/util/app_color.dart';
-import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/app_elevated_button.dart';
 

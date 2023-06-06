@@ -1,12 +1,7 @@
-import 'dart:async';
-
-import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/model/stock.dart';
-import 'package:jangjeon/service/cloud_api.dart';
 import 'package:jangjeon/service/db_service.dart';
-import 'package:jangjeon/service/news_crawling.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainController extends GetxController {
