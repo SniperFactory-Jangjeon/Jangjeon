@@ -142,7 +142,8 @@ class StockDetailController extends GetxController {
       if (elements.isNotEmpty) {
         industry =
             await CloudAPI().getTranslation(elements[1].children[4].text);
-        companyInfo = await CloudAPI().summarizeText(elements[2].text.trim(), 4);
+        companyInfo =
+            await CloudAPI().summarizeText(elements[2].text.trim(), 4);
         companyInfo = await CloudAPI().getTranslation(companyInfo);
       }
     } else {
@@ -198,7 +199,8 @@ class StockDetailController extends GetxController {
   getRelevantNews() async {
     isNewsLoading(true);
     relevantNews.clear();
-    await NewsCrawling().newsCrawling(ticker, relevantNews);
+    //await NewsCrawling().newsCrawling(ticker, relevantNews);
+    relevantNews.addAll(await DBService().readNews(ticker));
     isNewsLoading(false);
   }
 

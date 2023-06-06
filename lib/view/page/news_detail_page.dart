@@ -214,22 +214,21 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                             ? 3
                             : controller.otherNews.length,
                         itemBuilder: (context, index) {
-                         if (controller.isNewsLoading.value &&
-                                  controller.otherNews.length < 3) {
-                                return NewsShimmerBox();
-                              } else {
+                          if (controller.isNewsLoading.value &&
+                              controller.otherNews.length < 3) {
+                            return NewsShimmerBox();
+                          } else {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: NewsTile(
-                                title: controller.otherNews[index]['title'],
-                                time: controller.otherNews[index]['date'],
-                                aiScore: controller.otherNews[index]['aiScore'],
-                                img: controller.otherNews[index]['thumbnail'],
-                                news: controller.otherNews[index],
+                                title: controller.otherNews[index].title,
+                                time: controller.otherNews[index].date,
+                                aiScore: controller.otherNews[index].aiScore,
+                                img: controller.otherNews[index].thumbnail,
+                                news: controller.otherNews[index].toMap(),
                                 route: AppRoutes.newsDetail,
-                                uploadtime: controller.otherNews[index]
-                                    ['pubDate'],
-                                url: controller.otherNews[index]['url'],
+                                uploadtime: controller.otherNews[index].pubDate,
+                                url: controller.otherNews[index].url,
                                 isOffAndTo: true,
                               ),
                             );

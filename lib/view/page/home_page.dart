@@ -223,14 +223,14 @@ class HomePage extends GetView<MainController> {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: MainNewsTile(
-                                title: controller.news[index]['title'],
-                                time: controller.news[index]['date'],
-                                aiScore: controller.news[index]['aiScore'],
-                                img: controller.news[index]['thumbnail'],
+                                title: controller.news[index].title,
+                                time: controller.news[index].date,
+                                aiScore: controller.news[index].aiScore,
+                                img: controller.news[index].thumbnail,
                                 route: AppRoutes.newsDetail,
-                                news: controller.news[index],
-                                uploadtime: controller.news[index]['pubDate'],
-                                url: controller.news[index]['url'],
+                                news: controller.news[index].toMap(),
+                                uploadtime: controller.news[index].pubDate,
+                                url: controller.news[index].url,
                               ),
                             );
                           }
