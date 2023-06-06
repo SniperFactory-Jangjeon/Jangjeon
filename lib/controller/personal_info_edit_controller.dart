@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/controller/auth_controller.dart';
 import 'package:jangjeon/service/auth_service.dart';
@@ -12,7 +11,6 @@ import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/service/sms_service.dart';
 import 'package:jangjeon/service/storage_service.dart';
 import 'package:jangjeon/model/userInfo.dart' as profile;
-import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/view/widget/app_dialog.dart';
 
 class PersonalInfoEditController extends GetxController {
@@ -135,7 +133,7 @@ class PersonalInfoEditController extends GetxController {
       resetTimer();
     }
     if (!(timer?.isActive ?? false)) {
-      timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         if (timer.tick == lIMITTIME) {
           resetTimer();
           isCertifyButton.value = true;

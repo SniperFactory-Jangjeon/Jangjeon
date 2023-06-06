@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/model/stock.dart';
 import 'package:jangjeon/util/app_color.dart';
-import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 
 class SearchTile extends StatefulWidget {
@@ -42,7 +41,6 @@ class _SearchTileState extends State<SearchTile> {
       return isLogoNetwork;
     } catch (_) {
       isLogoNetwork = const AssetImage('assets/icons/circle-user.png');
-      print(2);
       return isLogoNetwork;
     }
   }

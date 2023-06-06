@@ -283,7 +283,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                             itemBuilder: (context, index) {
                               if (controller.isNewsLoading.value &&
                                   controller.relevantNews.length < 3) {
-                                return NewsShimmerBox();
+                                return const NewsShimmerBox();
                               } else {
                                 return Padding(
                                   padding:
@@ -296,8 +296,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                                           .relevantNews[index].aiScore,
                                       img: controller
                                           .relevantNews[index].thumbnail,
-                                      news: controller.relevantNews[index]
-                                          .toMap(),
+                                      news: controller.relevantNews[index],
                                       route: AppRoutes.newsDetail,
                                       uploadtime: controller
                                           .relevantNews[index].pubDate,

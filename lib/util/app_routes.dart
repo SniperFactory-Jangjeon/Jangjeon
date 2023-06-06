@@ -35,6 +35,6 @@ class AppRoutes {
   static const newsDetail = NewsDetailPage.route; //뉴스 상세 페이지
   static const news = NewsPage.route; //뉴스 본문 페이지
   static const comments = CommentsPage.route; // 댓글 더보기 페이지
-  static const allNews = AllNewsPage.route; // 댓글 더보기 페이지
+  static const allNews = AllNewsPage.route; // 기사 더보기 페이지
   static const search = SearchPage.route; // 검색 페이지
 }

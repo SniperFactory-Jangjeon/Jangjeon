@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jangjeon/model/payment_request.dart';
 import 'package:jangjeon/model/product.dart';
-import 'package:jangjeon/service/mock_server.dart';
 import 'package:jangjeon/service/toss_payments.dart';
-import 'package:jangjeon/view/screen/ticket_screen.dart';
 import 'package:toss_payment/feature/payments/webview/payment_webview.dart';
 
 class TicketController extends GetxController {

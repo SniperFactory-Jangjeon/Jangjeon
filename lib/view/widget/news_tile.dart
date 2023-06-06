@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jangjeon/model/news.dart';
 import 'package:jangjeon/service/db_service.dart';
 import 'package:jangjeon/util/app_text_style.dart';
 import 'package:jangjeon/view/widget/ai_score.dart';
@@ -22,7 +23,7 @@ class NewsTile extends StatelessWidget {
   final int aiScore;
   final String img;
   final String route;
-  final Map news;
+  final News news;
   final String url;
   final Timestamp uploadtime;
   final bool isOffAndTo;

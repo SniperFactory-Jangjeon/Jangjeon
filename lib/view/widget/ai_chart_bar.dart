@@ -13,7 +13,7 @@ class AIChartBar extends StatelessWidget {
     return Column(
       children: [
         investmentIndex < 0
-            ? SizedBox()
+            ? const SizedBox()
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -27,14 +27,14 @@ class AIChartBar extends StatelessWidget {
                         '+${investmentIndex.toInt().toString()}',
                         style: AppTextStyle.b5B12(),
                       ),
-                      SizedBox(height: 3),
-                      FaIcon(FontAwesomeIcons.mapMarkerAlt,
+                      const SizedBox(height: 3),
+                      const FaIcon(FontAwesomeIcons.locationDot,
                           color: AppColor.red100)
                     ],
                   ),
                 ],
               ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,9 +42,9 @@ class AIChartBar extends StatelessWidget {
             Container(
               width: width * 0.4,
               height: 30,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.blue,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(5.0),
                     bottomLeft: Radius.circular(5.0)),
               ),
@@ -60,7 +60,7 @@ class AIChartBar extends StatelessWidget {
             Container(
               width: width * 0.2,
               height: 30,
-              decoration: BoxDecoration(color: Colors.yellow),
+              decoration: const BoxDecoration(color: Colors.yellow),
               child: Center(
                   child: Text(
                 '중립',
@@ -71,16 +71,16 @@ class AIChartBar extends StatelessWidget {
             Container(
               width: width * 0.4,
               height: 30,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColor.red100,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                     topRight: Radius.circular(5.0),
                     bottomRight: Radius.circular(5.0)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(),
+                  const SizedBox(),
                   Padding(
                     padding: const EdgeInsets.only(right: 15.0),
                     child: Text(

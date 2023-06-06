@@ -40,7 +40,7 @@ class CommentTile extends StatelessWidget {
                       radius: 25,
                       backgroundImage: NetworkImage(profileImg),
                     ),
-              SizedBox(width: 15),
+              const SizedBox(width: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -49,8 +49,8 @@ class CommentTile extends StatelessWidget {
                       Text(nickname,
                           style:
                               AppTextStyle.b5R12(color: AppColor.grayscale50)),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
+                      const Padding(
+                        padding: EdgeInsets.all(5.0),
                         child: Icon(
                           Icons.circle,
                           size: 3,
@@ -62,7 +62,7 @@ class CommentTile extends StatelessWidget {
                               AppTextStyle.b5R12(color: AppColor.grayscale50)),
                     ],
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   SizedBox(
                     height: 55,
                     child: Text(content,
@@ -76,17 +76,17 @@ class CommentTile extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: onTap,
-                            child: FaIcon(
+                            child: const FaIcon(
                               FontAwesomeIcons.solidHeart,
                               size: 15,
                               color: AppColor.grayscale10,
                             ),
                           ),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Text(like.toString(), style: AppTextStyle.b5R12()),
                         ],
                       ),
-                      SizedBox(width: 15),
+                      const SizedBox(width: 15),
                       // Row(
                       //   children: [
                       //     FaIcon(
