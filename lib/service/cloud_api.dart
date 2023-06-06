@@ -7,7 +7,7 @@ class CloudAPI {
   Future<String> summarizeText(String articleContent, int sentences) async {
     String apiKey = 'f0dce2f983cc65a00b24617ac3b1aadd';
     String apiUrl = 'https://api.meaningcloud.com/summarization-1.0';
-    if (regex.allMatches(articleContent).length > 4) {
+    if (regex.allMatches(articleContent).length > sentences) {
       // API 요청 본문
       var requestBody = {
         'txt': articleContent,
