@@ -22,6 +22,7 @@ class MainController extends GetxController {
   SharedPreferences? prefs;
   List myStockInfo = [];
   RxBool isNewsLoading = false.obs;
+  List newsList = [];
 
   bool readBookmark(String stock) {
     return myStockSymbolList.contains(stock);
@@ -55,23 +56,24 @@ class MainController extends GetxController {
     isNewsLoading(true);
     isSeletedFilter(10);
     news.clear();
-    await NewsCrawling().newsCrawling(currentStock.value.toLowerCase(), news);
+    news.addAll(await DBService().readNews(currentStock.value.toUpperCase()));
+    //await NewsCrawling().newsCrawling(currentStock.value.toLowerCase(), news);
     isNewsLoading(false);
   }
 
   filterNews(int index) {
     if (index == 0) {
       //최신순
-      news.sort((a, b) => b['pubDate'].compareTo(a['pubDate']));
+      news.sort((a, b) => b.pubDate.compareTo(a.pubDate));
     } else if (index == 1) {
       //오래된 순
-      news.sort((a, b) => a['pubDate'].compareTo(b['pubDate']));
+      news.sort((a, b) => a.pubDate.compareTo(b.pubDate));
     } else if (index == 2) {
       //투자지수 높은순
-      news.sort((a, b) => b['aiScore'].compareTo(a['aiScore']));
+      news.sort((a, b) => b.aiScore.compareTo(a.aiScore));
     } else if (index == 3) {
       //투자지수 낮은순
-      news.sort((a, b) => a['aiScore'].compareTo(b['aiScore']));
+      news.sort((a, b) => a.aiScore.compareTo(b.aiScore));
     }
     isSeletedFilter(index);
   }

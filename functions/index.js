@@ -100,9 +100,7 @@ async function getNatural(text) {
   if (response.status === 200) {
     const dataJson = await response.json();
     let sentimentScore = dataJson.documentSentiment.score;
-    sentimentScore = sentimentScore < 0 ? -sentimentScore : sentimentScore;
-    sentimentScore = (sentimentScore + 1) / 2;
-    return parseFloat(sentimentScore * 100);
+    return sentimentScore;
   } else {
     return 400;
   }

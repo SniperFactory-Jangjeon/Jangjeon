@@ -289,20 +289,19 @@ class StockDetailPage extends GetView<StockDetailController> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 5),
                                   child: NewsTile(
-                                      title: controller.relevantNews[index]
-                                          ['title'],
-                                      time: controller.relevantNews[index]
-                                          ['date'],
-                                      aiScore: controller.relevantNews[index]
-                                          ['aiScore'],
-                                      img: controller.relevantNews[index]
-                                          ['thumbnail'],
-                                      news: controller.relevantNews[index],
+                                      title:
+                                          controller.relevantNews[index].title,
+                                      time: controller.relevantNews[index].date,
+                                      aiScore: controller
+                                          .relevantNews[index].aiScore,
+                                      img: controller
+                                          .relevantNews[index].thumbnail,
+                                      news: controller.relevantNews[index]
+                                          .toMap(),
                                       route: AppRoutes.newsDetail,
-                                      uploadtime: controller.relevantNews[index]
-                                          ['pubDate'],
-                                      url: controller.relevantNews[index]
-                                          ['url'],
+                                      uploadtime: controller
+                                          .relevantNews[index].pubDate,
+                                      url: controller.relevantNews[index].url,
                                       isOffAndTo: false),
                                 );
                               }

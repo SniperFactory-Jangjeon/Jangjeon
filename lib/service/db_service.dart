@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jangjeon/model/comment.dart';
+import 'package:jangjeon/model/news.dart';
 import 'package:jangjeon/model/userInfo.dart';
 
 class DBService {
@@ -139,5 +140,21 @@ class DBService {
     var stockList =
         await FirebaseFirestore.instance.collection('stockList').get();
     return stockList.docs;
+  }
+
+  //뉴스 기사 읽어오기
+  readNews(ticker) async {
+    final stockId = await getStockDocId(ticker);
+    final newsRef = FirebaseFirestore.instance
+        .collection('stockList/$stockId/relevantNews');
+
+    var result = await newsRef.get();
+    List<News> newsList = [];
+
+    for (var element in result.docs) {
+      News news = News.fromMap(element.data());
+      newsList.add(news);
+    }
+    return newsList;
   }
 }

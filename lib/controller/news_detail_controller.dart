@@ -14,10 +14,11 @@ class NewsDetailController extends GetxController {
 
   getOtherNews(String stock) async {
     isNewsLoading(true);
-    await NewsCrawling().newsCrawling(
-      stock,
-      otherNews,
-    );
+    // await NewsCrawling().newsCrawling(
+    //   stock,
+    //   otherNews,
+    // );
+    otherNews.addAll(await DBService().readNews(stock));
     isNewsLoading(false);
   }
 
