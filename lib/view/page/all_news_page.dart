@@ -37,7 +37,7 @@ class AllNewsPage extends StatelessWidget {
                     time: allnews[index].date,
                     aiScore: allnews[index].aiScore,
                     img: allnews[index].thumbnail,
-                    news: allnews[index],
+                    news: allnews[index].toMap(),
                     route: AppRoutes.newsDetail,
                     uploadtime: allnews[index].pubDate,
                     url: allnews[index].url,

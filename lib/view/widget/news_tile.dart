@@ -23,7 +23,7 @@ class NewsTile extends StatelessWidget {
   final int aiScore;
   final String img;
   final String route;
-  final News news;
+  final Map news;
   final String url;
   final Timestamp uploadtime;
   final bool isOffAndTo;
