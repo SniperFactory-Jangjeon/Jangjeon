@@ -224,7 +224,7 @@ class NewsDetailPage extends GetView<NewsDetailController> {
                                 time: controller.otherNews[index].date,
                                 aiScore: controller.otherNews[index].aiScore,
                                 img: controller.otherNews[index].thumbnail,
-                                news: controller.otherNews[index],
+                                news: controller.otherNews[index].toMap(),
                                 route: AppRoutes.newsDetail,
                                 uploadtime: controller.otherNews[index].pubDate,
                                 url: controller.otherNews[index].url,

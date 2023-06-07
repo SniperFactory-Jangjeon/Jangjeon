@@ -45,11 +45,11 @@ class _SearchTileState extends State<SearchTile> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    widget.bookmark = main.readBookmark(widget.stock.symbol);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   widget.bookmark = main.readBookmark(widget.stock.symbol);
+  // }
 
   @override
   Widget build(BuildContext context) {

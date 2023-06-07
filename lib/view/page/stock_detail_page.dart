@@ -296,7 +296,7 @@ class StockDetailPage extends GetView<StockDetailController> {
                                           .relevantNews[index].aiScore,
                                       img: controller
                                           .relevantNews[index].thumbnail,
-                                      news: controller.relevantNews[index],
+                                      news: controller.relevantNews[index].toMap(),
                                       route: AppRoutes.newsDetail,
                                       uploadtime: controller
                                           .relevantNews[index].pubDate,

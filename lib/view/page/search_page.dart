@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jangjeon/controller/main_controller.dart';
 import 'package:jangjeon/controller/stock_search_controller.dart';
 import 'package:jangjeon/util/app_color.dart';
+import 'package:jangjeon/util/app_routes.dart';
 import 'package:jangjeon/view/widget/search_tile.dart';
 
 class SearchPage extends GetView<StockSearchController> {
@@ -30,9 +30,7 @@ class SearchPage extends GetView<StockSearchController> {
         ),
         leading: IconButton(
           onPressed: () {
-            Get.find<MainController>().bottomNavIndex(1);
             Get.back();
-            Get.find<MainController>().bottomNavIndex(2);
           },
           icon: const Icon(Icons.navigate_before),
         ),
@@ -58,6 +56,8 @@ class SearchPage extends GetView<StockSearchController> {
                     child: SearchTile(
                       index: index + 1,
                       stock: controller.searchList[index],
+                      bookmark: controller.main
+                          .readBookmark(controller.searchList[index].symbol),
                     ),
                   );
                 },

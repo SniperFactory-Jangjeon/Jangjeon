@@ -87,7 +87,8 @@ class MainController extends GetxController {
   }
 
   getMyStock() async {
-    myStockList(await readMyStockInfo());
+    myStockList.clear();
+    myStockList.addAll(await readMyStockInfo());
     investmentIndex.value = myStockInfo[0]['aiScore'].toDouble();
   }
 
